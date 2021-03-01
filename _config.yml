@@ -83,9 +83,9 @@ author:
   name             : "Bruce W. Lee"
   avatar           : "profile.png"
   bio              : "Undergraduate at the University of Pennsylvania"
-  location         : "Philadelphia, United States"
+  location         : "Philadelphia, PA"
   employer         :
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           :
   googlescholar    : "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en"
   email            :
   researchgate     : "https://www.researchgate.net/profile/Bruce-W-Lee-2"
@@ -103,7 +103,7 @@ author:
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         : "https://linkedin.com/public-profile/in/bruce-w-lee"
-  orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : 
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
