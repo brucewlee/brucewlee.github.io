@@ -3,7 +3,7 @@ title: "LXPER Index: a curriculum-specific text readability assessment model for
 collection: publications
 permalink: /publication/lxper-index-1
 excerpt: ''
-date: 2019-12-23
+date: 2020-08-01
 venue: 'International Journal of Advanced Computer Science and Applications (IJACSA)'
 paperurl: 'https://thesai.org/Publications/ViewPaper?Volume=11&Issue=8&Code=IJACSA&SerialNo=1'
 citation: ''
