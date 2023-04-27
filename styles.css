@@ -6,6 +6,7 @@ body {
 }
 
 .small_text{
+    vertical-align: middle;
     font-size: 13px;
     line-height: 16px;
 }
@@ -61,11 +62,18 @@ body {
   padding-left: 20px;
 }
 
+
 /* Fake image */
 .profile {
   width: 50%;
   max-width: 200px;
 }
+
+/* Logo */
+.logo {
+    vertical-align: middle;
+    max-width: 200px;
+  }
 
 /* Add a card effect for articles */
 .card {
