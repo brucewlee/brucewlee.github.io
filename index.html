@@ -3,96 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bruce W. Lee - NLP</title>
-    <meta name="description" content="Bruce W. Lee is an Artificial Intelligence researcher focusing on language models and their use cases. Bruce W. Lee is known for contributions to readability assessment, handcrafted linguistic features.">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@400;600&display=swap">
+    <title>Bruce W. Lee - Research</title>
+    <meta name="description" content="Bruce W. Lee is an Artificial Intelligence researcher focusing on language models and their use cases. Known for contributions to readability assessment and handcrafted linguistic features.">
     <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Person",
-      "name": "Bruce W. Lee",
-      "jobTitle": "Researcher",
-      "affiliation": "University of Pennsylvania",
-      "url": "https://brucewlee.com",
-      "image": "https://brucewlee.com/pictures/bruce.jpeg",
-      "sameAs": [
-        "https://github.com/brucewlee",
-        "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-        "https://www.linkedin.com/in/bruce-w-lee/",
-        "https://www.lesswrong.com/users/bruce-w-lee",
-        "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-        "https://x.com/BruceWLee2",
-        "https://aclanthology.org/people/b/bruce-w-lee/",
-        "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-        "https://huggingface.co/brucewlee1",
-        "https://underline.io/speakers/149030-bruce-lee",
-        "https://loop.frontiersin.org/people/1221932/bio",
-        "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-      ]
-    }
+        {
+          "@context": "http://schema.org",
+          "@type": "Person",
+          "name": "Bruce W. Lee",
+          "jobTitle": "Researcher",
+          "affiliation": "University of Pennsylvania",
+          "url": "https://brucewlee.com",
+          "image": "https://brucewlee.com/pictures/bruce.jpeg",
+          "sameAs": [
+            "https://github.com/brucewlee",
+            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
+            "https://www.linkedin.com/in/bruce-w-lee/",
+            "https://www.lesswrong.com/users/bruce-w-lee",
+            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
+            "https://x.com/BruceWLee2",
+            "https://aclanthology.org/people/b/bruce-w-lee/",
+            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
+            "https://huggingface.co/brucewlee1",
+            "https://underline.io/speakers/149030-bruce-lee",
+            "https://loop.frontiersin.org/people/1221932/bio",
+            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
+          ]
+        }
     </script>
     <style>
-        body { 
-            font-family: 'Montserrat', sans-serif;
-            line-height: 1.6; 
-            color: #333; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
             font-size: 16px;
+            background-color: #f9f9f9;
         }
-        h1, h2, h3 { 
-            font-family: 'EB Garamond', serif;
-            color: #2c3e50; 
-            font-weight: 700;
+        h1, h2, h3 {
+            color: #2c3e50;
         }
         h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; }
+        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #3498db; padding-bottom: 0.3em; }
         h3 { font-size: 1.3em; margin-top: 1em; }
-        .profile-section { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            margin-bottom: 30px; 
-            text-align: center; 
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .profile-photo { 
-            width: 300px; 
-            height: 300px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            margin-bottom: 20px; 
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 30px;
         }
-        .profile-info { width: 100%; }
-        .section { margin-bottom: 30px; }
+        .profile-info { flex: 1; }
+        .section {
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
         .project, .publication { margin-bottom: 20px; }
         a { color: #3498db; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        @media (min-width: 768px) {
-            .profile-section { 
-                flex-direction: row; 
-                text-align: left; 
-            }
-            .profile-photo { 
-                margin-right: 40px; 
-                margin-bottom: 0; 
-            }
-            .profile-info { flex: 1; }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .cv-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .cv-button:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
     <header>
         <div class="profile-section">
-            <img src="pictures/bruce.jpeg" alt="Bruce W. Lee" class="profile-photo">
             <div class="profile-info">
                 <h1>Bruce W. Lee</h1>
-                <p>Researcher | University of Pennsylvania</p>
+                <p>University of Pennsylvania</p>
                 <p>
                     <a href="https://github.com/brucewlee">GitHub</a> |
                     <a href="https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en">Google Scholar</a> |
                     <a href="https://x.com/BruceWLee2">X</a> |
-                    <a href="https://www.linkedin.com/in/bruce-w-lee/">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/bruce-w-lee/">LinkedIn</a> |
+                    <a href="CV.pdf">CV</a>
                 </p>
             </div>
         </div>
@@ -101,70 +121,35 @@
     <main>
         <section class="section">
             <h2>About Me</h2>
-            <p>I am a NLP researcher and a student at the University of Pennsylvania. My research interests lie at the intersection of language models, cognitive understanding of it, and its alignment.</p>
-
-            <p>I'm currently working on alignment and representation engineering at IBM Research. Previously, I was a research intern at Naver Cloud for HyperCLOVA X models, and researched dark matter at the Institute for Basic Science in South Korea. I also worked as a research engineer at a startup, where I began my NLP career exploring its applications in education.</p>
-
+            <p>I research language models. My work spans from developing open-source NLP tools to contributing to research in language model capabilities and limitations. I'm passionate about bridging the gap between theoretical advancements and real-world applications in AI.</p>
         </section>
 
         <section class="section">
-            <h2>Research Interests</h2>
-            <ul>
-                <li>Large Language Models</li>
-                <li>Natural Language Processing</li>
-                <li>Handcrafted Linguistic Features</li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2>Open Source Softwares</h2>
-            <div class="project">
-                <h3>LFTK</h3>
-                <p>A lightweight version of LingFeat that extracts stylistic features from arbitrary natural language. Used and trusted by research institutions around the world.</p>
+            <h2>Research Highlights</h2>
+            <div class="publication">
+                <h3>Programming Refusal with Conditional Activation Steering</h3>
+                <p>LLMs have shown remarkable capabilities, but precisely controlling their response behavior remains challenging. Existing activation steering methods alter LLM behavior indiscriminately, limiting their practical applicability in settings where selective responses are essential, such as content moderation or domain-specific assistants. In this paper, we propose Conditional Activation Steering (CAST), which analyzes LLM activation patterns during inference to selectively apply or withhold activation steering based on the input context. Our method is based on the observation that different categories of prompts activate distinct patterns in the model’s hidden states. Using CAST, one can systematically control LLM behavior with rules like “if input is about hate speech or adult content, then refuse” or “if input is not about legal advice, then refuse.” This allows for selective modification of responses to specific content while maintaining normal responses to other content, all without requiring weight optimization. We release an open-source implementation of our framework at https://github.com/IBM/activation-steering.</p>
             </div>
-            <div class="project">
-                <h3>LingFeat</h3>
-                <p>A comprehensive Python package for extracting 255 handcrafted linguistic features from English.</p>
+            <div class="publication">
+                <h3>Instruction Tuning with Human Curriculum</h3>
+                <p>In this work, we (1) introduce Curriculum Instruction Tuning, (2) explore the potential advantages of employing diverse curriculum strategies, and (3) delineate a synthetic instruction-response generation framework that complements our theoretical approach. Distinct from the existing instruction tuning dataset, our generation pipeline is systematically structured to emulate the sequential and orderly characteristic of human learning. Additionally, we describe a methodology for generating instruction-response datasets that extensively span the various stages of human education, from middle school through the graduate level, utilizing educational subject catalogs.</p>
+                    
+                <p>Before training, we meticulously organize the instruction data to ensure that questions escalate in difficulty regarding (A) the subject matter and (B) the intricacy of the instructions. The findings of our study reveal that substantial improvements in performance can be achieved through the mere application of curriculum ordering to instruction data (achieving gains of +4.76 on TruthfulQA, +2.98 on MMLU, +2.8 on OpenbookQA, and +1.28 on ARC-hard) compared to random shuffling. This enhancement is achieved without incurring additional computational expenses. Through comprehensive experimentation, we observe that the advantages of our proposed method are consistently evident across nine benchmarks.</p>
+            </div>
+            <div class="publication">
+                <h3>Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</h3>
+                <p>We report two essential improvements in readability assessment: 1. three novel features in advanced semantics and 2. the timely evidence that traditional ML models (e.g. Random Forest, using handcrafted features) can combine with transformers (e.g. RoBERTa) to augment model performance. First, we explore suitable transformers and traditional ML models. Then, we extract 255 handcrafted linguistic features using self-developed extraction software. Finally, we assemble those to create several hybrid models, achieving state-of-the-art (SOTA) accuracy on popular datasets in readability assessment. The use of handcrafted features help model performance on smaller datasets. Notably, our RoBERTA-RF-T1 hybrid achieves the near-perfect classification accuracy of 99%, a 20.3% increase from the previous SOTA.</p>
             </div>
         </section>
 
         <section class="section">
-            <h2>Selected Publications</h2>
-            <div class="publication">
-                <p>ACL 2024 - Lee, Bruce W., and JaeHyuk Lim. "Language Models Don't Learn the Physical Manifestation of Language."</p>
-            </div>
-            <div class="publication">
-                <p>NAACL 2024 - Lee, Bruce W., Hyunsoo Cho, and Kang Min Yoo. "Instruction Tuning with Human Curriculum."</p>
-            </div>
-            <div class="publication">
-                <p>EACL 2023 - Lee, Bruce W., and Jason Lee. "Prompt-based Learning for Text Readability Assessment."</p>
-            </div>
-            <div class="publication">
-                <p>BEA@ACL 2023 - Lee, Bruce W., and Jason Hyung-Jong Lee. "LFTK: Handcrafted features in computational linguistics."</p>
-            </div>
-            <div class="publication">
-                <p>EMNLP 2021 - Lee, Bruce W., Yoo Sung Jang, and Jason Lee. "Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features."</p>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>Experience</h2>
-            <ul>
-                <li>Research Intern, IBM Research </li>
-                <li>Research Intern, NAVER Cloud </li>
-                <li>Research Engineer, LXPER </li>
-                <li>Research Scholar, Center for Axion and Precision Physics Research, Institute for Basic Science </li>
-            </ul>
-        </section>
-
-        <section class="section">
-            <h2>Contact</h2>
-            <p>Email: {id}@seas.{school}.edu. id is brucelws and school is upenn</p>
+            <h2>Get in Touch</h2>
+            <p>Email: brucelws@seas.{school}.edu. Replace school with 'upenn'.</p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Bruce W. Lee. All rights reserved.</p>
+        <p>&copy; 2024 Bruce W. Lee.</p>
     </footer>
 </body>
 </html>
