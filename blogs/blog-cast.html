@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruce W. Lee - Conditional Activation Steering</title>
+    <meta name="description" content="Exploring Conditional Activation Steering (CAST) for selective control of language model behavior.">
+    <style>
+        body {
+            font-family: 'Palatino Linotype';
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
+        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #3498db; padding-bottom: 0.3em; }
+        h3 { font-size: 1.3em; margin-top: 1.2em; }
+        a { color: #191970; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .header { display: flex; align-items: center; margin-bottom: 30px; }
+        .profile-info { flex: 1; }
+        .social-links a { margin-right: 10px; }
+        .blog-meta { color: #7f8c8d; font-size: 0.9em; margin-bottom: 10px; }
+        .blog-content { margin-top: 20px; }
+        .blog-tags { margin-top: 15px; }
+        .tag { background-color: #e0e0e0; padding: 3px 8px; border-radius: 3px; font-size: 0.8em; margin-right: 5px; }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="profile-info">
+            <h1>Thoughts</h1>
+            <div class="social-links">
+                <a href="../index.html">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post">
+            <h2>"Gating" Activation Steering</h2>
+            <div class="blog-meta">
+                Published on August, 2024 | By Bruce W. Lee
+            </div>
+            <div class="blog-content">
+                <p>For the full technical details, please refer to our <a href="https://arxiv.org/abs/2409.05907">arXiv preprint</a>. This blog post offers a condensed 15-minute overview of our work.</p>
+
+                <h3>Abstract</h3>
+                <p>We introduce Conditional Activation Steering (CAST), a novel method that enables fine-grained, context-dependent control over large language model (LLM) behaviors. CAST allows for selective modification of responses to specific content while maintaining normal responses to other content, all without requiring weight optimization.</p>
+
+                <h3>Introduction</h3>
+                <p>Existing activation steering methods alter LLM behavior indiscriminately, limiting their practical applicability in settings where selective responses are essential, such as content moderation or domain-specific assistants. CAST addresses this limitation by analyzing LLM activation patterns during inference to selectively apply or withhold activation steering based on the input context.</p>
+
+                <h3>How CAST Works</h3>
+                <p>CAST expands the activation steering formulation by introducing a new type of steering vector: the condition vector. This vector represents certain activation patterns induced by the prompt during the inference process. A simple similarity calculation between this condition vector and the model's activation at inference time effectively serves as a switch, determining whether to apply the refusal vector.</p>
+
+                <img src="/api/placeholder/600/400" alt="Conditional activation steering diagram">
+                <p><em>Conditional activation steering induces targeted refusal. Activation steering (AST) induces the model to indiscriminately refuse all prompts, including harmless ones. CAST allows selective refusal, refusing harmful prompts while minimizing the harmless refusal rate.</em></p>
+
+                <h3>Technical Details</h3>
+                <p>The core of CAST can be represented mathematically as:</p>
+                <pre>h' ← h + f(sim(h, proj_c h)) · α · v</pre>
+                <p>Where h is the hidden state, c is the condition vector, v is the behavior vector, and α is a scaling factor. The function f determines whether to apply the behavior vector based on the similarity between the hidden state and its projection using the condition vector.</p>
+
+                <h3>Applications</h3>
+                <ol>
+                    <li><strong>Selective Refusal:</strong> CAST can implement behavioral rules like "if input is about hate speech or adult content, then refuse" or "if input is not about legal advice, then refuse".</li>
+                    <li><strong>Multi-conditioning:</strong> Complex conditions can be created by combining multiple condition vectors.</li>
+                    <li><strong>Domain Constraining:</strong> Models can be steered to respond only to specific types of prompts, useful for creating specialized assistants.</li>
+                </ol>
+
+                <h3>Results and Discussion</h3>
+                <p>Our experiments demonstrate that CAST can effectively:</p>
+                <ul>
+                    <li>Selectively increase refusal rates for harmful content while leaving harmless prompt refusal rates largely unchanged.</li>
+                    <li>Create fine-grained condition vectors for specific categories like hate speech, legal opinions, sexual content, etc.</li>
+                    <li>Logically combine condition vectors to create complex refusal conditions.</li>
+                    <li>Constrain model responses to specific domains, with effectiveness correlating to the semantic distinctiveness of the target category.</li>
+                </ul>
+
+                <h3>Conclusion</h3>
+                <p>CAST offers a flexible and efficient approach to inducing context-dependent behaviors in LLMs. It addresses critical challenges in alignment research and opens up new possibilities for adapting model behavior to varying requirements without the need for fine-tuning or extensive computational resources.</p>
+            </div>
+            <div class="blog-tags">
+                <span class="tag">Language Models</span>
+                <span class="tag">AI Research</span>
+                <span class="tag">NLP</span>
+                <span class="tag">Activation Steering</span>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Bruce W. Lee. All rights reserved.</p>
+    </footer>
+</body>
+</html>
