@@ -57,21 +57,21 @@
         <div class="profile-info">
             <h3>Language Model from Scratch</h3>
             <a href="../blog.html" class="back-link"><b>&#8592; List of Thoughts</b></a>
-            <p class="post-date"><em>October, 2024. Bruce W. Lee.</em></p>
+            <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
 
     <main>
         <article>
-            <p>I tried implementing a GPT style language model from scratch as a part of the ML Alignment & Theory Scholars (MATS) program. In this Colab notebook, I try to build a autoregressive language model like GPT-2. The goal here is to break down the abstraction layers typically found in many frameworks to follow each critical step without needing to rely on external references. Each code block stands on its own, with explanations for better intuition behind key matrix operations. I've also included other clean transformer implementations for comparison, though they differ slightly in approach—my version, for instance, uses absolute positional embeddings.</p>
+            <p>I tried implementing a GPT style language model from scratch. In this Colab notebook, I try to build a autoregressive language model like GPT-2. The goal here is to break down the abstraction layers typically found in many frameworks to follow each critical step without needing to rely on external references. Each code block stands on its own, with explanations for better intuition behind key matrix operations. I've also included other clean transformer implementations for comparison, though they differ slightly in approach—my version, for instance, uses absolute positional embeddings.</p>
 
-            <p>My clean transformer implementation <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> &#128073; here</a>.</p>
+            <p>My clean transformer implementation <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> (here)</a>.</p>
 
-            <p>Neel Nanda's clean transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb" class="back-link"> &#128073; here</a>.</p>
+            <p>Neel Nanda's clean transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb" class="back-link"> (here)</a>.</p>
 
-            <p>Callum McDougall's (ARENA) clean transfomer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch" class="back-link"> &#128073; here</a>.</p>
+            <p>Callum McDougall's (ARENA) clean transfomer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch" class="back-link"> (here)</a>.</p>
             
-            <p>&#128071; I tried pre-training my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
+            <p>&#128071; I trained my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
             <img src="../pictures/blog-fig-1.png" alt="Diagram">
             
             <p>&#128071; Architecture diagram for future reference. </p>
@@ -110,10 +110,12 @@
 
             <p>What I explained so far happened in a single attention head. Instead of performing a single attention operation, transformer models typically run multiple attention heads in parallel. Each head has its own set of query, key, and value matrices, allowing the model to capture different types of relationships between words simultaneously. The attention mechanism is applied iteratively in transformer models. Embeddings go through multiple attention blocks, each time becoming more refined and context-aware. This allows the model to capture increasingly complex and abstract relationships within the text.</p>
             
+            ---
+
             <p>Architecture diagram for TransformerLens (image credit to the Alignment Research Engineer Accelerator program).
-            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png" class="back-link">&#128073; here</a>.</p>
+            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png" class="back-link"> (here)</a>.</p>
             
-            <p>(Recommend) 3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" class="back-link"> &#128073; here</a>.</p>
+            <p>3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" class="back-link"> (here)</a>.</p>
         </article>
     </main>
 </body>
