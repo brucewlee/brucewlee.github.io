@@ -45,7 +45,7 @@
         h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
         a { color : #191970 ; text-decoration: none; }
         a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; }
+        .header { display: flex; align-items: center; margin-bottom: 0px; }
         .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
         .profile-info { flex: 1; }
         .social-links a { margin-right: 10px; }
@@ -60,7 +60,6 @@
             <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
-
     <main>
         <article>
             <p>I tried implementing a GPT style language model from scratch. In this Colab notebook, I try to build a autoregressive language model like GPT-2. The goal here is to break down the abstraction layers typically found in many frameworks to follow each critical step without needing to rely on external references. Each code block stands on its own, with explanations for better intuition behind key matrix operations. I've also included other clean transformer implementations for comparison, though they differ slightly in approach—my version, for instance, uses absolute positional embeddings.</p>
