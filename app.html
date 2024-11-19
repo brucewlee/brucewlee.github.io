@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Person",
+          "name": "Bruce W. Lee",
+          "jobTitle": "Researcher",
+          "affiliation": "University of Pennsylvania",
+          "url": "https://brucewlee.com",
+          "image": "https://brucewlee.com/pictures/bruce.jpeg",
+          "sameAs": [
+            "https://github.com/brucewlee",
+            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
+            "https://www.linkedin.com/in/bruce-w-lee/",
+            "https://www.lesswrong.com/users/bruce-w-lee",
+            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
+            "https://x.com/BruceWLee2",
+            "https://aclanthology.org/people/b/bruce-w-lee/",
+            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
+            "https://huggingface.co/brucewlee1",
+            "https://underline.io/speakers/149030-bruce-lee",
+            "https://loop.frontiersin.org/people/1221932/bio",
+            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
+          ]
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Palatino Linotype';
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 { color: #2c3e50; }
+        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
+        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #191970; padding-bottom: 0.3em; }
+        a { color : #191970 ; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .header { display: flex; align-items: center; margin-bottom: 30px; }
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
+        .profile-info { flex: 1; }
+        .social-links a { margin-right: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 5px 0; vertical-align: top; }
+        td:first-child { width: 40px; color: #7f8c8d; font-size: 0.9em; }
+        .research-item { position: relative; }
+        .research-title {
+            display: inline-block; /* This makes the hover area only cover the text */
+            position: relative;
+        }
+        .research-details { 
+            display: none; 
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 300px; /* Adjust as needed */
+            left: 100%; /* Position it to the right of the title */
+            top: 100%; /* Position it below the title */
+        }
+        .research-details img {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+        .research-item:hover .research-details { display: block; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1em;
+        }
+        .see-more {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="profile-info">
+            <h3>Apps</h3>
+            <a href="index.html" class="back-link" style="float:left"> <b>&#8592; Main Page</b></a>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <table>
+                <tr class="research-item">
+                    <td></td>
+                    <td>
+                        <span class="research-title">
+                            <a href="apps/p150/pacing-2k.html" style="color:#191970">Rowing 2K Pacing Calculator</a> 
+                        </span>
+                    </td>
+                </tr>
+                <tr class="research-item">
+                    <td></td>
+                    <td>
+                        <span class="research-title">
+                            <a href="apps/p150/joules.html" style="color:#191970">Rowing Joules Calculator</a> 
+                        </span>
+                    </td>
+                </tr>
+                <tr class="research-item">
+                    <td></td>
+                    <td>
+                        <span class="research-title">
+                            <a href="apps/compound.html" style="color:#191970">Compound Interest Calculator</a> 
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </main>
+</body>
+</html>
