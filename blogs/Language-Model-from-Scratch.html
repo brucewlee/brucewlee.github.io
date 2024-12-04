@@ -62,32 +62,11 @@
     </header>
     <main>
         <article>
-            <p>I recently implemented a GPT-style language model from scratch, focusing on replicating autoregressive modeling similar to GPT-2. My goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> The implementation </a>provides clear explanations and intuition behind key matrix operations, with each code block designed to be self-contained.</p>
-            
-            <p>&#128071; I trained my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
-            <img src="../pictures/blog-fig-1.png" alt="Diagram">
-            
-            <p>&#128071; Architecture diagram for future reference. </p>
-            <img src="../pictures/transformer.jpg" alt="Diagram">
-            
-            <p><b>TransformerLens Notation</b></p>
+            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
 
-            <ul>
-                <li>Embedding: W_E</li>
-                <li>Positional Embedding: W_pos</li>
-                <li>Query: W_Q</li>
-                <li>Key: W_K</li>
-                <li>Value: W_V</li>
-                <li>Attention Output: W_O</li>
-                <li>MLP Input: W_in</li>
-                <li>MLP Gate: W_gate</li>
-                <li>MLP Output: W_out</li>
-                <li>Unembedding: W_U</li>
-            </ul>
+            <p><b>Additional Notes on Attention</b></p>
 
-            <p><b>Understanding Attention Mechanisms</b></p>
-
-            <p>Attention is a key mechanism in transformer models, designed to allow words to update their meanings based on context. Initially, words are represented as high-dimensional vectors called <em>embeddings</em> (see the diagram above &#128070;). These embeddings only encode the meaning of individual words, but the goal of attention is to refine them to incorporate contextual information.</p>
+            <p>Attention is a key mechanism in transformer models, designed to allow words to update their meanings based on context. Initially, words are represented as high-dimensional vectors called <em>embeddings</em>. These embeddings only encode the meaning of individual words, but the goal of attention is to refine them to incorporate contextual information.</p>
 
             <p>The attention mechanism revolves around three main components: <em>query</em>, <em>key</em>, and <em>value</em> matrices. These are learnable parameters that transform the initial embeddings. Conceptually (though not always empirically), the query matrix produces "questions" for each word, while the key matrix generates potential "answers." The interaction between these queries and keys forms the basis of determining which words are relevant to updating the meaning of others.</p> 
 
@@ -102,8 +81,14 @@
             <p>Another important aspect of attention in language models is masking. During training, the model needs to predict the next word based only on previous words. To prevent future words from influencing earlier ones, the attention mechanism applies a mask that effectively sets the relevance of future words to zero.</p>
 
             <p>What I explained so far happened in a single attention head. Instead of performing a single attention operation, transformer models typically run multiple attention heads in parallel. Each head has its own set of query, key, and value matrices, allowing the model to capture different types of relationships between words simultaneously. The attention mechanism is applied iteratively in transformer models. Embeddings go through multiple attention blocks, each time becoming more refined and context-aware. This allows the model to capture increasingly complex and abstract relationships within the text.</p>
+
+            <p>I trained my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
+            <img src="../pictures/blog-fig-1.png" alt="Diagram">
             
-            <p><b>Additional Resources</b></p>
+            <p>Architecture diagram for future reference. </p>
+            <img src="../pictures/transformer.jpg" alt="Diagram">
+            
+            <p><b>Other Resources</b></p>
 
             <p>Architecture diagram for TransformerLens
             <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png" class="back-link"> (here)</a>.</p>
