@@ -5,86 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruce W. Lee</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #191970; padding-bottom: 0.3em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 5px 0; vertical-align: top; }
-        td:first-child { width: 80px; color: #7f8c8d; font-size: 0.9em; }
-        .research-item { position: relative; }
-        .research-title {
-            display: inline-block; /* This makes the hover area only cover the text */
-            position: relative;
-        }
-        .research-details { 
-            display: none; 
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 500px; /* Adjust as needed */
-            left: 50%; /* Position it to the right of the title */
-            top: 100%; /* Position it below the title */
-        }
-        .research-details img {
-            max-width: 100%;
-            margin-bottom: 10px;
-        }
-        .research-item:hover .research-details { display: block; }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1em;
-        }
-        .see-more {
-            font-size: 0.9em;
-        }
-    </style>
+    <script src="components/header.js"></script>
 </head>
 <body>
     <header class="header">
@@ -96,7 +17,7 @@
                 <a href="https://x.com/BruceWLee2">X</a> | 
                 <a href="https://www.linkedin.com/in/bruce-w-lee/">LinkedIn</a> | 
                 <a href="CV.pdf">CV</a>
-                <a href="blog.html" class="back-link" style="float:right"> <b>Blog &#8594;</b></a>
+                <a href="blog" class="back-link" style="float:right"> <b>Blog &#8594;</b></a>
             </div>
         </div>
     </header>
@@ -114,7 +35,7 @@
                     <td>2024</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2409.05907" style="color:#191970">Programming Refusal with Conditional Activation Steering</a> 
+                            <a href="https://arxiv.org/abs/2409.05907" >Programming Refusal with Conditional Activation Steering</a> 
                             <div class="research-details" >
                                 We succeed in systematically controlling language model behavior with programmables rules like "if input is about xxx, then refuse."
                             </div>
@@ -125,7 +46,7 @@
                     <td>2024</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2402.11349" style="color:#191970">Language Models Don't Learn the Physical Manifestation of Language</a> 
+                            <a href="https://arxiv.org/abs/2402.11349" >Language Models Don't Learn the Physical Manifestation of Language</a> 
                             <div class="research-details">
                                 We argue that language-only models lack understanding of the physical manifestation of language, as demonstrated through a series of tasks called the H-Test.
                             </div>
@@ -136,7 +57,7 @@
                     <td>2023</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2310.09518" style="color:#191970">Instruction Tuning with Human Curriculum</a>
+                            <a href="https://arxiv.org/abs/2310.09518" >Instruction Tuning with Human Curriculum</a>
                             <div class="research-details">
                                 We present a synthetic instruction-response generation framework designed to mimic the sequential and orderly nature of human learning.
                             </div>
@@ -147,7 +68,7 @@
                     <td>2021</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2109.12258" style="color:#191970">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a>
+                            <a href="https://arxiv.org/abs/2109.12258">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a>
                             <div class="research-details">
                                 We show that combining handcrafted linguistic features with transformers can create the state-of-the-art readability classification model.
                             </div>
@@ -164,19 +85,19 @@
                 <tr>
                     <td>2024</td>
                     <td>
-                        <a href="https://github.com/IBM/activation-steering" style="color:#191970">IBM/activation-steering</a>
+                        <a href="https://github.com/IBM/activation-steering" >IBM/activation-steering</a>
                     </td>
                 </tr>
                 <tr>
                     <td>2023</td>
                     <td>
-                        <a href="https://github.com/brucewlee/lftk" style="color:#191970">LFTK</a>
+                        <a href="https://github.com/brucewlee/lftk" >LFTK</a>
                     </td>
                 </tr>
                 <tr>
                     <td>2021</td>
                     <td>
-                        <a href="https://github.com/brucewlee/lingfeat" style="color:#191970">LingFeat</a>
+                        <a href="https://github.com/brucewlee/lingfeat" >LingFeat</a>
                     </td>
                 </tr>
                 <tr>

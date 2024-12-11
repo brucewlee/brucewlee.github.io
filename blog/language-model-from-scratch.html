@@ -5,64 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementing a Language Model from Scratch</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; border-bottom: 2px solid #191970;}
-        h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 0px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        img {max-width: 800px;}
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
             <h3>Language model from scratch</h3>
-            <a href="../blog.html" class="back-link"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
     <main>
         <article>
-            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
+            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
 
             <p><b>Additional Notes on Attention</b></p>
 
@@ -91,13 +46,13 @@
             <p><b>Other Resources</b></p>
 
             <p>Architecture diagram for TransformerLens
-            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png" class="back-link"> (here)</a>.</p>
+            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png"> (here)</a>.</p>
             
-            <p>3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" class="back-link"> (here)</a>.</p>
+            <p>3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc"> (here)</a>.</p>
 
-            <p>Neel Nanda's transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb" class="back-link"> (here)</a>.</p>
+            <p>Neel Nanda's transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb"> (here)</a>.</p>
 
-            <p>ARENA's transformer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch" class="back-link"> (here)</a>.</p>
+            <p>ARENA's transformer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch"> (here)</a>.</p>
         </article>
     </main>
 </body>

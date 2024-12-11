@@ -5,57 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementing a Language Model from Scratch</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; border-bottom: 2px solid #191970;}
-        h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 0px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
             <h3>Do language models truly learn language?</h3>
-            <a href="../blog.html" class="back-link"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>September, 2023.</em></p>
         </div>
     </header>
@@ -64,7 +20,7 @@
         <article>
             <p>I keep thinking about how strange it is that something could know everything about the letter "H": its shape, its sound, how it fits into "hello," but never actually experience it. What does it even mean to learn something without sensing it?</p>
 
-            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument" class="back-link">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
+            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
 
             <p>Language models like ChatGPT remind me of Mary before she sees color. They process letters, words, and patterns at an incredible level, but their understanding is purely diegetic, stuck inside the internal, propositional content of words. They know about the letter "H," how it fits in the alphabet, how it works in sentences, the statistics of how it appears. But can a model that has never seen the letter "H" in the real world, never interacted with its shape or seen it in context, ever really understand it like we do?</p>
 
