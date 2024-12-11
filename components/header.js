@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add shared styles
     const styles = `
         :root {
-            --background-color: #f5f4ef;
+            --background-color: #F4F0EC;
             --text-color: #333333;
             --heading-color: #000000;
             --link-color: #000000;
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             font-size: 17px;
         }
 
-        h1, h2, h3 { 
+        h1, h2, h3, h4 { 
             color: var(--heading-color);
             font-weight: normal;
             margin-top: 30px;
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         td {
-            padding: 8px 0;
+            padding: 1px 0;
             vertical-align: top;
         }
 
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         .research-item { 
             position: relative; 
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
         .research-title {
