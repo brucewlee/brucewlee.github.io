@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         .research-item { 
             position: relative; 
+            margin-bottom: 6px;
         }
 
         .research-title {
