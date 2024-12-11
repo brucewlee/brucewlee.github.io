@@ -92,88 +92,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add shared styles
     const styles = `
         :root {
-            --background-color: #f9f9f9;
-            --text-color: #333;
-            --heading-color: #2c3e50;
-            --link-color: #191970;
-            --border-color: #191970;
-            --secondary-text: #7f8c8d;
-            --hover-bg: #fff;
-            --card-border: #ddd;
-        }
-
-        [data-theme="dark"] {
-            --background-color: #202124;  /* Google's dark grey */
-            --text-color: #bdc1c6;        /* Soft grey for main text */
-            --heading-color: #e8eaed;     /* Lighter grey for headings */
-            --link-color: #8ab4f8;        /* Soft blue for links */
-            --border-color: #3c4043;      /* Dark grey for borders */
-            --secondary-text: #9aa0a6;    /* Medium grey for secondary text */
-            --hover-bg: #282a2d;          /* Slightly lighter grey for hovers */
-            --card-border: #3c4043;       /* Dark grey for borders */
+            --background-color: #f5f4ef;
+            --text-color: #333333;
+            --heading-color: #000000;
+            --link-color: #000000;
+            --border-color: #e0e0e0;
+            --secondary-text: #666666;
         }
 
         body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
+            font-family: Palatino Linotype;
+            line-height: 1.5;
             color: var(--text-color);
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--background-color);
-            transition: background-color 0.3s, color 0.3s;
+            font-size: 17px;
         }
 
         h1, h2, h3 { 
-            color: var(--heading-color); 
+            color: var(--heading-color);
+            font-weight: normal;
+            margin-top: 30px;
+            margin-bottom: 10px;
         }
 
         a { 
             color: var(--link-color);
-            text-decoration: none; 
+            text-decoration: underline;
         }
 
         a:hover { 
-            text-decoration: underline; 
+            opacity: 0.7;
         }
 
-        /* Table styles updated for dark mode */
-        td:first-child {
-            color: var(--secondary-text);
-        }
-
-        /* Research details hover updated for dark mode */
-        .research-details {
-            background-color: var(--hover-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-color);
-        }
-
-        /* Theme toggle button */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            border-radius: 50%;
-            border: none;
-            background: var(--hover-bg);
-            color: var(--text-color);
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        /* Rest of your original styles remain the same */
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .profile-photo {
@@ -183,26 +141,64 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-right: 30px;
         }
 
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
+        .profile-info { 
+            flex: 1; 
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a { 
+            margin-right: 15px;
+            color: var(--link-color);
+        }
+
+        /* Side-by-side layout styles (only affects index.html when proper structure exists) */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
         
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* These styles will only apply to elements with these specific classes */
+        .a-section, .b-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 11px;
+            border-bottom: 1px solid #191970;
+        }
+
+        /* Original styles continue */
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
         td {
-            padding: 5px 0;
+            padding: 8px 0;
             vertical-align: top;
         }
 
         td:first-child {
             width: 80px;
+            color: var(--secondary-text);
             font-size: 0.9em;
         }
 
-        .research-item { position: relative; }
-        
+        .research-item { 
+            position: relative; 
+        }
+
         .research-title {
             display: inline-block;
             position: relative;
@@ -211,10 +207,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .research-details {
             display: none;
             position: absolute;
-            padding: 10px;
+            background-color: var(--background-color);
+            padding: 15px;
+            border: 1px solid var(--border-color);
             z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 500px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: min(250px, 90vw);
             left: 50%;
             top: 100%;
         }
@@ -227,41 +225,19 @@ document.addEventListener('DOMContentLoaded', function() {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 1em;
         }
 
-        .see-more { font-size: 0.9em; }
-    `;
+        .see-more { 
+            font-size: 0.9em; 
+        }
 
+        .post-date {
+            color: var(--secondary-text);
+            margin-top: 5px;
+        }
+    `;
 
     const styleSheet = document.createElement("style");
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
-
-    // Add dark mode toggle
-    const toggle = document.createElement("button");
-    toggle.className = "theme-toggle";
-    toggle.id = "theme-toggle";
-    toggle.title = "Toggle dark mode";
-    toggle.innerHTML = "🌓";
-    document.body.appendChild(toggle);
-
-    // Dark mode functionality
-    const getPreferredTheme = () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) return savedTheme;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-
-    const setTheme = (theme) => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    };
-
-    setTheme(getPreferredTheme());
-
-    toggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
 });

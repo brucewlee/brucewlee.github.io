@@ -11,7 +11,7 @@
     <header class="header">
         <div class="profile-info">
             <h3>Language model from scratch</h3>
-            <a href="../blog"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog" style="float:right"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
@@ -38,10 +38,10 @@
             <p>What I explained so far happened in a single attention head. Instead of performing a single attention operation, transformer models typically run multiple attention heads in parallel. Each head has its own set of query, key, and value matrices, allowing the model to capture different types of relationships between words simultaneously. The attention mechanism is applied iteratively in transformer models. Embeddings go through multiple attention blocks, each time becoming more refined and context-aware. This allows the model to capture increasingly complex and abstract relationships within the text.</p>
 
             <p>I trained my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
-            <img src="../pictures/blog-fig-training-loss.png" alt="Diagram">
-            
+            <center><img src="../pictures/blog-fig-training-loss.png" alt="Diagram" width="600mm"></center>
+
             <p>Architecture diagram for future reference. </p>
-            <img src="../pictures/blog-fig-transformer.jpg" alt="Diagram">
+            <center><img src="../pictures/blog-fig-transformer.jpg" alt="Diagram"  width="600mm"></center>
             
             <p><b>Other Resources</b></p>
 

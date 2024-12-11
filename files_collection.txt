@@ -15,96 +15,17 @@ File: index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruce W. Lee</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #191970; padding-bottom: 0.3em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 5px 0; vertical-align: top; }
-        td:first-child { width: 80px; color: #7f8c8d; font-size: 0.9em; }
-        .research-item { position: relative; }
-        .research-title {
-            display: inline-block; /* This makes the hover area only cover the text */
-            position: relative;
-        }
-        .research-details { 
-            display: none; 
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 500px; /* Adjust as needed */
-            left: 50%; /* Position it to the right of the title */
-            top: 100%; /* Position it below the title */
-        }
-        .research-details img {
-            max-width: 100%;
-            margin-bottom: 10px;
-        }
-        .research-item:hover .research-details { display: block; }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1em;
-        }
-        .see-more {
-            font-size: 0.9em;
-        }
-    </style>
+    <script src="components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>Bruce W. Lee</h3>
+            <h2>Bruce W. Lee</h2>
             <div class="social-links">
-                <a href="https://github.com/brucewlee">GitHub</a> | 
-                <a href="https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en">Google Scholar</a> | 
-                <a href="https://x.com/BruceWLee2">X</a> | 
-                <a href="https://www.linkedin.com/in/bruce-w-lee/">LinkedIn</a> | 
+                <a href="https://github.com/brucewlee">GitHub</a> 
+                <a href="https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en">Google Scholar</a> 
+                <a href="https://x.com/BruceWLee2">X</a> 
+                <a href="https://www.linkedin.com/in/bruce-w-lee/">LinkedIn</a> 
                 <a href="CV.pdf">CV</a>
                 <a href="blog" class="back-link" style="float:right"> <b>Blog &#8594;</b></a>
             </div>
@@ -124,7 +45,7 @@ File: index.html
                     <td>2024</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2409.05907" style="color:#191970">Programming Refusal with Conditional Activation Steering</a> 
+                            <a href="https://arxiv.org/abs/2409.05907" >Programming Refusal with Conditional Activation Steering</a> 
                             <div class="research-details" >
                                 We succeed in systematically controlling language model behavior with programmables rules like "if input is about xxx, then refuse."
                             </div>
@@ -135,7 +56,7 @@ File: index.html
                     <td>2024</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2402.11349" style="color:#191970">Language Models Don't Learn the Physical Manifestation of Language</a> 
+                            <a href="https://arxiv.org/abs/2402.11349" >Language Models Don't Learn the Physical Manifestation of Language</a> 
                             <div class="research-details">
                                 We argue that language-only models lack understanding of the physical manifestation of language, as demonstrated through a series of tasks called the H-Test.
                             </div>
@@ -146,7 +67,7 @@ File: index.html
                     <td>2023</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2310.09518" style="color:#191970">Instruction Tuning with Human Curriculum</a>
+                            <a href="https://arxiv.org/abs/2310.09518" >Instruction Tuning with Human Curriculum</a>
                             <div class="research-details">
                                 We present a synthetic instruction-response generation framework designed to mimic the sequential and orderly nature of human learning.
                             </div>
@@ -157,7 +78,7 @@ File: index.html
                     <td>2021</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://arxiv.org/abs/2109.12258" style="color:#191970">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a>
+                            <a href="https://arxiv.org/abs/2109.12258">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a>
                             <div class="research-details">
                                 We show that combining handcrafted linguistic features with transformers can create the state-of-the-art readability classification model.
                             </div>
@@ -174,19 +95,19 @@ File: index.html
                 <tr>
                     <td>2024</td>
                     <td>
-                        <a href="https://github.com/IBM/activation-steering" style="color:#191970">IBM/activation-steering</a>
+                        <a href="https://github.com/IBM/activation-steering" >IBM/activation-steering</a>
                     </td>
                 </tr>
                 <tr>
                     <td>2023</td>
                     <td>
-                        <a href="https://github.com/brucewlee/lftk" style="color:#191970">LFTK</a>
+                        <a href="https://github.com/brucewlee/lftk" >LFTK</a>
                     </td>
                 </tr>
                 <tr>
                     <td>2021</td>
                     <td>
-                        <a href="https://github.com/brucewlee/lingfeat" style="color:#191970">LingFeat</a>
+                        <a href="https://github.com/brucewlee/lingfeat" >LingFeat</a>
                     </td>
                 </tr>
                 <tr>
@@ -1056,85 +977,7 @@ File: index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #191970; padding-bottom: 0.3em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 5px 0; vertical-align: top; }
-        td:first-child { width: 40px; color: #7f8c8d; font-size: 0.9em; }
-        .research-item { position: relative; }
-        .research-title {
-            display: inline-block; /* This makes the hover area only cover the text */
-            position: relative;
-        }
-        .research-details { 
-            display: none; 
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 300px; /* Adjust as needed */
-            left: 100%; /* Position it to the right of the title */
-            top: 100%; /* Position it below the title */
-        }
-        .research-details img {
-            max-width: 100%;
-            margin-bottom: 10px;
-        }
-        .research-item:hover .research-details { display: block; }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1em;
-        }
-        .see-more {
-            font-size: 0.9em;
-        }
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
@@ -1159,7 +1002,7 @@ File: index.html
                     <td>#4</td>
                     <td>
                         <span class="research-title">
-                            <a href="how-i-got-into-research.html" style="color:#191970">How I got into research (and why I'm still here)</a> 
+                            <a href="how-i-got-into-research.html">How I got into research (and why I'm still here)</a> 
                         </span>
                     </td>
                 </tr>
@@ -1167,7 +1010,7 @@ File: index.html
                     <td>#3</td>
                     <td>
                         <span class="research-title">
-                            <a href="language-model-from-scratch.html" style="color:#191970">Language model from scratch</a> 
+                            <a href="language-model-from-scratch.html">Language model from scratch</a> 
                             <div class="research-details">
                                 So what does a language model do, exactly?
                             </div>
@@ -1178,7 +1021,7 @@ File: index.html
                     <td>#2</td>
                     <td>
                         <span class="research-title">
-                            <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation" style="color:#191970">Programming refusal with conditional activation steering</a> 
+                            <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation">Programming refusal with conditional activation steering</a> 
                             <div class="research-details">
                                 Can we make language models follow behavioral rules without altering weights? 
                             </div>
@@ -1189,7 +1032,7 @@ File: index.html
                     <td>#1</td>
                     <td>
                         <span class="research-title">
-                            <a href="do-language-models-truly-learn-language.html" style="color:#191970">Do language models truly learn language?</a> 
+                            <a href="do-language-models-truly-learn-language.html">Do language models truly learn language?</a> 
                             <div class="research-details">
                                 What is it like to be a ChatGPT?
                             </div>
@@ -1215,58 +1058,13 @@ File: how-i-got-into-research.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>How I got into research</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; border-bottom: 2px solid #191970;}
-        h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 0px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        img {max-width: 800px;}
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
             <h3>How I got into research (and why I'm still here)</h3>
-            <a href="../blog" class="back-link"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>November, 2024.</em></p>
         </div>
     </header>
@@ -1281,27 +1079,27 @@ File: how-i-got-into-research.html
             </p>
 
             <p>
-                I wrote my first paper in high school. I was in the school physics team named BaCoN, after <a href="https://en.wikipedia.org/wiki/Francis_Bacon" class="back-link">Francis Bacon</a>. The name was fitting for what we believed in, Bacon was critical of <a href="https://plato.stanford.edu/entries/aristotle/" class="back-link">Aristotle</a>'s approach to <a href="https://en.wikipedia.org/wiki/Natural_philosophy">natural philosophy</a>, particularly the reliance on deductive reasoning from first principles, which Bacon believed was overly theoretical and insufficiently grounded in observation and experimentation. I've moved away from physics now, but the <a href="https://en.wikipedia.org/wiki/Scientific_method" class="back-link">empirical spirit</a> that guided the scientific revolution still guides the way I think.
+                I wrote my first paper in high school. I was in the school physics team named BaCoN, after <a href="https://en.wikipedia.org/wiki/Francis_Bacon">Francis Bacon</a>. The name was fitting for what we believed in, Bacon was critical of <a href="https://plato.stanford.edu/entries/aristotle/">Aristotle</a>'s approach to <a href="https://en.wikipedia.org/wiki/Natural_philosophy">natural philosophy</a>, particularly the reliance on deductive reasoning from first principles, which Bacon believed was overly theoretical and insufficiently grounded in observation and experimentation. I've moved away from physics now, but the <a href="https://en.wikipedia.org/wiki/Scientific_method">empirical spirit</a> that guided the scientific revolution still guides the way I think.
             </p>
 
             <p>
-                <a href="https://en.wikipedia.org/wiki/Scientific_method" class="back-link">Scientific method</a> becomes genuinely joyful once you start getting into it. There's something deeply satisfying about forming hypotheses, testing them through careful observation, and sharing your discoveries with others. Especially nowadays with everyone's attention span getting shorter due to social media, having someone read your work carefully and think deeply about the same problem together feels precious. Then, there's this aspect of building on top of humanity's knowledge. Writing and publishing become more than just a task, it becomes part of humanity's long tradition of knowledge discovery.
+                <a href="https://en.wikipedia.org/wiki/Scientific_method">Scientific method</a> becomes genuinely joyful once you start getting into it. There's something deeply satisfying about forming hypotheses, testing them through careful observation, and sharing your discoveries with others. Especially nowadays with everyone's attention span getting shorter due to social media, having someone read your work carefully and think deeply about the same problem together feels precious. Then, there's this aspect of building on top of humanity's knowledge. Writing and publishing become more than just a task, it becomes part of humanity's long tradition of knowledge discovery.
             </p>
 
             <p>
-                My research career only took off when I started working for an <a href="https://en.wikipedia.org/wiki/Natural_language_processing" class="back-link">NLP</a> startup in 2020. I took a leave from college. I was also away from my parents because I decided to live by myself right after high school. I was first hired to do some <a href="https://en.wikipedia.org/wiki/HTML" class="back-link">HTML</a> error checking tasks and was randomly tasked to develop a system that can measure the readability of a text, mostly because everyone was really busy and I was kind of the only one available. Instead of keeping the research internal, I ended up proposing (with presentation slides) that we should submit to a global conference like <a href="https://en.wikipedia.org/wiki/Empirical_Methods_in_Natural_Language_Processing" class="back-link">EMNLP</a>. Part of me knew it was a challenge. I had just graduated from high school and NLP was already incredibly hyped up, but we ended up developing the <a href="https://en.wikipedia.org/wiki/State_of_the_art" class="back-link">state of the art</a> system and got published. I ended up leading all research projects in the small NLP lab, which helped a lot in building my career. I just really enjoyed experimenting and writing it up, first authoring around 10 papers my two years there.
+                My research career only took off when I started working for an <a href="https://en.wikipedia.org/wiki/Natural_language_processing">NLP</a> startup in 2020. I took a leave from college. I was also away from my parents because I decided to live by myself right after high school. I was first hired to do some <a href="https://en.wikipedia.org/wiki/HTML">HTML</a> error checking tasks and was randomly tasked to develop a system that can measure the readability of a text, mostly because everyone was really busy and I was kind of the only one available. Instead of keeping the research internal, I ended up proposing (with presentation slides) that we should submit to a global conference like <a href="https://en.wikipedia.org/wiki/Empirical_Methods_in_Natural_Language_Processing">EMNLP</a>. Part of me knew it was a challenge. I had just graduated from high school and NLP was already incredibly hyped up, but we ended up developing the <a href="https://en.wikipedia.org/wiki/State_of_the_art">state of the art</a> system and got published. I ended up leading all research projects in the small NLP lab, which helped a lot in building my career. I just really enjoyed experimenting and writing it up, first authoring around 10 papers my two years there.
             </p>
 
             <p>
-                One of the things that I appreciate the most about some fields is that the review processes are often <a href="https://journals.sagepub.com/doi/10.1177/0011392116656711" class="back-link">double blind</a>. Anyone can publish if they're confident in their work. You don't need formal training to start publishing, that's a myth. While <a href="https://en.wikipedia.org/wiki/Yuval_Noah_Harari" class="back-link">Yuval Noah Harari</a> argued that shared myths and collective beliefs shaped human history, we should sometimes remember that most social constructs are imaginary, in <a href="https://en.wikipedia.org/wiki/Steve_Jobs" class="back-link">Steve Jobs</a>'s spirit. If you're just starting in research, find the smallest problem you can make progress on, do robust empirical experiments, and write it up. That's the spirit of the scientific method, and there's always room for one more person to join in making collective progress. You'll have a lot of fun once you get the hang of it.
+                One of the things that I appreciate the most about some fields is that the review processes are often <a href="https://journals.sagepub.com/doi/10.1177/0011392116656711">double blind</a>. Anyone can publish if they're confident in their work. You don't need formal training to start publishing, that's a myth. While <a href="https://en.wikipedia.org/wiki/Yuval_Noah_Harari">Yuval Noah Harari</a> argued that shared myths and collective beliefs shaped human history, we should sometimes remember that most social constructs are imaginary, in <a href="https://en.wikipedia.org/wiki/Steve_Jobs">Steve Jobs</a>'s spirit. If you're just starting in research, find the smallest problem you can make progress on, do robust empirical experiments, and write it up. That's the spirit of the scientific method, and there's always room for one more person to join in making collective progress. You'll have a lot of fun once you get the hang of it.
             </p>
 
             <p>
-                At least for me, publishing papers itself is enjoyable, but what made research meaningful in the long run is the chance to shape what's possible. This is another thing that's honestly pretty noble about science and engineering work. It gives you, at least in a distributed form, the power to shape what doesn't exist yet. Though I hope any talented person would use this freedom for good causes, you have the freedom to make progress in either positive or negative directions. Often, you might not know the full implications at the time, like how <a href="https://en.wikipedia.org/wiki/J._Robert_Oppenheimer" class="back-link">J. Robert Oppenheimer</a> had mixed feelings after developing the atomic bomb. But if you've decided to explore what doesn't exist yet, it's incredibly beneficial to have a mission, which is also why most <a href="https://en.wikipedia.org/wiki/Artificial_general_intelligence" class="back-link">AGI</a> labs have mission statements like <em>safe AGI for the benefit of all</em>.
+                At least for me, publishing papers itself is enjoyable, but what made research meaningful in the long run is the chance to shape what's possible. This is another thing that's honestly pretty noble about science and engineering work. It gives you, at least in a distributed form, the power to shape what doesn't exist yet. Though I hope any talented person would use this freedom for good causes, you have the freedom to make progress in either positive or negative directions. Often, you might not know the full implications at the time, like how <a href="https://en.wikipedia.org/wiki/J._Robert_Oppenheimer">J. Robert Oppenheimer</a> had mixed feelings after developing the atomic bomb. But if you've decided to explore what doesn't exist yet, it's incredibly beneficial to have a mission, which is also why most <a href="https://en.wikipedia.org/wiki/Artificial_general_intelligence">AGI</a> labs have mission statements like <em>safe AGI for the benefit of all</em>.
             </p>
 
             <p>
-                My personal version of the mission is that I see the need to augment human capabilities. You could call it a slightly modified form of <a href="https://en.wikipedia.org/wiki/Transhumanism" class="back-link">transhumanism</a>. Though I could make a separate post later on this topic, I see multiple benefits to this. One is reducing cognitive biases that could lead to devastating consequences like war and poor business decisions. Another challenge I'm watching is <a href="https://en.wikipedia.org/wiki/Population_ageing" class="back-link">aging populations</a>, especially in East Asia and parts of Europe, where maintaining productivity becomes harder as the workforce shrinks. If we take <a href="../pictures/blog-fig-global-gdp.png" class="back-link"> World GDP</a> as a proxy for total human productivity, I see augmentation as inevitable to maintain growth rates. This sustained productivity growth ultimately leads to prosperity and helps people live better, more capable lives.
+                My personal version of the mission is that I see the need to augment human capabilities. You could call it a slightly modified form of <a href="https://en.wikipedia.org/wiki/Transhumanism">transhumanism</a>. Though I could make a separate post later on this topic, I see multiple benefits to this. One is reducing cognitive biases that could lead to devastating consequences like war and poor business decisions. Another challenge I'm watching is <a href="https://en.wikipedia.org/wiki/Population_ageing">aging populations</a>, especially in East Asia and parts of Europe, where maintaining productivity becomes harder as the workforce shrinks. If we take <a href="../pictures/blog-fig-global-gdp.png"> World GDP</a> as a proxy for total human productivity, I see augmentation as inevitable to maintain growth rates. This sustained productivity growth ultimately leads to prosperity and helps people live better, more capable lives.
             </p>
         
         </article>
@@ -1322,64 +1120,19 @@ File: language-model-from-scratch.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementing a Language Model from Scratch</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; border-bottom: 2px solid #191970;}
-        h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 0px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        img {max-width: 800px;}
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
             <h3>Language model from scratch</h3>
-            <a href="../blog" class="back-link"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
     <main>
         <article>
-            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing" class="back-link"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
+            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
 
             <p><b>Additional Notes on Attention</b></p>
 
@@ -1408,13 +1161,13 @@ File: language-model-from-scratch.html
             <p><b>Other Resources</b></p>
 
             <p>Architecture diagram for TransformerLens
-            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png" class="back-link"> (here)</a>.</p>
+            <a href="https://raw.githubusercontent.com/callummcdougall/computational-thread-art/master/example_images/misc/transformer-full-updated.png"> (here)</a>.</p>
             
-            <p>3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc" class="back-link"> (here)</a>.</p>
+            <p>3Blue1Brown's intuition behind attention <a href="https://www.youtube.com/watch?v=eMlx5fFNoYc"> (here)</a>.</p>
 
-            <p>Neel Nanda's transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb" class="back-link"> (here)</a>.</p>
+            <p>Neel Nanda's transformer implementation <a href="https://colab.research.google.com/github/neelnanda-io/Easy-Transformer/blob/clean-transformer-demo/Clean_Transformer_Demo.ipynb"> (here)</a>.</p>
 
-            <p>ARENA's transformer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch" class="back-link"> (here)</a>.</p>
+            <p>ARENA's transformer implementation <a href="https://arena3-chapter1-transformer-interp.streamlit.app/[1.1]_Transformer_from_Scratch"> (here)</a>.</p>
         </article>
     </main>
 </body>
@@ -1433,57 +1186,13 @@ File: do-language-models-truly-learn-language.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementing a Language Model from Scratch</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; border-bottom: 2px solid #191970;}
-        h2 { font-size: 1.8em; margin-top: 0.5em;  margin-bottom: 0.5em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 0px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
             <h3>Do language models truly learn language?</h3>
-            <a href="../blog" class="back-link"><b>&#8592; Back to all posts</b></a>
+            <a href="../blog"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>September, 2023.</em></p>
         </div>
     </header>
@@ -1492,7 +1201,7 @@ File: do-language-models-truly-learn-language.html
         <article>
             <p>I keep thinking about how strange it is that something could know everything about the letter "H": its shape, its sound, how it fits into "hello," but never actually experience it. What does it even mean to learn something without sensing it?</p>
 
-            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument" class="back-link">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
+            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
 
             <p>Language models like ChatGPT remind me of Mary before she sees color. They process letters, words, and patterns at an incredible level, but their understanding is purely diegetic, stuck inside the internal, propositional content of words. They know about the letter "H," how it fits in the alphabet, how it works in sentences, the statistics of how it appears. But can a model that has never seen the letter "H" in the real world, never interacted with its shape or seen it in context, ever really understand it like we do?</p>
 
@@ -1512,100 +1221,221 @@ Directory: components
 File: header.js
 ================================================================================
 
+// components/header.js
+
+// Configuration object - edit this to update your information
+const CONFIG = {
+    name: "Bruce W. Lee",
+    title: "AI Researcher at UPenn",
+    description: "Researcher working on language models and linguistic features at the University of Pennsylvania",
+    email: "brucelws@seas.upenn.edu",
+    image: "https://brucewlee.com/pictures/bruce.jpeg",
+    links: {
+        github: "https://github.com/brucewlee",
+        scholar: "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
+        linkedin: "https://www.linkedin.com/in/bruce-w-lee/",
+        twitter: "https://x.com/BruceWLee2"
+    },
+    expertise: [
+        "Natural Language Processing",
+        "Machine Learning",
+        "Language Models",
+        "Artificial Intelligence"
+    ],
+    publications: [
+        {
+            name: "Programming Refusal with Conditional Activation Steering",
+            url: "https://arxiv.org/abs/2409.05907",
+            year: "2024"
+        },
+        {
+            name: "Language Models Don't Learn the Physical Manifestation of Language",
+            url: "https://aclanthology.org/2024.acl-long.195/",
+            year: "2024"
+        },
+        {
+            name: "Instruction Tuning with Human Curriculum",
+            url: "https://aclanthology.org/2024.findings-naacl.82/",
+            year: "2024"
+        }
+    ]
+};
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Add SEO metadata
+    const seoScript = document.createElement('script');
+    seoScript.type = 'application/ld+json';
+    seoScript.textContent = JSON.stringify({
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": CONFIG.name,
+        "givenName": CONFIG.name.split(" ")[0],
+        "familyName": CONFIG.name.split(" ").pop(),
+        "jobTitle": "Researcher",
+        "affiliation": {
+            "@type": "Organization",
+            "name": "University of Pennsylvania",
+            "url": "https://www.upenn.edu"
+        },
+        "description": CONFIG.description,
+        "url": window.location.origin,
+        "email": CONFIG.email,
+        "image": CONFIG.image,
+        "sameAs": Object.values(CONFIG.links),
+        "knowsAbout": CONFIG.expertise,
+        "publications": CONFIG.publications.map(pub => ({
+            "@type": "ScholarlyArticle",
+            "name": pub.name,
+            "url": pub.url,
+            "datePublished": pub.year
+        }))
+    }, null, 2);
+    document.head.appendChild(seoScript);
+
+    // Add Open Graph and Twitter meta tags
+    const metaTags = [
+        {property: "og:type", content: "profile"},
+        {property: "og:title", content: CONFIG.title},
+        {property: "og:description", content: CONFIG.description},
+        {property: "og:image", content: CONFIG.image},
+        {property: "og:url", content: window.location.href},
+        {name: "twitter:card", content: "summary"},
+        {name: "twitter:site", content: CONFIG.links.twitter},
+        {name: "author", content: CONFIG.name}
+    ];
+
+    metaTags.forEach(tag => {
+        const meta = document.createElement('meta');
+        if (tag.property) meta.setAttribute('property', tag.property);
+        if (tag.name) meta.setAttribute('name', tag.name);
+        meta.setAttribute('content', tag.content);
+        document.head.appendChild(meta);
+    });
+
+    // Add shared styles
     const styles = `
         :root {
-            --background-color: #f9f9f9;
-            --text-color: #333;
-            --heading-color: #2c3e50;
-            --link-color: #191970;
-            --border-color: #191970;
-            --card-bg: #fff;
-            --card-border: #ddd;
-        }
-
-        [data-theme="dark"] {
-            --background-color: #1a1a1a;
-            --text-color: #e0e0e0;
-            --heading-color: #90caf9;
-            --link-color: #8b8bff;
-            --border-color: #4a4a4a;
-            --card-bg: #2d2d2d;
-            --card-border: #404040;
+            --background-color: #f5f4ef;
+            --text-color: #333333;
+            --heading-color: #000000;
+            --link-color: #000000;
+            --border-color: #e0e0e0;
+            --secondary-text: #666666;
         }
 
         body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
+            font-family: Helvetica;
+            line-height: 1.5;
             color: var(--text-color);
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--background-color);
-            transition: background-color 0.3s, color 0.3s;
         }
-        h1, h2, h3 { color: var(--heading-color); }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid var(--border-color); }
-        a { color: var(--link-color); text-decoration: none; }
-        a:hover { text-decoration: underline; }
 
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px;
-            border-radius: 50%;
-            border: none;
-            background: var(--card-bg);
-            color: var(--text-color);
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 40px;
-            height: 40px;
+        h1, h2, h3 { 
+            color: var(--heading-color);
+            font-weight: normal;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        a { 
+            color: var(--link-color);
+            text-decoration: underline;
+        }
+
+        a:hover { 
+            opacity: 0.7;
+        }
+
+        .header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            margin-bottom: 30px;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 30px;
+        }
+
+        .profile-info { 
+            flex: 1; 
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a { 
+            margin-right: 15px;
+            color: var(--link-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 8px 0;
+            vertical-align: top;
+        }
+
+        td:first-child {
+            width: 80px;
+            color: var(--secondary-text);
+            font-size: 0.9em;
+        }
+
+        .research-item { 
+            position: relative; 
+        }
+
+        .research-title {
+            display: inline-block;
+            position: relative;
+        }
+
+        .research-details {
+            display: none;
+            position: absolute;
+            background-color: var(--background-color);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: 500px;
+            left: 50%;
+            top: 100%;
+        }
+
+        .research-item:hover .research-details {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1em;
+        }
+
+        .see-more { 
+            font-size: 0.9em; 
+        }
+
+        .post-date {
+            color: var(--secondary-text);
+            margin-top: 5px;
         }
     `;
 
-    // Insert styles
     const styleSheet = document.createElement("style");
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
-
-    // Insert dark mode toggle
-    const toggle = document.createElement("button");
-    toggle.className = "theme-toggle";
-    toggle.id = "theme-toggle";
-    toggle.title = "Toggle dark mode";
-    toggle.innerHTML = "🌓";
-    document.body.appendChild(toggle);
-
-    // Dark mode functionality
-    const getPreferredTheme = () => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) return savedTheme;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-
-    const setTheme = (theme) => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    };
-
-    setTheme(getPreferredTheme());
-
-    toggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            setTheme(e.matches ? 'dark' : 'light');
-        }
-    });
 });
 
