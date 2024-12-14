@@ -16,6 +16,8 @@ File: index.html
     <title>Bruce W. Lee</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
     <script src="components/header.js"></script>
+    <link rel="stylesheet" href="components/gallery.css">
+    <script src="components/gallery.js"></script>
 </head>
 <body>
     <header class="header">
@@ -34,95 +36,84 @@ File: index.html
 
     <main>
         <section>
-            <p>I'm working on making intelligent systems smarter and understanding the nature of intelligence itself. The goal here is to augment general human capabilities while contributing to our collective knowledge.</p>
+            <p>I'm working on making intelligent systems smarter and understanding the nature of intelligence. The goal is to expand human possibilities and productivity while contributing to fundamental science.</p>
             <p>I'm particular about good tooling in research. Some of my open-source libraries are now used in several research labs. Outside of research, I row for my college varsity team and served in the Marine Corps.</p>
         </section>
 
-        <section>
-            <h3>Papers</h3>
-            <table>
-                <tr class="research-item">
-                    <td>2024</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="https://arxiv.org/abs/2409.05907" >Programming Refusal with Conditional Activation Steering</a> 
-                            <div class="research-details" >
-                                We succeed in systematically controlling language model behavior with programmables rules like "if input is about xxx, then refuse."
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>2024</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="https://arxiv.org/abs/2402.11349" >Language Models Don't Learn the Physical Manifestation of Language</a> 
-                            <div class="research-details">
-                                We argue that language-only models lack understanding of the physical manifestation of language, as demonstrated through a series of tasks called the H-Test.
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>2023</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="https://arxiv.org/abs/2310.09518" >Instruction Tuning with Human Curriculum</a>
-                            <div class="research-details">
-                                We present a synthetic instruction-response generation framework designed to mimic the sequential and orderly nature of human learning.
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>2021</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="https://arxiv.org/abs/2109.12258">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a>
-                            <div class="research-details">
-                                We show that combining handcrafted linguistic features with transformers can create the state-of-the-art readability classification model.
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-            </table>
-            <a href="https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en">(See more papers)</a>
-        </section>
+        <div class="content-grid">
+            <div class="a-section">
+                <h3 class="section-title">
+                    Papers<a href="https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en" class="see-more-link" style="float:right; font-size: 17px;">(See more)</a>
+                </h3>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2024</div>
+                        <div style="flex: 1"><a href="https://arxiv.org/abs/2409.05907" >Programming Refusal with Conditional Activation Steering</a></div>
+                        <div class="research-details">We succeed in systematically controlling language model behavior with programmables rules like "if input is about xxx, then refuse."</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2024</div>
+                        <div style="flex: 1"><a href="https://arxiv.org/abs/2402.11349">Language Models Don't Learn the Physical Manifestation of Language</a></div>
+                        <div class="research-details">We argue that language-only models lack understanding of the physical manifestation of language, as demonstrated through a series of tasks called the H-Test.</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2023</div>
+                        <div style="flex: 1"><a href="https://arxiv.org/abs/2310.09518">Instruction Tuning with Human Curriculum</a></div>
+                        <div class="research-details">We present a synthetic instruction-response generation framework designed to mimic the sequential and orderly nature of human learning.</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2021</div>
+                        <div style="flex: 1"><a href="https://arxiv.org/abs/2109.12258">Pushing on Text Readability Assessment: A Transformer Meets Handcrafted Linguistic Features</a></div>
+                        <div class="research-details">We show that combining handcrafted linguistic features with transformers can create the state-of-the-art readability classification model.</div>
+                    </div>
+                </div>
+                
+            </div>
 
-        <section>
-            <h3>Softwares</h3>
-            <table>
-                <tr>
-                    <td>2024</td>
-                    <td>
-                        <a href="https://github.com/IBM/activation-steering" >IBM/activation-steering</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2023</td>
-                    <td>
-                        <a href="https://github.com/brucewlee/lftk" >LFTK</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2021</td>
-                    <td>
-                        <a href="https://github.com/brucewlee/lingfeat" >LingFeat</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2020 ~</td>
-                    <td>
-                        Other projects: Lexical databases, NLP task APIs, and language model evaluation tools.
-                    </td>
-                </tr>
-            </table>
-            <a href="https://github.com/brucewlee">(See more softwares)</a>
-        </section>
+            <div class="b-section">
+                <h3 class="section-title">
+                    Softwares
+                    <a href="https://github.com/brucewlee" class="see-more-link" style="float:right; font-size: 17px;">(See more)</a>
+                </h3>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2024</div>
+                        <div style="flex: 1"><a href="https://github.com/IBM/activation-steering">IBM/activation-steering</a></div>
+                        <div class="research-details">General-purpose activation steering library</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2023</div>
+                        <div style="flex: 1"><a href="https://github.com/brucewlee/lftk">LFTK</a></div>
+                        <div class="research-details">Widely adopted stylistic and linguistic feature extractor</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">2021</div>
+                        <div style="flex: 1"><a href="https://github.com/brucewlee/lingfeat">LingFeat</a></div>
+                        <div class="research-details">Python implementation of over 200 linguistic features</div>
+                    </div>
+                </div>
+                <div class="research-item">
+                    <div style="display: flex">
+                        <div style="width: 60px; flex-shrink: 0">Other</div>
+                        <div style="flex: 1">Lexical databases, NLP task APIs, and language model evaluation tools.</div>
+                    </div>
+                </div>                  
+            </div>
+        </div>
 
         <section>
             <h3>Get in Touch</h3>
-            <p>Email: brucelws@seas.{school}.edu. Replace school with 'upenn'.</p>
+            <p><a href="mailto:&#x62;&#x72;&#x75;&#x63;&#x65;&#x77;&#x6C;&#x65;&#x65;&#x30;&#x30;&#x30;&#x40;&#x67;&#x6D;&#x61;&#x69;&#x6C;&#x2E;&#x63;&#x6F;&#x6D;">email</a></p>
         </section>
     </main>
 </body>
@@ -141,91 +132,13 @@ File: index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "name": "Bruce W. Lee",
-          "jobTitle": "Researcher",
-          "affiliation": "University of Pennsylvania",
-          "url": "https://brucewlee.com",
-          "image": "https://brucewlee.com/pictures/bruce.jpeg",
-          "sameAs": [
-            "https://github.com/brucewlee",
-            "https://scholar.google.com/citations?user=a9HZkjMAAAAJ&hl=en",
-            "https://www.linkedin.com/in/bruce-w-lee/",
-            "https://www.lesswrong.com/users/bruce-w-lee",
-            "https://pennathletics.com/sports/mens-crew/roster/bruce-lee/22402",
-            "https://x.com/BruceWLee2",
-            "https://aclanthology.org/people/b/bruce-w-lee/",
-            "https://www.researchgate.net/profile/Bruce-W-Lee-2",
-            "https://huggingface.co/brucewlee1",
-            "https://underline.io/speakers/149030-bruce-lee",
-            "https://loop.frontiersin.org/people/1221932/bio",
-            "https://www.youtube.com/channel/UCA4wQUzl-snP8ZAwGacTNNg"
-          ]
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Palatino Linotype';
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2 { color: #2c3e50; }
-        h1 { font-size: 2.5em; margin-bottom: 0.2em; }
-        h2 { font-size: 1.8em; margin-top: 1.5em; border-bottom: 2px solid #191970; padding-bottom: 0.3em; }
-        a { color : #191970 ; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .header { display: flex; align-items: center; margin-bottom: 30px; }
-        .profile-photo { width: 150px; height: 150px; border-radius: 50%; margin-right: 30px; }
-        .profile-info { flex: 1; }
-        .social-links a { margin-right: 10px; }
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 5px 0; vertical-align: top; }
-        td:first-child { width: 40px; color: #7f8c8d; font-size: 0.9em; }
-        .research-item { position: relative; }
-        .research-title {
-            display: inline-block; /* This makes the hover area only cover the text */
-            position: relative;
-        }
-        .research-details { 
-            display: none; 
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-            z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 300px; /* Adjust as needed */
-            left: 100%; /* Position it to the right of the title */
-            top: 100%; /* Position it below the title */
-        }
-        .research-details img {
-            max-width: 100%;
-            margin-bottom: 10px;
-        }
-        .research-item:hover .research-details { display: block; }
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1em;
-        }
-        .see-more {
-            font-size: 0.9em;
-        }
-    </style>
+    <script src="../components/header.js"></script>
 </head>
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>App</h3>
-            <a href="../" class="back-link" style="float:left"> <b>&#8592; Main Page</b></a>
+            <h2>App</h2>
+            <a href="../" class="back-link" style="float:right"> <b>&#8592; Main Page</b></a>
         </div>
     </header>
 
@@ -233,7 +146,7 @@ File: index.html
         <section>
             <table>
                 <tr class="research-item">
-                    <td></td>
+                    <td>#3</td>
                     <td>
                         <span class="research-title">
                             <a href="p150/pacing-2k.html" style="color:#191970">Rowing 2K Pacing Calculator</a> 
@@ -241,7 +154,7 @@ File: index.html
                     </td>
                 </tr>
                 <tr class="research-item">
-                    <td></td>
+                    <td>#2</td>
                     <td>
                         <span class="research-title">
                             <a href="p150/joules.html" style="color:#191970">Rowing Joules Calculator</a> 
@@ -249,7 +162,7 @@ File: index.html
                     </td>
                 </tr>
                 <tr class="research-item">
-                    <td></td>
+                    <td>#1</td>
                     <td>
                         <span class="research-title">
                             <a href="compound.html" style="color:#191970">Compound Interest Calculator</a> 
@@ -982,64 +895,55 @@ File: index.html
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>Blog</h3>
-            <a href="../" class="back-link" style="float:left"> <b>&#8592; Main Page</b></a>
+            <h2>Blog</h2>
+            <a href="../" class="back-link" style="float:right"> <b>&#8592; Main Page</b></a>
         </div>
     </header>
 
     <main>
         <section>
-            <table>
-                <!--<tr class="research-item">
-                    <td>#5</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="blogs/How-I-got-into-research.html" style="color:#191970">We came all this way to explore the Moon, and the most important thing is that we discovered the Earth.</a> 
-                        </span>
-                    </td>
-                </tr>-->
-                <tr class="research-item">
-                    <td>#4</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="how-i-got-into-research.html">How I got into research (and why I'm still here)</a> 
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>#3</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="language-model-from-scratch.html">Language model from scratch</a> 
-                            <div class="research-details">
-                                So what does a language model do, exactly?
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>#2</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation">Programming refusal with conditional activation steering</a> 
-                            <div class="research-details">
-                                Can we make language models follow behavioral rules without altering weights? 
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-                <tr class="research-item">
-                    <td>#1</td>
-                    <td>
-                        <span class="research-title">
-                            <a href="do-language-models-truly-learn-language.html">Do language models truly learn language?</a> 
-                            <div class="research-details">
-                                What is it like to be a ChatGPT?
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-            </table>
+            <div class="research-item">
+                <div style="display: flex">
+                    <div style="width: 60px; flex-shrink: 0">#4</div>
+                    <div style="flex: 1">
+                        <a href="how-i-got-into-research.html">How I got into research (and why I'm still here)</a> 
+                    </div>
+                    <div class="research-details">
+                        The scientific method becomes genuinely rewarding.
+                    </div>
+                </div>
+            </div>
+            <div class="research-item">
+                <div style="display: flex">
+                    <div style="width: 60px; flex-shrink: 0">#3</div>
+                    <div style="flex: 1">
+                        <a href="language-model-from-scratch.html">Language model from scratch</a>
+                    </div>
+                    <div class="research-details">
+                        So what does a language model do?
+                    </div>
+                </div>
+            </div>
+            <div class="research-item">
+                <div style="display: flex">
+                    <div style="width: 60px; flex-shrink: 0">#2</div>
+                    <div style="flex: 1">
+                        <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation">Programming refusal with conditional activation steering</a> 
+                    </div>
+                    <div class="research-details">
+                        Can we make language models follow behavioral rules without altering weights? 
+                    </div>
+                </div>
+            </div>
+            <div class="research-item">
+                <div style="display: flex">
+                    <div style="width: 60px; flex-shrink: 0">#1</div>
+                    <a href="do-language-models-truly-learn-language.html">Do language models truly learn language?</a> 
+                    <div class="research-details">
+                        What is it like to be ChatGPT?
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </body>
@@ -1063,8 +967,8 @@ File: how-i-got-into-research.html
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>How I got into research (and why I'm still here)</h3>
-            <a href="../blog"><b>&#8592; Back to all posts</b></a>
+            <h2>How I got into research (and why I'm still here)</h2>
+            <a href="../blog" style="float:right"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>November, 2024.</em></p>
         </div>
     </header>
@@ -1083,7 +987,7 @@ File: how-i-got-into-research.html
             </p>
 
             <p>
-                <a href="https://en.wikipedia.org/wiki/Scientific_method">Scientific method</a> becomes genuinely joyful once you start getting into it. There's something deeply satisfying about forming hypotheses, testing them through careful observation, and sharing your discoveries with others. Especially nowadays with everyone's attention span getting shorter due to social media, having someone read your work carefully and think deeply about the same problem together feels precious. Then, there's this aspect of building on top of humanity's knowledge. Writing and publishing become more than just a task, it becomes part of humanity's long tradition of knowledge discovery.
+                <a href="https://en.wikipedia.org/wiki/Scientific_method">Scientific method</a> becomes genuinely rewarding once you start getting into it. There's something deeply satisfying about forming hypotheses, testing them through careful observation, and sharing your discoveries with others. Especially nowadays with everyone's attention span getting shorter due to social media, having someone read your work carefully and think deeply about the same problem together feels precious. Then, there's this aspect of building on top of humanity's knowledge. Writing and publishing become more than just a task, it becomes part of humanity's long tradition of knowledge discovery.
             </p>
 
             <p>
@@ -1125,24 +1029,22 @@ File: language-model-from-scratch.html
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>Language model from scratch</h3>
-            <a href="../blog"><b>&#8592; Back to all posts</b></a>
+            <h2>Language model from scratch</h2>
+            <a href="../blog" style="float:right"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>October, 2024.</em></p>
         </div>
     </header>
     <main>
         <article>
-            <p>A language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal was to break down the abstraction layers typically found in modern frameworks and examine each step in detail. The <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing"> <b>implementation</b> </a> provides explanations and intuitions behind key matrix operations, with each code block designed to be self-contained.</p>
+            <p>This <a href="https://colab.research.google.com/drive/1lLvYMplimAMliTnviatqF0Iv8CesA-Qf?usp=sharing"> implementation </a> builds a language model from scratch, with focus on replicating autoregressive modeling similar to GPT-2. The goal is to break down the abstraction layers typically found in modern frameworks and examine each step in detail. Each code block is designed to be self-contained, and it provides explanations and intuitions behind key matrix operations.</p>
 
-            <p><b>Additional Notes on Attention</b></p>
-
-            <p>Attention is a key mechanism in transformer models, designed to allow words to update their meanings based on context. Initially, words are represented as high-dimensional vectors called <em>embeddings</em>. These embeddings only encode the meaning of individual words, but the goal of attention is to refine them to incorporate contextual information.</p>
+            <p><b>Attention is a key mechanism in transformer models</b>, designed to allow words to update their meanings based on context. Initially, words are represented as high-dimensional vectors called <em>embeddings</em>. These embeddings only encode the meaning of individual words, but the goal of attention is to refine them to incorporate contextual information.</p>
 
             <p>The attention mechanism revolves around three main components: <em>query</em>, <em>key</em>, and <em>value</em> matrices. These are learnable parameters that transform the initial embeddings. Conceptually (though not always empirically), the query matrix produces "questions" for each word, while the key matrix generates potential "answers." The interaction between these queries and keys forms the basis of determining which words are relevant to updating the meaning of others.</p> 
 
-            <p>Consider the sentence <b>"The ancient oak tree provided cool shade on the hot summer day."</b> The query matrix might transform the embedding of "tree" into a vector that asks, "What are my defining characteristics?" Meanwhile, the key matrix might transform the embeddings of other words into vectors that potentially answer this query. To determine the relevance of each word to "tree," the model computes the dot product between the query vector for "tree" and the key vectors for all other words. This calculation results in a grid of attention scores.</p>
+            <p>Consider the sentence "The ancient oak tree provided cool shade on the hot summer day." The query matrix might transform the embedding of "tree" into a vector that asks, "What are my defining characteristics?" Meanwhile, the key matrix might transform the embeddings of other words into vectors that potentially answer this query. To determine the relevance of each word to "tree," the model computes the dot product between the query vector for "tree" and the key vectors for all other words. This calculation results in a grid of attention scores.</p>
 
-            <p>For instance, the score between <b>"ancient"</b> and <b>"tree"</b> would likely be high, as would the score between <b>"oak"</b> and <b>"tree,"</b> indicating strong relationships. Conversely, the scores between <b>"tree"</b> and words like <b>"hot"</b> or <b>"summer"</b> would likely be lower, as they're less directly related to the tree's characteristics. These scores are then normalized using a softmax function, converting them into weights between 0 and 1, creating the attention pattern. In this pattern, "ancient" and "oak" would have high weights with respect to "tree," allowing the model to update the embedding of "tree" to reflect that it's specifically an old oak tree. Meanwhile, words like "hot" and "summer" would have lower weights, contributing less to the updated meaning of "tree."</p>
+            <p>For instance, the score between "ancient" and "tree" would likely be high, as would the score between "oak" and "tree," indicating strong relationships. Conversely, the scores between "tree" and words like "hot" or "summer" would likely be lower, as they're less directly related to the tree's characteristics. These scores are then normalized using a softmax function, converting them into weights between 0 and 1, creating the attention pattern. In this pattern, "ancient" and "oak" would have high weights with respect to "tree," allowing the model to update the embedding of "tree" to reflect that it's specifically an old oak tree. Meanwhile, words like "hot" and "summer" would have lower weights, contributing less to the updated meaning of "tree."</p>
 
             <p>The value matrix comes into play for actually updating the embeddings.  Unlike the query and key matrices, which are used to compute relevance, the value matrix transforms the original embeddings into "value vectors" that contain the actual information used for updates. This transformation serves several purposes: it allows the model to learn what information is most useful for updates, provides more flexibility in representing information, and can help manage computational complexity by potentially reducing dimensionality. Instead of directly using the original embeddings, which contain a lot of information that may not all be relevant for updates, the value vectors focus on the most important aspects for updating word meanings in context.</p>
             
@@ -1153,10 +1055,10 @@ File: language-model-from-scratch.html
             <p>What I explained so far happened in a single attention head. Instead of performing a single attention operation, transformer models typically run multiple attention heads in parallel. Each head has its own set of query, key, and value matrices, allowing the model to capture different types of relationships between words simultaneously. The attention mechanism is applied iteratively in transformer models. Embeddings go through multiple attention blocks, each time becoming more refined and context-aware. This allows the model to capture increasingly complex and abstract relationships within the text.</p>
 
             <p>I trained my implementation of GPT-2 but it seems that it says gibberish. The loss is decreasing though. </p>
-            <img src="../pictures/blog-fig-training-loss.png" alt="Diagram">
-            
+            <center><img src="../pictures/blog-fig-training-loss.png" alt="Diagram" width="600mm"></center>
+
             <p>Architecture diagram for future reference. </p>
-            <img src="../pictures/blog-fig-transformer.jpg" alt="Diagram">
+            <center><img src="../pictures/blog-fig-transformer.jpg" alt="Diagram"  width="600mm"></center>
             
             <p><b>Other Resources</b></p>
 
@@ -1191,8 +1093,8 @@ File: do-language-models-truly-learn-language.html
 <body>
     <header class="header">
         <div class="profile-info">
-            <h3>Do language models truly learn language?</h3>
-            <a href="../blog"><b>&#8592; Back to all posts</b></a>
+            <h2>Do language models truly learn language?</h2>
+            <a href="../blog" class="back-link" style="float:right"><b>&#8592; Back to all posts</b></a>
             <p class="post-date"><em>September, 2023.</em></p>
         </div>
     </header>
@@ -1201,7 +1103,7 @@ File: do-language-models-truly-learn-language.html
         <article>
             <p>I keep thinking about how strange it is that something could know everything about the letter "H": its shape, its sound, how it fits into "hello," but never actually experience it. What does it even mean to learn something without sensing it?</p>
 
-            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
+            <p>I think about <a href="https://en.wikipedia.org/wiki/Knowledge_argument" class="back-link">Mary's Room</a> a lot. This scientist who's lived her whole life in a black and white room. She knows everything about color, wavelengths, light reflections, how our brains process different colors, but she's never seen color herself. When she finally steps out and sees red for the first time, something changes. There's a kind of knowledge that only comes through direct experience, something that all her intellectual understanding could never give her.</p>
 
             <p>Language models like ChatGPT remind me of Mary before she sees color. They process letters, words, and patterns at an incredible level, but their understanding is purely diegetic, stuck inside the internal, propositional content of words. They know about the letter "H," how it fits in the alphabet, how it works in sentences, the statistics of how it appears. But can a model that has never seen the letter "H" in the real world, never interacted with its shape or seen it in context, ever really understand it like we do?</p>
 
@@ -1214,6 +1116,105 @@ File: do-language-models-truly-learn-language.html
     </main>
 </body>
 </html>
+
+
+================================================================================
+Directory: components
+File: gallery.css
+================================================================================
+
+/* components/gallery.css */
+
+.photo-gallery {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.gallery-title {
+    font-style: italic;
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.thumbnail {
+    cursor: pointer;
+    position: relative;
+    transition: opacity 0.2s;
+}
+
+.thumbnail:hover {
+    opacity: 0.9;
+}
+
+.thumbnail img {
+    width: 96px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    max-width: 800px;
+    width: 90%;
+}
+
+.close-button {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-button:hover {
+    color: #000;
+}
+
+#modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.25rem;
+}
+
+.modal-caption {
+    margin-top: 1rem;
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
 
 
 ================================================================================
@@ -1315,7 +1316,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add shared styles
     const styles = `
         :root {
-            --background-color: #f5f4ef;
+            --background-color: #F4F0EC;
             --text-color: #333333;
             --heading-color: #000000;
             --link-color: #000000;
@@ -1324,16 +1325,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         body {
-            font-family: Helvetica;
+            font-family: Palatino Linotype;
             line-height: 1.5;
             color: var(--text-color);
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: var(--background-color);
+            font-size: 17px;
         }
 
-        h1, h2, h3 { 
+        h1, h2, h3, h4 { 
             color: var(--heading-color);
             font-weight: normal;
             margin-top: 30px;
@@ -1352,7 +1354,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .profile-photo {
@@ -1375,13 +1378,38 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--link-color);
         }
 
+        /* Side-by-side layout styles (only affects index.html when proper structure exists) */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* These styles will only apply to elements with these specific classes */
+        .a-section, .b-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 11px;
+            border-bottom: 1px solid #191970;
+        }
+
+        /* Original styles continue */
         table {
             width: 100%;
             border-collapse: collapse;
         }
 
         td {
-            padding: 8px 0;
+            padding: 1px 0;
             vertical-align: top;
         }
 
@@ -1393,6 +1421,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         .research-item { 
             position: relative; 
+            margin-bottom: 10px;
         }
 
         .research-title {
@@ -1408,7 +1437,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border: 1px solid var(--border-color);
             z-index: 1;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            width: 500px;
+            width: min(250px, 90vw);
             left: 50%;
             top: 100%;
         }
@@ -1421,7 +1450,6 @@ document.addEventListener('DOMContentLoaded', function() {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 1em;
         }
 
         .see-more { 
@@ -1437,5 +1465,79 @@ document.addEventListener('DOMContentLoaded', function() {
     const styleSheet = document.createElement("style");
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
+});
+
+
+================================================================================
+Directory: components
+File: gallery.js
+================================================================================
+
+// components/gallery.js
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Create and append gallery HTML
+    const galleryHTML = `
+        <div class="photo-gallery">
+            <div class="gallery-header">
+                <span class="gallery-title">Featured moments</span>
+                <div class="thumbnail-container">
+                    <div class="thumbnail" data-full="../pictures/gallery/dec-2021-pohang.jpg" data-caption="Marine Corps, Pohang, December 2021">
+                        <img src="../pictures/dec-2021-pohang-thumb.jpg" alt="Marine Corps">
+                    </div>
+                    <div class="thumbnail" data-full="pictures/princeton-chase-2024.jpg" data-caption="Penn Lightweight Rowing at Princeton Chase">
+                        <img src="pictures/princeton-chase-2024-thumb.jpg" alt="Penn Rowing">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="photo-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <img id="modal-image" src="" alt="">
+                <p id="modal-caption" class="modal-caption"></p>
+            </div>
+        </div>
+    `;
+
+    // Insert gallery before the "Get in Touch" section
+    const getInTouchSection = document.querySelector('h3');
+    getInTouchSection.parentNode.insertBefore(
+        createElementFromHTML(galleryHTML),
+        getInTouchSection
+    );
+
+    // Add event listeners
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const modal = document.getElementById('photo-modal');
+    const modalImg = document.getElementById('modal-image');
+    const modalCaption = document.getElementById('modal-caption');
+    const closeButton = document.querySelector('.close-button');
+
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            modal.style.display = "flex";
+            modalImg.src = this.dataset.full;
+            modalCaption.textContent = this.dataset.caption;
+        });
+    });
+
+    closeButton.addEventListener('click', () => {
+        modal.style.display = "none";
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Helper function to create element from HTML string
+    function createElementFromHTML(htmlString) {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+        return div.firstChild;
+    }
 });
 

@@ -48,7 +48,7 @@ def collect_files(directories: Union[List[str], str], output_file: str) -> dict:
                 # Walk through directory tree
                 for current_dir, _, files in os.walk(root_path):
                     # Filter for .py files
-                    py_files = [f for f in files if f.endswith('.html') or f.endswith('.js')]
+                    py_files = [f for f in files if f.endswith('.html') or f.endswith('.js') or f.endswith('.css')]
                     
                     if py_files:
                         # Get relative path from root directory
