@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         /* Side-by-side layout styles (only affects index.html when proper structure exists) */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.4fr 1fr;
             gap: 50px;
         }
         
@@ -222,6 +222,47 @@ document.addEventListener('DOMContentLoaded', function() {
             display: block;
         }
 
+        .hover-message {
+            display: inline;
+            position: relative;
+            border-bottom: 1px dashed var(--secondary-text);
+            cursor: help;
+        }
+
+        .hover-message .message-content {
+            display: none;
+            position: absolute;
+            background-color: var(--background-color);
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: max-content;
+            max-width: 300px;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            z-index: 100;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        .hover-message .message-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--border-color) transparent transparent transparent;
+        }
+
+        .hover-message:hover .message-content {
+            display: block;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -236,9 +277,34 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--secondary-text);
             margin-top: 5px;
         }
+
     `;
 
     const styleSheet = document.createElement("style");
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
+
+    // Add MathJax configuration and script
+    const mathjaxScript = document.createElement('script');
+    mathjaxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js';
+    mathjaxScript.async = true;
+
+    // MathJax configuration
+    const mathjaxConfig = document.createElement('script');
+    mathjaxConfig.type = 'text/javascript';
+    mathjaxConfig.text = `
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\\\(', '\\\\)']],
+                displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']],
+                processEscapes: true
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    `;
+
+    document.head.appendChild(mathjaxConfig);
+    document.head.appendChild(mathjaxScript);
 });
