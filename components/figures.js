@@ -1,12 +1,76 @@
-// figure.js
 class Figure extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
     static get observedAttributes() {
         return ['src', 'alt', 'caption', 'width', 'height'];
+    }
+
+    constructor() {
+        super();
+        if (!document.getElementById('blog-figure-styles')) {
+            const styleSheet = document.createElement('style');
+            styleSheet.id = 'blog-figure-styles';
+            styleSheet.textContent = `
+                .blog-figure {
+                    display: block;
+                    margin: 1.5rem auto;
+                    max-width: 100%;
+                }
+                
+                .blog-figure-container {
+                    border: 1px solid #e5e7eb;
+                    border-radius: 0.5rem;
+                    overflow: hidden;
+                    background-color: #F4F0EC;
+                    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                }
+                
+                .blog-figure img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    display: block;
+                }
+                
+                .blog-figure figcaption {
+                    padding: 1rem;
+                    font-size: 0.875rem;
+                    color: #4b5563;
+                    border-top: 1px solid #e5e7eb;
+                    background-color: #F4F0EC;
+                    line-height: 1.5;
+                }
+                
+                .blog-figure .caption-content {
+                    display: block;
+                    text-align: left;
+                }
+                
+                .blog-figure .caption-content b {
+                    color: #374151;
+                }
+
+                .blog-figure .caption-paragraph {
+                    margin: 0.75rem 0;
+                }
+                
+                .blog-figure .caption-paragraph:first-child {
+                    margin-top: 0;
+                }
+                
+                .blog-figure .caption-paragraph:last-child {
+                    margin-bottom: 0;
+                }
+                
+                /* Math rendering adjustments */
+                .blog-figure .MathJax {
+                    display: inline !important;
+                }
+                
+                .blog-figure .mjx-chtml {
+                    margin: 0 !important;
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
     }
 
     connectedCallback() {
@@ -24,42 +88,9 @@ class Figure extends HTMLElement {
         const width = this.getAttribute('width') || '600';
         const height = this.getAttribute('height') || '400';
 
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host {
-                    display: block;
-                    margin: 1.5rem auto;
-                }
-                .figure-container {
-                    border: 1px solid #e5e7eb;
-                    border-radius: 0.5rem;
-                    overflow: hidden;
-                    background-color: #F4F0EC;
-                    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-                }
-                img {
-                    width: 100%;
-                    height: auto;
-                    object-fit: cover;
-                    display: block;
-                }
-                figcaption {
-                    padding: 0.75rem;
-                    font-size: 0.875rem;
-                    color: #4b5563;
-                    border-top: 1px solid #e5e7eb;
-                    background-color: #F4F0EC;
-                }
-                .caption-content {
-                    display: flex;
-                    gap: 0.5rem;
-                    align-items: flex-start;
-                }
-                .caption-label {
-                    font-weight: 500;
-                }
-            </style>
-            <figure class="figure-container">
+        this.className = 'blog-figure';
+        this.innerHTML = `
+            <figure class="blog-figure-container">
                 <img
                     src="${src}"
                     alt="${alt}"
@@ -69,12 +100,18 @@ class Figure extends HTMLElement {
                 ${caption ? `
                     <figcaption>
                         <div class="caption-content">
-                            <span>${caption}</span>
+                            ${caption}
                         </div>
                     </figcaption>
                 ` : ''}
             </figure>
         `;
+
+        if (window.MathJax) {
+            window.MathJax.typesetPromise([this]).catch(err => {
+                console.error('MathJax typesetting failed:', err);
+            });
+        }
     }
 }
 
