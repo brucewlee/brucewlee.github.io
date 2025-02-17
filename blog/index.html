@@ -6,6 +6,24 @@
     <title>Blog</title>
     <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
     <script src="../components/header.js"></script>
+    <style>
+        .blog-list {
+            margin-top: 30px;
+        }
+        
+        .blog-list a {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 17px;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .blog-list a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -16,49 +34,14 @@
     </header>
 
     <main>
-        <section>
-            <div class="research-item">
-                <div style="display: flex">
-                    <div style="width: 60px; flex-shrink: 0">#4</div>
-                    <div style="flex: 1">
-                        <a href="how-i-got-into-research.html">How I got into research (and why I'm still here)</a> 
-                    </div>
-                    <div class="research-details">
-                        The scientific method becomes genuinely rewarding.
-                    </div>
-                </div>
-            </div>
-            <div class="research-item">
-                <div style="display: flex">
-                    <div style="width: 60px; flex-shrink: 0">#3</div>
-                    <div style="flex: 1">
-                        <a href="language-model-from-scratch.html">Language model from scratch</a>
-                    </div>
-                    <div class="research-details">
-                        So what does a language model do?
-                    </div>
-                </div>
-            </div>
-            <div class="research-item">
-                <div style="display: flex">
-                    <div style="width: 60px; flex-shrink: 0">#2</div>
-                    <div style="flex: 1">
-                        <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation">Programming refusal with conditional activation steering</a> 
-                    </div>
-                    <div class="research-details">
-                        Can we make language models follow behavioral rules without altering weights? 
-                    </div>
-                </div>
-            </div>
-            <div class="research-item">
-                <div style="display: flex">
-                    <div style="width: 60px; flex-shrink: 0">#1</div>
-                    <a href="do-language-models-truly-learn-language.html">Do language models truly learn language?</a> 
-                    <div class="research-details">
-                        What is it like to be ChatGPT?
-                    </div>
-                </div>
-            </div>
+        <section class="blog-list">
+            <a href="how-i-got-into-research.html">#4 How I got into research</a>
+            
+            <a href="language-model-from-scratch.html">#3 Coding a language model from scratch</a>
+            
+            <a href="https://www.lesswrong.com/posts/HiG479grQtkut7svb/paper-programming-refusal-with-conditional-activation">#2 Programming refusal with conditional activation steering</a>
+            
+            <a href="do-language-models-truly-learn-language.html">#1 Do language models truly learn language?</a>
         </section>
     </main>
 </body>

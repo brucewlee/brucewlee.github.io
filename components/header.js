@@ -120,11 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         a { 
             color: var(--link-color);
-            text-decoration: underline;
+            text-decoration: none;
         }
 
         a:hover { 
             opacity: 0.7;
+            text-decoration: underline;
         }
 
         .header {
@@ -132,13 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             margin-top: 10px;
             margin-bottom: 10px;
-        }
-
-        .profile-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 30px;
         }
 
         .profile-info { 
@@ -154,113 +148,37 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--link-color);
         }
 
-        /* Side-by-side layout styles (only affects index.html when proper structure exists) */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 50px;
-        }
-        
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* These styles will only apply to elements with these specific classes */
-        .a-section, .b-section {
-            margin-bottom: 30px;
-        }
-        
         .section-title {
             color: #2c3e50;
             margin-bottom: 11px;
             border-bottom: 1px solid #191970;
         }
 
-        /* Original styles continue */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        td {
-            padding: 1px 0;
-            vertical-align: top;
-        }
-
-        td:first-child {
-            width: 80px;
-            color: var(--secondary-text);
-            font-size: 0.9em;
-        }
-
         .research-item { 
-            position: relative; 
-            margin-bottom: 10px;
+            margin-bottom: 24px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: rgba(244, 240, 236, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-size: 17px;
+        }
+
+        .research-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .research-title {
-            display: inline-block;
-            position: relative;
+            font-size: 17px;
+            margin-bottom: 0px;
         }
 
         .research-details {
-            display: none;
-            position: absolute;
-            background-color: var(--background-color);
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            z-index: 1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            width: min(250px, 90vw);
-            left: 50%;
-            top: 100%;
-        }
-
-        .research-item:hover .research-details {
-            display: block;
-        }
-
-        .hover-message {
-            display: inline;
-            position: relative;
-            border-bottom: 1px dashed var(--secondary-text);
-            cursor: help;
-        }
-
-        .hover-message .message-content {
-            display: none;
-            position: absolute;
-            background-color: var(--background-color);
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            width: max-content;
-            max-width: 300px;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 8px;
-            z-index: 100;
-            font-size: 0.9em;
-            color: var(--text-color);
-        }
-
-        .hover-message .message-content::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: var(--border-color) transparent transparent transparent;
-        }
-
-        .hover-message:hover .message-content {
-            display: block;
+            margin-top: 10px;
+            color: var(--secondary-text);
+            font-size: 17px;
+            line-height: 1.5;
         }
 
         .section-header {
@@ -277,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--secondary-text);
             margin-top: 5px;
         }
-
     `;
 
     const styleSheet = document.createElement("style");

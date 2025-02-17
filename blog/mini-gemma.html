@@ -20,14 +20,15 @@
     <main>
         <article>
             <p>
-                Pretraining is one of those things that not a lot of people might have direct experience with, even if they're researchers. 
-                I've recently had the chance to run some pretraining myself, and I'm writing this blog post to record what I've learned in the process. 
-                Pretraining a language model is hard, and until quite recently, it was prohibitive because there wasn't a good pretraining dataset available. 
+                Pretraining is one of those things that not a lot of people might have direct experience with, even if they're researchers.  
+                Pretraining a language model is hard. 
                 It also seems that not many people are working on it, largely because most researchers, especially in academic settings,tend to be incentivized to do work that's more iterative, faster to complete, and generally easier to manage than tackling end-to-end pretraining.
+                I've recently had the chance to run some pretraining myself, and I'm writing this blog post to record what I've learned in the process.
+                The goal of this post would be to minimally implement a small size Gemma model and make it speak English and Korean.
             </p>
 
             <p>
-                <b>Model.</b> The goal here is to pretrain a 
+                <b>Model.</b> We want to pretrain a 
                 <span class="hover-message">randomly initialized<span class="message-content">Neural networks are randomly initialized to break symmetry between neurons, preventing all neurons in a layer from learning the same features during training. Random initialization also helps the network explore different regions of the parameter space during optimization, reducing the likelihood of getting stuck in poor local minima early in the training process.</span></span> 
                 model from scratch using the Gemma 2 architecture. 
                 Since the smallest out-of-the-box model size Google provides is 2B, we need a smaller copy of the model architecture to train from the ground up. 
@@ -174,22 +175,26 @@
             </pre>
             
             <p>
-                Now, when we attempt text completion with these randomly initialized models, we see that they produce mostly gibberish compared to the trained Gemma 2 2B model. 
-                We want to train our smaller Gemma models to achieve a good cross-entropy loss and have them generate coherent and meaningful text rather than nonsensical outputs.
+                When we attempt text completion on a sentence from Wikipedia using these randomly initialized models, we quickly notice that they produce gibberish. 
+                The models don't even seem to discern whether the input is English or Korean. 
+                Our objective now is to train our smaller Gemma models to achieve a good cross-entropy loss, thereby ensuring they generate coherent and meaningful text instead of nonsensical outputs.
             </p>
             
             <table class="comparison-table">
                 <tr>
-                    <th>Prompt</th>
-                    <th>Gemma 2 0.1B (random)</th>
-                    <th>Gemma 2 0.6B (random)</th>
+                    <th>Input</th>
                     <th>Gemma 2 2B (trained)</th>
+                    <th>Gemma 2 0.1B (random)</th>
                 </tr>
                 <tr>
-                    <td class="param-name" style="width: 180px; vertical-align: middle">My name is Bruce. I am a ___</td>
-                    <td style="width: 180px">koolscribe Arran شه Nevada ... </td>
-                    <td style="width: 180px">Agricultura Kalttiere Sao ... </td>
-                    <td style="width: 180px">42-year-old father and ... </td>
+                    <td class="param-name" style="width: 60px; vertical-align: middle">Yes, we always</td>
+                    <td style="width: 180px">need help, but you need to be more specific.</td>
+                    <td style="width: 180px">liéetrata onerousМатериалы win⠑Материалы</td>
+                </tr>
+                <tr>
+                    <td class="param-name" style="width: 60px; vertical-align: middle">안녕하세요. 저는</td>
+                    <td style="width: 180px">김형석 입니다. 오늘은 1. 우리나라 최고의 이력서</td>
+                    <td style="width: 180px">MessageHandler恥Mods doctrinamachung手でዥ</td>
                 </tr>
             </table>
             <pre class="pre-code" data-code-path="code-samples/distillation-training/chat.py">
