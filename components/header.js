@@ -195,6 +195,47 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--secondary-text);
             margin-top: 5px;
         }
+
+        .hover-message {
+            display: inline;
+            position: relative;
+            border-bottom: 1px dashed var(--secondary-text);
+            cursor: help;
+        }
+
+        .hover-message .message-content {
+            display: none;
+            position: absolute;
+            background-color: var(--background-color);
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: max-content;
+            max-width: 300px;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            z-index: 100;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        .hover-message .message-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--border-color) transparent transparent transparent;
+        }
+
+        .hover-message:hover .message-content {
+            display: block;
+        }
     `;
 
     const styleSheet = document.createElement("style");
