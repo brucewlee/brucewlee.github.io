@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const codeblockStyles = `
         .pre-code {
             position: relative;
-            background: #F4F0EC;
+            background: #FEFCFF;
             padding: 1em;
             border-radius: 4px;
             font-size: 12px;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             top: 10px;
             right: 10px;
             padding: 8px 12px;
-            background-color: #f0f0f0;
+            background-color: #FEFCFF;
             border: 1px solid #ddd;
             border-radius: 4px;
             cursor: pointer;

@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add shared styles
     const styles = `
         :root {
-            --background-color: #F4F0EC;
+            --background-color: #FEFCFF;
             --text-color: #333333;
             --heading-color: #000000;
             --link-color: #000000;
@@ -135,6 +135,20 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-bottom: 10px;
         }
 
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-photo {
+            width: 220px;
+            height: auto;
+            border-radius: 8px;
+        }
+
         .profile-info { 
             flex: 1; 
         }
@@ -159,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 16px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            background-color: rgba(244, 240, 236, 0.5);
+            background-color: #FEFCFF;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             font-size: 17px;
         }

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             border-collapse: collapse;
             margin: 10px 0;
             font-size: 15px;
-            background-color: var(--background-color);
+            background-color: #FEFCFF;
         }
         .comparison-table th, 
         .comparison-table td {
@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
             border: 1px solid var(--border-color);
         }
         .comparison-table th {
-            background-color: var(--background-color);
+            background-color: #FEFCFF;
             color: var(--heading-color);
         }
         .comparison-table tr:nth-child(even) {
-            background-color: rgba(244, 240, 236, 0.5);
+            background-color: #FEFCFF;
         }
         .comparison-table tr:hover {
             background-color: rgba(244, 240, 236, 0.8);
