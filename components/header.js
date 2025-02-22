@@ -144,7 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .profile-photo {
-            width: 250px;
+            width: 100%;
+            max-width: 900px;
             height: auto;
             border-radius: 8px;
         }
