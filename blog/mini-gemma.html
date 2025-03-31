@@ -12,9 +12,9 @@
 <body>
     <header class="header">
         <div class="profile-info">
-            <h2>Pretraining a bilingual Mini-Gemma</h2>
+            <h2>Pretraining (and unlearning) a bilingual Mini-Gemma</h2>
             <a href="../blog" style="float:right"><b>Back to all posts</b></a>
-            <p class="post-date"><em>February, 2025.</em></p>
+            <p class="post-date"><em>March, 2025.</em></p>
         </div>
     </header>
     <main>
@@ -100,6 +100,8 @@
                 Though Gemma MLP looks a little different, we can see that this ballpark calculation holds up. 
                 For example, when we plug in the equation with Gemma 2 2B configuration, we get $26 \times 12 \times (\text{2304})^2 \approx 1.65\text{B}$.
                 It's 1.65B quite smaller than 2B, but it all makes sense because Gemma has a large vocab size of 256,000, which should count for about 0.6B parameters $256,000 \times 2304 \approx 0.59\text{B}$.
+
+                From the table below, we're going to pretrain the Gemma 2 0.1B model.
             </p>
 
             <table class="comparison-table">
