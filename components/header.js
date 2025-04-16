@@ -144,10 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .profile-photo {
-            width: 100%;
+            width: 120%;
             max-width: 900px;
             height: auto;
-            border-radius: 8px;
+            border-radius: 20px;
         }
 
         .profile-info { 
