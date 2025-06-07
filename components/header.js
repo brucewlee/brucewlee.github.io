@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         .social-links a { 
-            margin-right: 15px;
+            margin-right: 30px;
             color: var(--link-color);
         }
 
