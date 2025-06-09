@@ -93,11 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const styles = `
         :root {
             --background-color: #FEFCFF;
-            --text-color: #333333;
-            --heading-color: #000000;
-            --link-color: #000000;
+            --text-color: #2c3e50;        /* Main text - sophisticated blue-gray */
+            --heading-color: #2c3e50;     /* Same as text for consistency */
+            --link-color: #1e3a8a;        /* Subtle dark blue for links */
             --border-color: #e0e0e0;
-            --secondary-text: #666666;
+            --secondary-text: #64748b;    /* Lighter gray for secondary text */
         }
 
         body {
@@ -116,6 +116,27 @@ document.addEventListener('DOMContentLoaded', function() {
             font-weight: normal;
             margin-top: 30px;
             margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 32px;   /* 1.88x base - for main page title */
+            font-weight: 700;  /* Stronger for main title */
+            margin-top: 20px;
+        }
+        
+        h2 {
+            font-size: 26px;   /* 1.53x base - for main sections */
+            margin-top: 40px;  /* More space before major sections */
+        }
+        
+        h3 {
+            font-size: 22px;   /* 1.29x base - for subsections */
+            margin-top: 30px;
+        }
+        
+        h4 {
+            font-size: 19px;   /* 1.12x base - for minor headers */
+            margin-top: 25px;
         }
 
         a { 
@@ -159,14 +180,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         .social-links a { 
-            margin-right: 30px;
+            margin-right: 20px;
             color: var(--link-color);
         }
 
         .section-title {
-            color: #2c3e50;
+            color: var(--heading-color);  /* Change from #2c3e50 to use variable */
             margin-bottom: 11px;
-            border-bottom: 1px solid #191970;
+            border-bottom: 1px solid var(--border-color);  /* Also made border more subtle */
         }
 
         .research-item { 
@@ -250,6 +271,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         .hover-message:hover .message-content {
             display: block;
+        }
+
+        .publication-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 10px 0;
+            gap: 20px;
+        }
+
+        .publication-content {
+            flex: 1;
+        }
+
+        .publication-venue {
+            color: var(--secondary-text);
+            font-style: italic;
+            font-size: 0.9em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .takeaway-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #adb5bd;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-style: italic;
         }
     `;
 
