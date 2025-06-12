@@ -28,34 +28,29 @@
     <main>
         <div class="header-container">
         <section>
-            <p>I'm a rising senior at the University of Pennsylvania, where I split my time between research on AI systems and studying for computer science classes. I'm broadly interested in making intelligent systems both smarter and safer. </p>
-                
-            <p>Between high school and college, I served as a <a href="https://www.dvidshub.net/image/7339801/kmep-22-2-group-photo">helicopter crew member in Republic of Korea Marines</a> for two years. Now at Penn, I'm on the <a href="https://pennathletics.com/sports/mens-crew/roster/bruce-lee/23998">varsity rowing team</a>, which has become a huge part of my college experience.</p>
+            <p>I'm a rising senior at the University of Pennsylvania, where I split my time between research and classes. Before Penn, I served as a <a href="https://www.dvidshub.net/image/7339801/kmep-22-2-group-photo">helicopter crew member in the Marines</a> for two years. At Penn, I row on the <a href="https://pennathletics.com/sports/mens-crew/roster/bruce-lee/23998">varsity team</a>.</p>
             
-            <p>I've had great internships at places like IBM Research, NAVER Cloud, and the Center for Axion and Precision Physics Research. Most recently, I worked with Team Shard through ML Alignment & Theory Scholars. You can find my published papers online to see my technical work.</p>
-        </section>
-        <section>
-            <p><img src="pictures/bruce.png" alt="Bruce W. Lee" class="profile-photo"></p>
+            <p>I'm currently doing ML Alignment & Theory Scholars with <a href="https://tomekkorbak.com/">Tomek Korbak</a>. Previously, I researched at IBM Research, NAVER Cloud, and with <a href="https://turntrout.com/research">Alex Turner</a> and Alex Cloud through MATS. I spent two years away from college to lead NLP research at a startup, which first introduced me to language models.</p>
         </section>
         </div>
 
         <!-- Research Section -->
-        <h2 style="margin-top: 20px; margin-bottom: 20px;">Research Overview</h2>
+        <h2 style="margin-top: 20px; margin-bottom: 20px;">How I Think About AI Systems</h2>
         
         <!-- Current Research -->
         <section style="margin-bottom: 40px;">
-            <h3 class="section-title">Analyzing and Controlling Capable AI Systems</h3>
+            <h3 class="section-title">Artificial Intelligence as Capable Systems Requiring Deliberate Shaping</h3>
             <p style="color: #666; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">2024-Present</p>
             
             <p>
-                Today, I view language models as remarkably capable systems that demand sophisticated and deliberate control efforts. 
-                My current work focuses on understanding and controlling these systems.
-                Basically, the goal is to help us (humans) stay in control as these systems become increasingly powerful and autonomous. 
+                Today, I view language models as remarkably capable systems whose behaviors we need to understand and shape deliberately.
+                My current work focuses on developing methods to analyze, guide, and constrain their behaviors to enable predictable deployment.
+                The goal is to ensure humans maintain meaningful influence as these systems become increasingly powerful and autonomous.
             </p>
-            
+
             <p>
-                <a href="https://arxiv.org/abs/2409.05907"><strong>Conditional Activation Steering</strong></a> represents my initial attempt at gaining a programmatic control over LLM behaviors. 
-                Before this work, activation steering methods altered behavior indiscriminately across all inputs.
+                <a href="https://arxiv.org/abs/2409.05907"><strong>Conditional Activation Steering</strong></a> represents my initial attempt at gaining a programmatic influence over LLM behaviors. 
+                Previous activation steering methods altered behavior indiscriminately across all inputs.
                 CAST is more precise. 
                 By analyzing activation patterns during inference, we can apply steering conditionally based on input context. 
                 This enables rules like "if the input is about aaa or bbb or ccc but not ddd content, then refuse" while maintaining normal responses to other queries that don't fall into the conditions pre-specified by model developers.
@@ -79,7 +74,7 @@
             </div>
 
             <p>
-                If controlling what LLMs can do proves too difficult, perhaps we should flip the problem: ensure perfect control over what they cannot do. 
+                If shaping what LLMs can do proves difficult, perhaps we should focus on limiting what they cannot do. 
                 Instead of trying to steer existing capabilities, why not scope its capabilities in the first place?
                 But how?
                 Data filtering faces a fundamental challenge. 
@@ -91,14 +86,15 @@
             </p>
             </p>
                 Unlearning offers a solution where data filtering fails. 
-                Since we can't robustly control which capabilities emerge, we need to remove them post-training. 
-                This reverse approach gives us a more fine-grained control over what the models can or can't do. 
+                Since we can't robustly choose which capabilities emerge, we need to remove them post-training. 
+                This reverse approach gives us a more fine-grained influence over what the models can or can't do. 
                 Yet current unlearning methods are frustratingly fragile.
                 "Forgotten" capabilities resurface after just a few finetuning steps, and robust unlearning seems really hard.
-                Our work on <a href="https://arxiv.org/abs/2506.06278"><strong>Distillation Robustifies Unlearning</strong></a> shows that we can decompose robust unlearning into two easier problems. 
-                We break it into: (1) finding good shallow unlearning methods that suppress capabilities in a model, and (2) distilling the unlearned model (teacher) into a fresh copy of itself (student).
+                Our work on <a href="https://arxiv.org/abs/2506.06278"><strong>Distillation Robustifies Unlearning</strong></a> decomposes robust unlearning into two more manageable problems: 
+                (1) finding shallow unlearning methods that suppress capabilities, and 
+                (2) distilling the unlearned model into a fresh copy.
                 This decomposition works because distillation naturally filters out suppressed capabilities. 
-                What the teacher barely knows, the student won't learn at all.
+                What the teacher pretends not to know, the student won't learn at all.
             </p>
             
             <b>Selected Publications</b>
@@ -133,7 +129,7 @@
             <p style="color: #666; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">2022–2024</p>
             
             <p>
-                Returning to college after two years leading NLP research at a startup, I began viewing language models through a cognitive science lens. 
+                Returning to college after two years doing NLP research at a startup, I began viewing language models through a cognitive science lens. 
                 This period marked a shift from seeing LLMs as semantic embedding extractors to understanding them as potential models of cognition with crucial limitations.
             </p>
             
@@ -172,7 +168,7 @@
                 <div class="publication-content">
                     • <a href="https://arxiv.org/abs/2404.01954"><strong>HyperCLOVA X Technical Report</strong></a>
                 </div>
-                <div class="publication-venue">ArXiv</div>
+                <div class="publication-venue">Technical Report</div>
             </div>
             
             <div class="publication-item">
@@ -196,7 +192,7 @@
             <p style="color: #666; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">2019–2023</p>
             
             <p>
-                My research journey began at an EdTech NLP startup in Korea, for which I took a two-year leave from college. 
+                My research journey began at an early-stage EdTech NLP startup. 
                 This was when BERT was revolutionizing NLP, and I was fascinated by how it captured semantic components.
             </p>
             
@@ -208,7 +204,7 @@
             <p>
                 This led me to formalize and systematize over 200 handcrafted linguistic features from scattered literature, creating <a href="https://github.com/brucewlee/lftk"><strong>LFTK</strong></a> and <a href="https://github.com/brucewlee/lingfeat"><strong>LingFeat</strong></a>. 
                 These are still some of the most widely-used linguistic feature extraction libraries in the field.
-                Unlike deep embeddings that capture semantic meaning, these handcrafted features quantify the structural and stylistic components of text, from simple type-token ratios to complex syntactic dependency patterns.
+                Unlike deep embeddings that capture semantic meaning, these handcrafted features quantify the structural and stylistic components of text, from type-token ratios to syntactic dependency patterns.
             </p>
             
             <p>
@@ -246,23 +242,25 @@
         <!-- Reflection -->
         <section style="margin-bottom: 40px;">
             <h3 class="section-title">Looking Forward</h3>
-            
+
             <p>
-                My research trajectory reflects the field's evolution.
+                I think that research trajectory reflects the field's evolution.
                 First, we treated language models as feature extractors.
                 Then, we viewed them as weak models of human cognition.
-                Now, we understand them as potent and capable systems that require a deliberate effort to maintain control. 
-                Each phase built upon the last, deepening my appreciation for both the capabilities and limitations of these systems.
+                Now, we understand them as capable systems that require deliberate effort to understand and align.
+                Each phase built upon the last, deepening our understanding of both their capabilities and limitations.
             </p>
             
             <p>
-                As AI systems become more capable, some of my key questions become more urgent. 
-                How do we understand their intents or latent capabilities (what's the upper limit of what it can do)? 
-                How do we maintain meaningful human control over them? 
-                They're fundamental to our collective future.
+                As AI systems become more capable, key questions become more urgent:
+                How do we understand their latent capabilities and boundaries?
+                How do we ensure meaningful human influence as they grow more autonomous?
+                These questions are fundamental to our collective future.
             </p>
             
-            <p>I'm excited to continue this work to ensure that as AI systems grow more powerful, they stay understandable, controllable, and aligned with our intent.</p>
+            <p>
+                I'm excited to continue developing methods that help us understand, shape, and deploy AI systems safely as they become increasingly powerful.
+            </p>
             
         </section>
     </main>

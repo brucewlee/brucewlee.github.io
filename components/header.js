@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .profile-photo {
-            width: 105%;
-            max-width: 900px;
+            width: 110%;
+            max-width: 1000px;
             height: auto;
             border-radius: 20px;
         }
