@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         a { 
             color: var(--link-color);
-            text-decoration: none;
+            text-decoration: underline;
         }
 
         a:hover { 

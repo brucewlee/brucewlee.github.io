@@ -39,17 +39,17 @@
         
         <!-- Current Research -->
         <section style="margin-bottom: 40px;">
-            <h3 class="section-title">Artificial Intelligence as Capable Systems Requiring Deliberate Shaping</h3>
+            <h3 class="section-title"> Language Models as Increasingly Capable Systems </h3>
             <p style="color: #666; font-size: 0.9em; font-style: italic; margin-bottom: 15px;">2024-Present</p>
             
             <p>
-                Today, I view language models as remarkably capable systems whose behaviors we need to understand and shape deliberately.
+                Today, I view language models as capable systems whose behaviors we need to understand and shape deliberately.
                 My current work focuses on developing methods to analyze, guide, and constrain their behaviors to enable predictable deployment.
-                The goal is to ensure humans maintain meaningful influence as these systems become increasingly powerful and autonomous.
+                The goal is to maintain meaningful influence as these systems become increasingly powerful and autonomous.
             </p>
 
             <p>
-                <a href="https://arxiv.org/abs/2409.05907"><strong>Conditional Activation Steering</strong></a> represents my initial attempt at gaining a programmatic influence over LLM behaviors. 
+                <a href="https://arxiv.org/abs/2409.05907">Conditional Activation Steering</a> is my initial attempt at gaining a programmatic influence over LLM behaviors. 
                 Previous activation steering methods altered behavior indiscriminately across all inputs.
                 CAST is more precise. 
                 By analyzing activation patterns during inference, we can apply steering conditionally based on input context. 
@@ -61,11 +61,11 @@
             </div>
             
             <p>
-                In parallel, I've been exploring <a href="https://arxiv.org/abs/2502.08640"><strong>Emergent Value Systems</strong></a> in LLMs through the lens of utility functions. 
+                In parallel, I've been exploring <a href="https://arxiv.org/abs/2502.08640">Emergent Value Systems</a> in LLMs through the lens of utility functions. 
                 Surprisingly, we've discovered that larger language models develop latent value systems. 
                 Furthermore, they get more coherent and structured with scale. 
-                Similar tendencies have been reported in different contexts, including two of my works, even before we formalized them.
-                Larger LLMs already seem to have value structures like humans, and some are deeply concerning (like saving dogs over humans in certain contexts).
+                Notably, similar tendencies have been reported in different contexts before we formalized them.
+                LLMs already seem to have value structures like humans, and some are deeply concerning (like saving dogs over humans in certain contexts).
                 However, a key question here is whether these macroscopic behavioral tendencies also manifest as real internal representations with genuine implications for AI alignment and safety.
             </p>
             
@@ -90,7 +90,7 @@
                 This reverse approach gives us a more fine-grained influence over what the models can or can't do. 
                 Yet current unlearning methods are frustratingly fragile.
                 "Forgotten" capabilities resurface after just a few finetuning steps, and robust unlearning seems really hard.
-                Our work on <a href="https://arxiv.org/abs/2506.06278"><strong>Distillation Robustifies Unlearning</strong></a> decomposes robust unlearning into two more manageable problems: 
+                Our work on <a href="https://arxiv.org/abs/2506.06278">Distillation Robustifies Unlearning</a> decomposes robust unlearning into two more manageable problems: 
                 (1) finding shallow unlearning methods that suppress capabilities, and 
                 (2) distilling the unlearned model into a fresh copy.
                 This decomposition works because distillation naturally filters out suppressed capabilities. 
@@ -101,21 +101,21 @@
             <div style="margin: 20px 0; padding-left: 20px;">
                 <div class="publication-item">
                     <div class="publication-content">
-                        • <a href="https://arxiv.org/abs/2409.05907"><strong>Programming Refusal with Conditional Activation Steering</strong></a>
+                        • <a href="https://arxiv.org/abs/2409.05907">Programming Refusal with Conditional Activation Steering</a>
                     </div>
                     <div class="publication-venue">ICLR 2025 (Spotlight)</div>
                 </div>
                 
                 <div class="publication-item">
                     <div class="publication-content">
-                        • <a href="https://arxiv.org/abs/2502.08640"><strong>Utility Engineering: Analyzing and Controlling Emergent Value Systems in AIs</strong></a>
+                        • <a href="https://arxiv.org/abs/2502.08640">Utility Engineering: Analyzing and Controlling Emergent Value Systems in AIs</a>
                     </div>
                     <div class="publication-venue">ArXiv</div>
                 </div>
                 
                 <div class="publication-item">
                     <div class="publication-content">
-                        • <a href="https://arxiv.org/abs/2506.06278"><strong>Distillation Robustifies Unlearning</strong></a>
+                        • <a href="https://arxiv.org/abs/2506.06278">Distillation Robustifies Unlearning</a>
                     </div>
                     <div class="publication-venue">ArXiv</div>
                 </div>
@@ -134,8 +134,8 @@
             </p>
             
             <p>
-                At NAVER Cloud, I got a chance to work with a proprietary LLM called <a href="https://arxiv.org/abs/2404.01954"><strong>HyperClovaX</strong></a> before its public release.
-                I proposed <a href="https://arxiv.org/abs/2310.09518"><strong>Curriculum Instruction Tuning</strong></a> inspired by how humans naturally learn.
+                At NAVER Cloud, I got a chance to work with a proprietary LLM called <a href="https://arxiv.org/abs/2404.01954">HyperClovaX</a> before its public release.
+                I proposed <a href="https://arxiv.org/abs/2310.09518">Curriculum Instruction Tuning</a> inspired by how humans naturally learn.
                 Just as we teach children simple concepts before complex ones, we showed that training LLMs with complexity-ordered instructions improves knowledge retention and reduces computational costs. 
                 However, the margins were modest.
             </p>
@@ -145,16 +145,15 @@
             </p>
             
             <p>
-                But the most philosophically intriguing work came from asking: <em>What don't language models understand?</em> 
-                Drawing inspiration from Frank Jackson's thought experiment of Mary, the scientist who <em>knows</em> everything about color but has never <em>seen</em> it, we designed <a href="https://arxiv.org/abs/2402.11349"><strong>H-TEST</strong></a> to probe sensory-deprived understanding in LLMs.
+                But the most philosophically intriguing work came from asking: <em>Is there something language models fundamentally can't learn?</em> 
+                Drawing inspiration from Frank Jackson's thought experiment of Mary, the scientist who <em>knows</em> everything about color but has never <em>seen</em> it, we designed <a href="https://arxiv.org/abs/2402.11349">H-TEST</a> to probe sensory-deprived understanding in LLMs.
                 The test includes tasks that are trivial for humans but require physical experience of language: recognizing palindromes (which look the same forwards and backwards), identifying rhyming words (which sound alike), or understanding punctuation patterns.
             </p>
             <p>
                 Humans score 100% on these tasks. 
-                However, even the state-of-the-art LLMs performed at random chance (50%) on H-TEST. 
+                However, even the state-of-the-art LLMs back in 2023 performed at random chance (50%) on H-TEST. 
                 More surprisingly, giving more examples (from 4 to 50) didn't help at all. 
-                Chain-of-thought reasoning actually made performance worse, as models invented semantic explanations for what are fundamentally sensory patterns.
-                Without ever "seeing" or "hearing" language, models can't learn its physical manifestations.
+                Deliberate reasoning actually made performance worse, as models invented semantic explanations for what are fundamentally sensory patterns.
             </p>
                 
             <div class="takeaway-box">
@@ -166,21 +165,21 @@
             <b>Selected Publications</b>
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/abs/2404.01954"><strong>HyperCLOVA X Technical Report</strong></a>
+                    • <a href="https://arxiv.org/abs/2404.01954">HyperCLOVA X Technical Report</a>
                 </div>
                 <div class="publication-venue">Technical Report</div>
             </div>
             
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/abs/2310.09518"><strong>Instruction Tuning with Human Curriculum</strong></a>
+                    • <a href="https://arxiv.org/abs/2310.09518">Instruction Tuning with Human Curriculum</a>
                 </div>
                 <div class="publication-venue">NAACL 2024</div>
             </div>
             
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/abs/2402.11349"><strong>Language Models Don't Learn the Physical Manifestation of Language</strong></a>
+                    • <a href="https://arxiv.org/abs/2402.11349">Language Models Don't Learn the Physical Manifestation of Language</a>
                 </div>
                 <div class="publication-venue">ACL 2024</div>
             </div>
@@ -202,13 +201,13 @@
                 The embeddings missed stylistic elements like sentence complexity, vocabulary sophistication, and discourse patterns.
             </p>
             <p>
-                This led me to formalize and systematize over 200 handcrafted linguistic features from scattered literature, creating <a href="https://github.com/brucewlee/lftk"><strong>LFTK</strong></a> and <a href="https://github.com/brucewlee/lingfeat"><strong>LingFeat</strong></a>. 
+                This led me to formalize and systematize over 200 handcrafted linguistic features from scattered literature, creating <a href="https://github.com/brucewlee/lftk">LFTK</a> and <a href="https://github.com/brucewlee/lingfeat">LingFeat</a>. 
                 These are still some of the most widely-used linguistic feature extraction libraries in the field.
                 Unlike deep embeddings that capture semantic meaning, these handcrafted features quantify the structural and stylistic components of text, from type-token ratios to syntactic dependency patterns.
             </p>
             
             <p>
-                Our EMNLP paper <a href="https://arxiv.org/abs/2109.12258v2"><strong>A Transformer Meets Handcrafted Linguistic Features</strong></a> was the first to demonstrate that neural models and traditional linguistics can be combined for the readability assessment task.
+                Our EMNLP paper <a href="https://arxiv.org/abs/2109.12258v2">A Transformer Meets Handcrafted Linguistic Features</a> was the first to demonstrate that neural models and traditional linguistics can be combined for the readability assessment task.
                 We achieved a near-perfect 99% accuracy on a popular benchmark in readability assessment, which was a 20.3% leap over the previous state-of-the-art in 2021.
             </p>
             <p>
@@ -219,21 +218,21 @@
             <b>Selected Publications</b>
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/pdf/2305.15878"><strong>Handcrafted Features in Computational Linguistics</strong></a>
+                    • <a href="https://arxiv.org/pdf/2305.15878">Handcrafted Features in Computational Linguistics</a>
                 </div>
                 <div class="publication-venue">BEA 2023</div>
             </div>
             
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/abs/2302.13139"><strong>Prompt-based Learning for Text Readability Assessment</strong></a>
+                    • <a href="https://arxiv.org/abs/2302.13139">Prompt-based Learning for Text Readability Assessment</a>
                 </div>
                 <div class="publication-venue">EACL 2023</div>
             </div>
             
             <div class="publication-item">
                 <div class="publication-content">
-                    • <a href="https://arxiv.org/abs/2109.12258v2"><strong>A Transformer Meets Handcrafted Linguistic Features</strong></a>
+                    • <a href="https://arxiv.org/abs/2109.12258v2">A Transformer Meets Handcrafted Linguistic Features</a>
                 </div>
                 <div class="publication-venue">EMNLP 2021</div>
             </div>
@@ -244,7 +243,7 @@
             <h3 class="section-title">Looking Forward</h3>
 
             <p>
-                I think that research trajectory reflects the field's evolution.
+                I think that my research trajectory reflects the field's evolution.
                 First, we treated language models as feature extractors.
                 Then, we viewed them as weak models of human cognition.
                 Now, we understand them as capable systems that require deliberate effort to understand and align.
@@ -256,9 +255,6 @@
                 How do we understand their latent capabilities and boundaries?
                 How do we ensure meaningful human influence as they grow more autonomous?
                 These questions are fundamental to our collective future.
-            </p>
-            
-            <p>
                 I'm excited to continue developing methods that help us understand, shape, and deploy AI systems safely as they become increasingly powerful.
             </p>
             
