@@ -1,11 +1,11 @@
 {
   "version": 2,
   "eval": {
-    "eval_id": "fQH5eK3kHb74rRnBmyybhj",
-    "run_id": "QaJgi9hHZQUZGNCuhoworz",
-    "created": "2025-07-01T22:41:17-07:00",
+    "eval_id": "dReyKdP3SpJQJ7yvcRpLTE",
+    "run_id": "HdpQuY2njambRVaAdhngTL",
+    "created": "2025-07-01T23:37:07-07:00",
     "task": "task",
-    "task_id": "f7hG5QEyxitQPNsGMFoaKe",
+    "task_id": "23tcJzRjAiCCVDoEQ8ycFr",
     "task_version": 0,
     "task_attribs": {},
     "task_args": {},
@@ -19,7 +19,22 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
       ],
       "shuffled": false
     },
@@ -32,7 +47,7 @@
     "config": {
       "limit": [
         1,
-        6
+        21
       ],
       "epochs": 1,
       "epochs_reducer": [

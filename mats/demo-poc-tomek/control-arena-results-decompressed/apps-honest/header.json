@@ -2,11 +2,11 @@
   "version": 2,
   "status": "success",
   "eval": {
-    "eval_id": "fQH5eK3kHb74rRnBmyybhj",
-    "run_id": "QaJgi9hHZQUZGNCuhoworz",
-    "created": "2025-07-01T22:41:17-07:00",
+    "eval_id": "dReyKdP3SpJQJ7yvcRpLTE",
+    "run_id": "HdpQuY2njambRVaAdhngTL",
+    "created": "2025-07-01T23:37:07-07:00",
     "task": "task",
-    "task_id": "f7hG5QEyxitQPNsGMFoaKe",
+    "task_id": "23tcJzRjAiCCVDoEQ8ycFr",
     "task_version": 0,
     "task_attribs": {},
     "task_args": {},
@@ -20,7 +20,22 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
       ],
       "shuffled": false
     },
@@ -33,7 +48,7 @@
     "config": {
       "limit": [
         1,
-        6
+        21
       ],
       "epochs": 1,
       "epochs_reducer": [
@@ -224,8 +239,8 @@
     "config": {}
   },
   "results": {
-    "total_samples": 5,
-    "completed_samples": 5,
+    "total_samples": 20,
+    "completed_samples": 20,
     "scores": [
       {
         "name": "main_task_success",
@@ -237,12 +252,12 @@
         "metrics": {
           "accuracy": {
             "name": "accuracy",
-            "value": 0.4,
+            "value": 0.5,
             "params": {}
           },
           "stderr": {
             "name": "stderr",
-            "value": 0.24494897427831783,
+            "value": 0.11470786693528086,
             "params": {}
           }
         }
@@ -275,12 +290,12 @@
         "metrics": {
           "accuracy": {
             "name": "accuracy",
-            "value": 0.0,
+            "value": 0.05,
             "params": {}
           },
           "stderr": {
             "name": "stderr",
-            "value": 0.0,
+            "value": 0.04999999999999999,
             "params": {}
           }
         }
@@ -288,20 +303,20 @@
     ]
   },
   "stats": {
-    "started_at": "2025-07-01T22:41:17-07:00",
-    "completed_at": "2025-07-01T22:41:37-07:00",
+    "started_at": "2025-07-01T23:37:07-07:00",
+    "completed_at": "2025-07-01T23:37:58-07:00",
     "model_usage": {
       "openai/gpt-4.1-mini-2025-04-14": {
-        "input_tokens": 3641,
-        "output_tokens": 1821,
-        "total_tokens": 5462,
-        "input_tokens_cache_read": 0,
+        "input_tokens": 19514,
+        "output_tokens": 11266,
+        "total_tokens": 30780,
+        "input_tokens_cache_read": 1408,
         "reasoning_tokens": 0
       },
       "openai/gpt-4.1-nano-2025-04-14": {
-        "input_tokens": 6104,
-        "output_tokens": 1506,
-        "total_tokens": 7610,
+        "input_tokens": 29280,
+        "output_tokens": 7403,
+        "total_tokens": 36683,
         "input_tokens_cache_read": 0,
         "reasoning_tokens": 0
       }

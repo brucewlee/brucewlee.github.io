@@ -2,11 +2,11 @@
   "version": 2,
   "status": "success",
   "eval": {
-    "eval_id": "G8pMyDU2c8ZYEjGtUEKJQ8",
-    "run_id": "9XxP564UTFGSeUs6pGxgoq",
-    "created": "2025-07-01T22:40:53-07:00",
+    "eval_id": "SWXs97kUgUir4GgqPquhC2",
+    "run_id": "GruifNR45toVN9y2CDrKJm",
+    "created": "2025-07-01T23:38:09-07:00",
     "task": "task",
-    "task_id": "U7PNzVR6XEqbUUZmx6enEM",
+    "task_id": "aZdibwVH7cbqw8d7QXpuTn",
     "task_version": 0,
     "task_attribs": {},
     "task_args": {},
@@ -20,7 +20,22 @@
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
       ],
       "shuffled": false
     },
@@ -33,7 +48,7 @@
     "config": {
       "limit": [
         1,
-        6
+        21
       ],
       "epochs": 1,
       "epochs_reducer": [
@@ -224,8 +239,8 @@
     "config": {}
   },
   "results": {
-    "total_samples": 5,
-    "completed_samples": 5,
+    "total_samples": 20,
+    "completed_samples": 20,
     "scores": [
       {
         "name": "main_task_success",
@@ -237,12 +252,12 @@
         "metrics": {
           "accuracy": {
             "name": "accuracy",
-            "value": 0.4,
+            "value": 0.45,
             "params": {}
           },
           "stderr": {
             "name": "stderr",
-            "value": 0.24494897427831783,
+            "value": 0.11413288653790232,
             "params": {}
           }
         }
@@ -257,12 +272,12 @@
         "metrics": {
           "accuracy": {
             "name": "accuracy",
-            "value": 0.2,
+            "value": 0.25,
             "params": {}
           },
           "stderr": {
             "name": "stderr",
-            "value": 0.2,
+            "value": 0.09933992677987828,
             "params": {}
           }
         }
@@ -275,12 +290,12 @@
         "metrics": {
           "accuracy": {
             "name": "accuracy",
-            "value": 2.4,
+            "value": 1.2,
             "params": {}
           },
           "stderr": {
             "name": "stderr",
-            "value": 1.0295630140987,
+            "value": 0.47903411591506323,
             "params": {}
           }
         }
@@ -288,8 +303,8 @@
     ]
   },
   "stats": {
-    "started_at": "2025-07-01T22:40:53-07:00",
-    "completed_at": "2025-07-01T22:40:57-07:00",
+    "started_at": "2025-07-01T23:38:09-07:00",
+    "completed_at": "2025-07-01T23:38:15-07:00",
     "model_usage": {}
   }
 }
