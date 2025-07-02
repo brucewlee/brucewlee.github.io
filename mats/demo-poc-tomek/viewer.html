@@ -233,16 +233,30 @@
         const evaluationCache = new Map();
         const MAX_CACHE_SIZE = 5; // Limit cache to prevent memory issues
 
-        // Load summary
-        fetch('control-arena-results-decompressed/summary_report.json')
-            .then(r => r.json())
-            .then(data => {
-                summaryData = data;
-                populateEvaluations();
-            })
-            .catch(err => {
-                document.getElementById('evalSelect').innerHTML = '<option>Error loading summary</option>';
-            });
+        // Load summary with retry logic
+        async function loadSummary(retries = 3) {
+            for (let attempt = 0; attempt < retries; attempt++) {
+                try {
+                    if (attempt > 0) {
+                        await delay(1000 * Math.pow(2, attempt - 1));
+                    }
+                    
+                    const response = await fetch('control-arena-results-decompressed/summary_report.json');
+                    if (response.ok) {
+                        summaryData = await response.json();
+                        populateEvaluations();
+                        return;
+                    }
+                } catch (err) {
+                    console.error(`Failed to load summary (attempt ${attempt + 1}):`, err);
+                }
+            }
+            
+            document.getElementById('evalSelect').innerHTML = '<option>Error loading summary - please refresh</option>';
+        }
+        
+        // Start loading summary
+        loadSummary();
 
         function populateEvaluations() {
             const select = document.getElementById('evalSelect');
@@ -343,18 +357,32 @@
             window.currentEvalPath = path;
             window.currentSampleIds = sampleIds;
             
-            // Load first batch of samples in parallel (first 20 samples for immediate viewing and navigation)
+            // Load first batch of samples with rate limiting
             updateLoadingProgress(20, `Loading initial samples...`);
-            const initialBatch = Math.min(20, totalSamples);
+            const initialBatch = Math.min(10, totalSamples); // Reduced from 20 to 10
             const loadPromises = [];
             
-            for (let i = 0; i < initialBatch; i++) {
-                const sampleId = sampleIds.length > 0 ? sampleIds[i] : i;
-                loadPromises.push(loadSample(path, sampleId, i));
+            // Load samples in smaller concurrent batches to avoid rate limiting
+            const concurrentLimit = 3; // Max 3 concurrent requests
+            for (let i = 0; i < initialBatch; i += concurrentLimit) {
+                const batchPromises = [];
+                for (let j = i; j < Math.min(i + concurrentLimit, initialBatch); j++) {
+                    const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
+                    batchPromises.push(loadSample(path, sampleId, j));
+                }
+                
+                // Wait for this mini-batch to complete
+                await Promise.all(batchPromises);
+                
+                // Add small delay between batches
+                if (i + concurrentLimit < initialBatch) {
+                    await delay(200);
+                }
+                
+                // Update progress
+                const progress = 20 + (i / initialBatch * 70);
+                updateLoadingProgress(progress, `Loading sample ${Math.min(i + concurrentLimit, initialBatch)} of ${initialBatch}...`);
             }
-            
-            // Wait for initial batch to load
-            await Promise.all(loadPromises);
             updateLoadingProgress(90, 'Ready!');
 
             updateLoadingProgress(95, 'Finalizing...');
@@ -1166,16 +1194,41 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             }
         }
         
-        async function loadSample(path, sampleId, index) {
-            try {
-                const response = await fetch(`${path}/samples/${sampleId}_epoch_1.json`);
-                if (response.ok) {
-                    const data = await response.json();
-                    currentSamples[index] = data;
-                    return data;
+        // Add delay function for rate limiting
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        async function loadSample(path, sampleId, index, retries = 3) {
+            for (let attempt = 0; attempt < retries; attempt++) {
+                try {
+                    // Add delay between requests to avoid rate limiting
+                    if (attempt > 0) {
+                        // Exponential backoff: 1s, 2s, 4s
+                        await delay(1000 * Math.pow(2, attempt - 1));
+                    }
+                    
+                    const response = await fetch(`${path}/samples/${sampleId}_epoch_1.json`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        currentSamples[index] = data;
+                        return data;
+                    } else if (response.status === 404) {
+                        // File not found, no need to retry
+                        console.warn(`Sample ${sampleId} not found (404)`);
+                        return null;
+                    } else if (response.status === 429 || response.status >= 500) {
+                        // Rate limited or server error, retry
+                        console.warn(`Request failed with status ${response.status}, retrying...`);
+                        continue;
+                    }
+                } catch (err) {
+                    console.error(`Failed to load sample ${sampleId} (attempt ${attempt + 1}):`, err);
+                    if (attempt === retries - 1) {
+                        console.error(`Final failure for sample ${sampleId}:`, err);
+                    }
                 }
-            } catch (err) {
-                console.error(`Failed to load sample ${sampleId}:`, err);
             }
             return null;
         }
@@ -1193,30 +1246,31 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             }
         }
         
-        function preloadAdjacentSamples() {
-            // Preload next and previous 2 samples in background
+        async function preloadAdjacentSamples() {
+            // Preload next and previous samples with rate limiting
             const preloadIndices = [
-                currentSampleIndex - 2,
                 currentSampleIndex - 1,
                 currentSampleIndex + 1,
                 currentSampleIndex + 2
             ];
             
-            preloadIndices.forEach(index => {
+            // Load adjacent samples sequentially with delays
+            for (const index of preloadIndices) {
                 if (index >= 0 && index < currentSamples.length && currentSamples[index] === null) {
                     const path = window.currentEvalPath;
                     const sampleIds = window.currentSampleIds;
                     const sampleId = sampleIds.length > 0 ? sampleIds[index] : index;
                     
-                    // Load in background without await
+                    // Load with small delay to avoid rate limiting
+                    await delay(100);
                     loadSample(path, sampleId, index);
                 }
-            });
+            }
         }
         
         async function loadAllSamplesInBackground() {
-            // Load all remaining samples in batches
-            const batchSize = 20;
+            // Load all remaining samples in smaller batches with rate limiting
+            const batchSize = 5; // Reduced from 20 to 5
             const path = window.currentEvalPath;
             const sampleIds = window.currentSampleIds;
             let batchCount = 0;
@@ -1233,6 +1287,9 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                 if (batch.length > 0) {
                     await Promise.all(batch);
                     batchCount++;
+                    
+                    // Add delay between batches to avoid rate limiting
+                    await delay(500);
                     
                     // Debounce stats updates - only update every 3 batches or on the last batch
                     const isLastBatch = i + batchSize >= currentSamples.length;
