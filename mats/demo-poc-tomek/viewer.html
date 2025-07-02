@@ -367,7 +367,7 @@
             for (let i = 0; i < initialBatch; i += concurrentLimit) {
                 const batchPromises = [];
                 for (let j = i; j < Math.min(i + concurrentLimit, initialBatch); j++) {
-                    const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
+                    const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
                     batchPromises.push(loadSample(path, sampleId, j));
                 }
                 
@@ -1237,7 +1237,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             if (currentSamples[index] === null) {
                 const path = window.currentEvalPath;
                 const sampleIds = window.currentSampleIds;
-                const sampleId = sampleIds.length > 0 ? sampleIds[index] : index;
+                const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
                 
                 // Show loading indicator
                 document.getElementById('sampleContent').innerHTML = '<div style="text-align: center; padding: 50px;">Loading sample...</div>';
@@ -1259,7 +1259,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                 if (index >= 0 && index < currentSamples.length && currentSamples[index] === null) {
                     const path = window.currentEvalPath;
                     const sampleIds = window.currentSampleIds;
-                    const sampleId = sampleIds.length > 0 ? sampleIds[index] : index;
+                    const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
                     
                     // Load with small delay to avoid rate limiting
                     await delay(100);
@@ -1279,7 +1279,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                 const batch = [];
                 for (let j = i; j < Math.min(i + batchSize, currentSamples.length); j++) {
                     if (currentSamples[j] === null) {
-                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
                         batch.push(loadSample(path, sampleId, j));
                     }
                 }
@@ -1415,7 +1415,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                     const endIndex = Math.min(i + batchSize, totalSamples);
                     
                     for (let j = i; j < endIndex; j++) {
-                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
                         batchPromises.push(
                             fetch(`${evalInfo.path}/samples/${sampleId}_epoch_1.json`)
                                 .then(r => r.ok ? r.json() : null)
