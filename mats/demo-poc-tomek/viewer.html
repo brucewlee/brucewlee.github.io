@@ -233,30 +233,16 @@
         const evaluationCache = new Map();
         const MAX_CACHE_SIZE = 5; // Limit cache to prevent memory issues
 
-        // Load summary with retry logic
-        async function loadSummary(retries = 3) {
-            for (let attempt = 0; attempt < retries; attempt++) {
-                try {
-                    if (attempt > 0) {
-                        await delay(1000 * Math.pow(2, attempt - 1));
-                    }
-                    
-                    const response = await fetch('control-arena-results-decompressed/summary_report.json');
-                    if (response.ok) {
-                        summaryData = await response.json();
-                        populateEvaluations();
-                        return;
-                    }
-                } catch (err) {
-                    console.error(`Failed to load summary (attempt ${attempt + 1}):`, err);
-                }
-            }
-            
-            document.getElementById('evalSelect').innerHTML = '<option>Error loading summary - please refresh</option>';
-        }
-        
-        // Start loading summary
-        loadSummary();
+        // Load summary
+        fetch('control-arena-results-decompressed/summary_report.json')
+            .then(r => r.json())
+            .then(data => {
+                summaryData = data;
+                populateEvaluations();
+            })
+            .catch(err => {
+                document.getElementById('evalSelect').innerHTML = '<option>Error loading summary</option>';
+            });
 
         function populateEvaluations() {
             const select = document.getElementById('evalSelect');
@@ -357,32 +343,18 @@
             window.currentEvalPath = path;
             window.currentSampleIds = sampleIds;
             
-            // Load first batch of samples with rate limiting
+            // Load first batch of samples in parallel (first 20 samples for immediate viewing and navigation)
             updateLoadingProgress(20, `Loading initial samples...`);
-            const initialBatch = Math.min(10, totalSamples); // Reduced from 20 to 10
+            const initialBatch = Math.min(20, totalSamples);
             const loadPromises = [];
             
-            // Load samples in smaller concurrent batches to avoid rate limiting
-            const concurrentLimit = 3; // Max 3 concurrent requests
-            for (let i = 0; i < initialBatch; i += concurrentLimit) {
-                const batchPromises = [];
-                for (let j = i; j < Math.min(i + concurrentLimit, initialBatch); j++) {
-                    const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
-                    batchPromises.push(loadSample(path, sampleId, j));
-                }
-                
-                // Wait for this mini-batch to complete
-                await Promise.all(batchPromises);
-                
-                // Add small delay between batches
-                if (i + concurrentLimit < initialBatch) {
-                    await delay(200);
-                }
-                
-                // Update progress
-                const progress = 20 + (i / initialBatch * 70);
-                updateLoadingProgress(progress, `Loading sample ${Math.min(i + concurrentLimit, initialBatch)} of ${initialBatch}...`);
+            for (let i = 0; i < initialBatch; i++) {
+                const sampleId = sampleIds.length > 0 ? sampleIds[i] : i;
+                loadPromises.push(loadSample(path, sampleId, i));
             }
+            
+            // Wait for initial batch to load
+            await Promise.all(loadPromises);
             updateLoadingProgress(90, 'Ready!');
 
             updateLoadingProgress(95, 'Finalizing...');
@@ -655,15 +627,34 @@
         function createAttackPromptSection(sample) {
             let attackPrompt = '';
             let sideTaskDescription = '';
+            let settingDescription = '';
             
             // Try to get attack prompt from current evaluation header
             if (currentHeader?.eval?.metadata?.protocol?.policy_builder?.attack?.prompt) {
                 attackPrompt = currentHeader.eval.metadata.protocol.policy_builder.attack.prompt;
+            } else if (currentHeader?.metadata?.protocol?.policy_builder?.attack?.prompt) {
+                // Fallback to check without eval level (some header formats)
+                attackPrompt = currentHeader.metadata.protocol.policy_builder.attack.prompt;
             }
             
-            // Get side task description
+            // Debug logging
+            if (!attackPrompt && currentHeader) {
+                console.log('Header structure:', currentHeader);
+                console.log('Looking for attack prompt at eval.metadata.protocol.policy_builder.attack.prompt');
+            }
+            
+            // Get descriptions from sample metadata
             if (sample.metadata?.side_task_description) {
                 sideTaskDescription = sample.metadata.side_task_description;
+            }
+            if (sample.metadata?.setting_description) {
+                settingDescription = sample.metadata.setting_description;
+            }
+            
+            // Replace placeholders in attack prompt
+            if (attackPrompt) {
+                attackPrompt = attackPrompt.replace(/{setting_description}/g, settingDescription);
+                attackPrompt = attackPrompt.replace(/{side_task_description}/g, sideTaskDescription);
             }
             
             return `
@@ -1194,41 +1185,16 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             }
         }
         
-        // Add delay function for rate limiting
-        function delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        
-        async function loadSample(path, sampleId, index, retries = 3) {
-            for (let attempt = 0; attempt < retries; attempt++) {
-                try {
-                    // Add delay between requests to avoid rate limiting
-                    if (attempt > 0) {
-                        // Exponential backoff: 1s, 2s, 4s
-                        await delay(1000 * Math.pow(2, attempt - 1));
-                    }
-                    
-                    const response = await fetch(`${path}/samples/${sampleId}_epoch_1.json`);
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        currentSamples[index] = data;
-                        return data;
-                    } else if (response.status === 404) {
-                        // File not found, no need to retry
-                        console.warn(`Sample ${sampleId} not found (404)`);
-                        return null;
-                    } else if (response.status === 429 || response.status >= 500) {
-                        // Rate limited or server error, retry
-                        console.warn(`Request failed with status ${response.status}, retrying...`);
-                        continue;
-                    }
-                } catch (err) {
-                    console.error(`Failed to load sample ${sampleId} (attempt ${attempt + 1}):`, err);
-                    if (attempt === retries - 1) {
-                        console.error(`Final failure for sample ${sampleId}:`, err);
-                    }
+        async function loadSample(path, sampleId, index) {
+            try {
+                const response = await fetch(`${path}/samples/${sampleId}_epoch_1.json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    currentSamples[index] = data;
+                    return data;
                 }
+            } catch (err) {
+                console.error(`Failed to load sample ${sampleId}:`, err);
             }
             return null;
         }
@@ -1237,7 +1203,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             if (currentSamples[index] === null) {
                 const path = window.currentEvalPath;
                 const sampleIds = window.currentSampleIds;
-                const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
+                const sampleId = sampleIds.length > 0 ? sampleIds[index] : index;
                 
                 // Show loading indicator
                 document.getElementById('sampleContent').innerHTML = '<div style="text-align: center; padding: 50px;">Loading sample...</div>';
@@ -1246,31 +1212,30 @@ ${attackPrompt || 'Attack prompt not available in current data'}
             }
         }
         
-        async function preloadAdjacentSamples() {
-            // Preload next and previous samples with rate limiting
+        function preloadAdjacentSamples() {
+            // Preload next and previous 2 samples in background
             const preloadIndices = [
+                currentSampleIndex - 2,
                 currentSampleIndex - 1,
                 currentSampleIndex + 1,
                 currentSampleIndex + 2
             ];
             
-            // Load adjacent samples sequentially with delays
-            for (const index of preloadIndices) {
+            preloadIndices.forEach(index => {
                 if (index >= 0 && index < currentSamples.length && currentSamples[index] === null) {
                     const path = window.currentEvalPath;
                     const sampleIds = window.currentSampleIds;
-                    const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
+                    const sampleId = sampleIds.length > 0 ? sampleIds[index] : index;
                     
-                    // Load with small delay to avoid rate limiting
-                    await delay(100);
+                    // Load in background without await
                     loadSample(path, sampleId, index);
                 }
-            }
+            });
         }
         
         async function loadAllSamplesInBackground() {
-            // Load all remaining samples in smaller batches with rate limiting
-            const batchSize = 5; // Reduced from 20 to 5
+            // Load all remaining samples in batches
+            const batchSize = 20;
             const path = window.currentEvalPath;
             const sampleIds = window.currentSampleIds;
             let batchCount = 0;
@@ -1279,7 +1244,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                 const batch = [];
                 for (let j = i; j < Math.min(i + batchSize, currentSamples.length); j++) {
                     if (currentSamples[j] === null) {
-                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
                         batch.push(loadSample(path, sampleId, j));
                     }
                 }
@@ -1287,9 +1252,6 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                 if (batch.length > 0) {
                     await Promise.all(batch);
                     batchCount++;
-                    
-                    // Add delay between batches to avoid rate limiting
-                    await delay(500);
                     
                     // Debounce stats updates - only update every 3 batches or on the last batch
                     const isLastBatch = i + batchSize >= currentSamples.length;
@@ -1391,19 +1353,23 @@ ${attackPrompt || 'Attack prompt not available in current data'}
         async function createEvaluationCard(evalInfo) {
             // Load samples in parallel batches for better performance
             let allSamples = [];
+            let headerData = null;
+            
             try {
-                // First try to get sample IDs from start.json
+                // First load header and start.json in parallel
+                const [headerResponse, startResponse] = await Promise.allSettled([
+                    fetch(`${evalInfo.path}/header.json`).then(r => r.ok ? r.json() : null),
+                    fetch(`${evalInfo.path}/_journal/start.json`).then(r => r.ok ? r.json() : null)
+                ]);
+                
+                headerData = headerResponse.status === 'fulfilled' ? headerResponse.value : null;
+                
                 let sampleIds = [];
-                try {
-                    const startResponse = await fetch(`${evalInfo.path}/_journal/start.json`);
-                    if (startResponse.ok) {
-                        const startData = await startResponse.json();
-                        if (startData.eval && startData.eval.dataset && startData.eval.dataset.sample_ids) {
-                            sampleIds = startData.eval.dataset.sample_ids;
-                        }
+                if (startResponse.status === 'fulfilled' && startResponse.value) {
+                    const startData = startResponse.value;
+                    if (startData.eval && startData.eval.dataset && startData.eval.dataset.sample_ids) {
+                        sampleIds = startData.eval.dataset.sample_ids;
                     }
-                } catch (err) {
-                    // Ignore error, will try sequential numbering
                 }
 
                 // Load samples in parallel batches
@@ -1415,7 +1381,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                     const endIndex = Math.min(i + batchSize, totalSamples);
                     
                     for (let j = i; j < endIndex; j++) {
-                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j;
                         batchPromises.push(
                             fetch(`${evalInfo.path}/samples/${sampleId}_epoch_1.json`)
                                 .then(r => r.ok ? r.json() : null)
@@ -1432,7 +1398,7 @@ ${attackPrompt || 'Attack prompt not available in current data'}
                     const stats = calculateStatsForSamples(allSamples);
                     cacheEvaluation(evalInfo.path, {
                         samples: allSamples,
-                        header: null,
+                        header: headerData,
                         evalPath: evalInfo.path,
                         sampleIds: sampleIds,
                         stats: stats
