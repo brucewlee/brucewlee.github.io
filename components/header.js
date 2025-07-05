@@ -330,4 +330,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.head.appendChild(mathjaxConfig);
     document.head.appendChild(mathjaxScript);
+
+    // Google Analytics
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-XESS2TDK8Y';
+    document.head.appendChild(gaScript);
+
+    const gaConfig = document.createElement('script');
+    gaConfig.textContent = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XESS2TDK8Y');
+    `;
+    document.head.appendChild(gaConfig);
 });
