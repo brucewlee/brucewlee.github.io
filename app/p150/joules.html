@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rowing Joules Calculator</title>
+    <link rel="icon" type="image/x-icon" href="/pictures/logo.ico">
+    <style>
+        body {
+            font-family: 'Palatino Linotype';
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2 { color: #2c3e50; }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100px;
+            margin-right: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            color: #666;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f4f8;
+            border-radius: 4px;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .result-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        button {
+            background: #191970;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .info-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-explanation {
+            margin-bottom: 20px;
+        }
+        .metric-explanation h3 {
+            color: #191970;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rowing Joules Calculator</h1>
+    
+    <div class="calculator">
+        <div class="input-group">
+            <label>Stroke Rate:</label>
+            <input type="number" id="strokeRate" step="0.1" placeholder="e.g., 38">
+        </div>
+        
+        <div class="input-group">
+            <label>Average Watts:</label>
+            <input type="number" id="watts" step="0.1" placeholder="e.g., 367.4">
+        </div>
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div class="result">
+            <div class="result-row">
+                <span class="result-label">Time Per Stroke:</span>
+                <span id="timePerStroke">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Joules:</span>
+                <span id="joules">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">2K Time:</span>
+                <span id="time2k">-</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">5K Time:</span>
+                <span id="time5k">-</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>Understanding the Metrics</h2>
+        
+        <div class="metric-explanation">
+            <h3>Watts</h3>
+            <p>Watts measure power output - the rate at which energy is being used. In rowing, it's a direct measure of how hard you're working. Higher watts mean more power per stroke and generally faster splits.</p>
+        </div>
+
+        <div class="metric-explanation">
+            <h3>Stroke Rate</h3>
+            <p>Measured in strokes per minute (spm), stroke rate indicates how many complete stoke cycles you do per minute.</p>
+        </div>
+
+        <div class="metric-explanation">
+            <h3>Joules</h3>
+            <p>Joules measure the energy per stroke. It's calculated as (Watts × 60) ÷ Stroke Rate. This tells you how much energy you're putting into each individual stroke, regardless of how fast you're taking the strokes. Higher joules typically indicate stronger, more efficient strokes.</p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const strokeRate = parseFloat(document.getElementById('strokeRate').value);
+            const watts = parseFloat(document.getElementById('watts').value);
+
+            if (!strokeRate || !watts) return;
+
+            // Calculate time per stroke (60/strokeRate)
+            const timePerStroke = 60 / strokeRate;
+
+            // Calculate joules ((watts * 60) / strokeRate)
+            const joules = (watts * 60) / strokeRate;
+
+            // Display results
+            document.getElementById('timePerStroke').textContent = timePerStroke.toFixed(2) + ' seconds';
+            document.getElementById('joules').textContent = joules.toFixed(2);
+            document.getElementById('time2k').textContent = '6:07.0';  // Need formula
+            document.getElementById('time5k').textContent = '15:17.5'; // Need formula
+        }
+    </script>
+</body>
+</html>

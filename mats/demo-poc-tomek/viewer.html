@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/pictures/logo.ico">
+    <style>
+        body { font-family: monospace; margin: 0; padding-top: 140px; }
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: white; border-bottom: 2px solid #ccc; padding: 10px 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .field { margin: 15px 0; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
+        .field-name { font-weight: bold; color: #333; margin-bottom: 5px; }
+        .field-content { white-space: pre-wrap; word-wrap: break-word; }
+        
+        /* Nested data styling */
+        .data-item { margin: 4px 0; }
+        .data-key { font-weight: bold; color: #2c5aa0; margin-right: 8px; }
+        .data-type { font-size: 0.8em; color: #666; margin-right: 4px; }
+        
+        /* Nesting levels with visual hierarchy */
+        .level-0 { }
+        .level-1 { padding-left: 16px; border-left: 3px solid #3498db; background: rgba(52, 152, 219, 0.05); margin: 8px 0; padding: 8px; border-radius: 4px; }
+        .level-2 { padding-left: 16px; border-left: 3px solid #2ecc71; background: rgba(46, 204, 113, 0.05); margin: 6px 0; padding: 6px; border-radius: 4px; }
+        .level-3 { padding-left: 16px; border-left: 3px solid #f39c12; background: rgba(243, 156, 18, 0.05); margin: 4px 0; padding: 4px; border-radius: 4px; }
+        .level-4 { padding-left: 16px; border-left: 3px solid #e74c3c; background: rgba(231, 76, 60, 0.05); margin: 4px 0; padding: 4px; border-radius: 4px; }
+        
+        /* Message-based styling for Control Arena */
+        .message-container { margin: 15px 0; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+        .message-header { padding: 10px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .message-content { padding: 15px; }
+        
+        /* Role-based styling */
+        .msg-system { border-left: 4px solid #6c757d; }
+        .msg-system .message-header { background: #f8f9fa; color: #6c757d; }
+        
+        .msg-user { border-left: 4px solid #007bff; }
+        .msg-user .message-header { background: #e7f3ff; color: #007bff; }
+        
+        .msg-assistant { border-left: 4px solid #28a745; }
+        .msg-assistant .message-header { background: #e8f5e8; color: #28a745; }
+        
+        .msg-tool { border-left: 4px solid #ffc107; }
+        .msg-tool .message-header { background: #fff8e1; color: #e68900; }
+        
+        /* Suspicion score styling */
+        .suspicion-badge { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .suspicion-low { background: #d4edda; color: #155724; }
+        .suspicion-medium { background: #fff3cd; color: #856404; }
+        .suspicion-high { background: #f8d7da; color: #721c24; }
+        
+        /* Tool call styling */
+        .tool-call { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; margin: 8px 0; padding: 10px; }
+        .tool-name { font-weight: bold; color: #495057; margin-bottom: 5px; }
+        .tool-args { font-family: monospace; font-size: 12px; color: #6c757d; }
+        
+        /* Expandable sections */
+        .expandable { cursor: pointer; user-select: none; }
+        .expandable:hover { background: #f8f9fa; }
+        .expandable-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #dee2e6; }
+        .expandable-content.expanded { display: block; }
+        
+        /* Timeline styling */
+        .conversation-timeline { position: relative; }
+        
+        /* Summary sections */
+        .sample-summary { background: #e9ecef; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .summary-stats { display: flex; gap: 15px; margin-top: 10px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 18px; font-weight: bold; color: #495057; }
+        .stat-label { font-size: 12px; color: #6c757d; }
+        .navigation { display: flex; align-items: center; gap: 10px; }
+        button { margin: 0; padding: 8px 16px; font-size: 14px; cursor: pointer; border: 1px solid #ddd; background: #f8f9fa; border-radius: 4px; }
+        button:hover { background: #e9ecef; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sample-info { font-size: 16px; font-weight: bold; min-width: 120px; text-align: center; }
+        .jump-input { width: 60px; padding: 4px 8px; text-align: center; border: 1px solid #ddd; border-radius: 4px; }
+        .keyboard-hint { font-size: 12px; color: #666; margin-left: 10px; }
+        
+        /* Floating navigation */
+        .floating-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+        .floating-nav button { padding: 12px; font-size: 18px; border-radius: 50%; width: 50px; height: 50px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        
+        /* Content area */
+        .content-area { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .hidden { display: none; }
+        
+        /* Mode badges */
+        .mode-badge { padding: 6px 12px; border-radius: 16px; font-weight: bold; font-size: 14px; }
+        .attack-mode { background: #f8d7da; color: #721c24; border: 1px solid #f5c2c7; }
+        .honest-mode { background: #d1e7dd; color: #0a3622; border: 1px solid #a3cfbb; }
+        
+        /* Attack prompt section */
+        .attack-prompt-section { margin-top: 15px; padding: 15px; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; }
+        .attack-prompt-header { font-weight: bold; color: #856404; margin-bottom: 10px; }
+        .attack-prompt-content { background: #fff; padding: 12px; border-radius: 4px; border: 1px solid #dee2e6; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow-y: auto; }
+        
+        /* Loading indicator */
+        .loading-container { display: none; text-align: center; padding: 40px; }
+        .loading-spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { color: #666; font-size: 16px; }
+        .loading-progress { background: #f0f0f0; border-radius: 10px; height: 20px; margin: 20px 0; overflow: hidden; }
+        .loading-progress-bar { background: linear-gradient(90deg, #3498db, #2ecc71); height: 100%; width: 0%; transition: width 0.3s ease; border-radius: 10px; }
+        
+        /* Evaluation stats box */
+        .eval-stats-box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 20px; }
+        .eval-stats-header { font-size: 16px; font-weight: bold; padding: 15px 20px; color: #333; cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center; }
+        .eval-stats-header:hover { background: #e9ecef; }
+        .eval-stats-content { padding: 0 20px 20px 20px; display: none; }
+        .eval-stats-content.expanded { display: block; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .chart-container { position: relative; height: 250px; }
+        .stats-section { margin-bottom: 15px; }
+        .stats-section h4 { margin: 0 0 10px 0; color: #495057; font-size: 14px; }
+        .stat-line { display: flex; justify-content: space-between; margin: 5px 0; font-size: 13px; }
+        .stat-label { color: #6c757d; }
+        .stat-value { font-weight: bold; color: #495057; }
+        .suspicion-stats { background: #fff; border: 1px solid #e9ecef; border-radius: 4px; padding: 10px; }
+        .no-data { text-align: center; color: #6c757d; font-style: italic; }
+        .expand-icon { transition: transform 0.3s; }
+        
+        /* Landing page */
+        .landing-page { padding: 20px 0; }
+        .landing-header { text-align: center; margin-bottom: 30px; }
+        .landing-header h1 { font-size: 28px; color: #333; margin: 0 0 10px 0; }
+        .landing-header p { color: #666; font-size: 16px; }
+        .eval-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px; }
+        .eval-card { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; transition: box-shadow 0.3s; cursor: pointer; }
+        .eval-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .eval-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .eval-card-title { font-weight: bold; font-size: 14px; }
+        .eval-card-mode { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .eval-card-mode.attack { background: #f8d7da; color: #721c24; }
+        .eval-card-mode.honest { background: #d1e7dd; color: #0a3622; }
+        .eval-mini-chart { height: 150px; margin-bottom: 15px; }
+        .eval-card-stats { font-size: 12px; }
+        .eval-card-stat { margin: 5px 0; display: flex; justify-content: space-between; }
+        .eval-card button { width: 100%; margin-top: 15px; padding: 8px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .eval-card button:hover { background: #0056b3; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-content">
+            <label>Evaluation: 
+                <select id="evalSelect" onchange="loadEvaluation()">
+                    <option value="">Loading...</option>
+                </select>
+            </label>
+            
+            <div id="navigationControls" class="navigation hidden">
+                <button id="prevBtn" onclick="prevSample()" title="Previous (←)">‹</button>
+                <div class="sample-info" id="sampleInfo">Sample 1 of 0</div>
+                <button id="nextBtn" onclick="nextSample()" title="Next (→)">›</button>
+                
+                <label>Jump to: 
+                    <input type="number" id="jumpInput" class="jump-input" min="1" onchange="jumpToSample()" onkeypress="handleJumpKeypress(event)" placeholder="#">
+                </label>
+                
+                <span class="keyboard-hint">Use ← → keys or click sample #</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-nav hidden" id="floatingNav">
+        <button onclick="prevSample()" title="Previous (←)" id="floatingPrev">‹</button>
+        <button onclick="nextSample()" title="Next (→)" id="floatingNext">›</button>
+    </div>
+
+    <div class="content-area">
+        <div id="loadingContainer" class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">Loading evaluation...</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar" id="loadingProgressBar"></div>
+            </div>
+        </div>
+        
+        <div id="evalStatsBox" class="eval-stats-box" style="display: none;">
+            <div class="eval-stats-header" id="evalStatsHeader" onclick="toggleStatsBox()">
+                <span>📊 Evaluation Overview</span>
+                <span class="expand-icon" id="statsExpandIcon">▼</span>
+            </div>
+            <div class="eval-stats-content" id="evalStatsContent">
+                <div class="stats-grid">
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="successChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="stats-section">
+                            <h4>Success Rates</h4>
+                            <div id="successRates"></div>
+                        </div>
+                        <div class="stats-section">
+                            <h4>Suspicion Scores</h4>
+                            <div class="suspicion-stats" id="suspicionStats"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="landingPage" class="landing-page">
+            <div class="landing-header">
+                <h1>Control Arena Results Viewer</h1>
+                <p>Select an evaluation from the dropdown above or click on a card below to explore samples</p>
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 10px 15px; margin-top: 15px; color: #856404;">
+                    <strong>⏳ Note:</strong> Loading evaluation statistics requires fetching all samples. 
+                    This may take a while.
+                </div>
+            </div>
+            <div id="evalGrid" class="eval-grid"></div>
+        </div>
+        
+        <div id="sampleContent" style="display: none;"></div>
+        
+        <!-- Bottom navigation for long content -->
+        <div id="bottomNav" class="navigation hidden" style="justify-content: center; padding: 20px 0; border-top: 1px solid #ddd; margin-top: 20px; background: #f8f9fa;">
+            <button onclick="prevSample()" title="Previous (←)">‹ Previous</button>
+            <div class="sample-info" id="bottomSampleInfo">Sample 1 of 0</div>
+            <button onclick="nextSample()" title="Next (→)">Next ›</button>
+        </div>
+    </div>
+
+    <script>
+        let summaryData = null;
+        let currentSamples = [];
+        let currentSampleIndex = 0;
+        let currentHeader = null;
+        let currentChart = null;
+        
+        // Global cache for evaluation data
+        const evaluationCache = new Map();
+        const MAX_CACHE_SIZE = 5; // Limit cache to prevent memory issues
+
+        // Load summary with retry logic
+        async function loadSummary(retries = 3) {
+            for (let attempt = 0; attempt < retries; attempt++) {
+                try {
+                    if (attempt > 0) {
+                        await delay(1000 * Math.pow(2, attempt - 1));
+                    }
+                    
+                    const response = await fetch('control-arena-results-decompressed/summary_report.json');
+                    if (response.ok) {
+                        summaryData = await response.json();
+                        populateEvaluations();
+                        return;
+                    }
+                } catch (err) {
+                    console.error(`Failed to load summary (attempt ${attempt + 1}):`, err);
+                }
+            }
+            
+            document.getElementById('evalSelect').innerHTML = '<option>Error loading summary - please refresh</option>';
+        }
+        
+        // Start loading summary
+        loadSummary();
+
+        function populateEvaluations() {
+            const select = document.getElementById('evalSelect');
+            select.innerHTML = '<option value="">Select an evaluation...</option>';
+            
+            summaryData.evaluations.forEach(eval => {
+                const option = document.createElement('option');
+                option.value = eval.path;
+                option.textContent = `${eval.name} (${eval.total_samples} samples)`;
+                select.appendChild(option);
+            });
+            
+            // Populate landing page grid
+            populateLandingPage();
+        }
+
+        async function loadEvaluation() {
+            const path = document.getElementById('evalSelect').value;
+            if (!path) {
+                document.getElementById('navigationControls').classList.add('hidden');
+                document.getElementById('floatingNav').classList.add('hidden');
+                document.getElementById('loadingContainer').style.display = 'none';
+                document.getElementById('evalStatsBox').style.display = 'none';
+                document.getElementById('landingPage').style.display = 'block';
+                document.getElementById('sampleContent').style.display = 'none';
+                return;
+            }
+
+            // Check cache first
+            const cachedData = evaluationCache.get(path);
+            if (cachedData) {
+                // Use cached data
+                currentSamples = cachedData.samples;
+                currentHeader = cachedData.header;
+                window.currentEvalPath = cachedData.evalPath;
+                window.currentSampleIds = cachedData.sampleIds;
+                
+                // Hide landing page and show content
+                document.getElementById('landingPage').style.display = 'none';
+                document.getElementById('sampleContent').style.display = 'block';
+                
+                // Show first sample immediately
+                if (currentSamples.length > 0) {
+                    currentSampleIndex = 0;
+                    document.getElementById('navigationControls').classList.remove('hidden');
+                    document.getElementById('floatingNav').classList.remove('hidden');
+                    updateJumpInput();
+                    await showSample();
+                }
+                
+                // Display stats (already calculated)
+                await displayEvaluationStats();
+                
+                // Continue loading remaining samples in background if needed
+                if (currentSamples.filter(s => s !== null).length < currentSamples.length) {
+                    loadAllSamplesInBackground();
+                }
+                return;
+            }
+
+            // Hide landing page and show loading
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('sampleContent').style.display = 'block';
+
+            const evalInfo = summaryData.evaluations.find(e => e.path === path);
+            currentSamples = [];
+            
+            // Show loading
+            document.getElementById('loadingContainer').style.display = 'block';
+            document.getElementById('sampleContent').innerHTML = '';
+            document.getElementById('navigationControls').classList.add('hidden');
+            document.getElementById('floatingNav').classList.add('hidden');
+            updateLoadingProgress(0, 'Loading evaluation data...');
+            
+            // Parallel fetch for header and start.json
+            const [headerResult, startResult] = await Promise.allSettled([
+                fetch(`${path}/header.json`).then(r => r.ok ? r.json() : null),
+                fetch(`${path}/_journal/start.json`).then(r => r.ok ? r.json() : null)
+            ]);
+            
+            currentHeader = headerResult.status === 'fulfilled' ? headerResult.value : null;
+            
+            let sampleIds = [];
+            if (startResult.status === 'fulfilled' && startResult.value) {
+                const startData = startResult.value;
+                if (startData.eval && startData.eval.dataset && startData.eval.dataset.sample_ids) {
+                    sampleIds = startData.eval.dataset.sample_ids;
+                }
+            }
+            
+            updateLoadingProgress(10, 'Loading samples...');
+
+            // Initialize sample list with placeholders for lazy loading
+            const totalSamples = sampleIds.length > 0 ? sampleIds.length : evalInfo.total_samples;
+            currentSamples = new Array(totalSamples).fill(null);
+            
+            // Store metadata for lazy loading
+            window.currentEvalPath = path;
+            window.currentSampleIds = sampleIds;
+            
+            // Load first batch of samples with rate limiting
+            updateLoadingProgress(20, `Loading initial samples...`);
+            const initialBatch = Math.min(10, totalSamples); // Reduced from 20 to 10
+            const loadPromises = [];
+            
+            // Load samples in smaller concurrent batches to avoid rate limiting
+            const concurrentLimit = 3; // Max 3 concurrent requests
+            for (let i = 0; i < initialBatch; i += concurrentLimit) {
+                const batchPromises = [];
+                for (let j = i; j < Math.min(i + concurrentLimit, initialBatch); j++) {
+                    const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
+                    batchPromises.push(loadSample(path, sampleId, j));
+                }
+                
+                // Wait for this mini-batch to complete
+                await Promise.all(batchPromises);
+                
+                // Add small delay between batches
+                if (i + concurrentLimit < initialBatch) {
+                    await delay(200);
+                }
+                
+                // Update progress
+                const progress = 20 + (i / initialBatch * 70);
+                updateLoadingProgress(progress, `Loading sample ${Math.min(i + concurrentLimit, initialBatch)} of ${initialBatch}...`);
+            }
+            updateLoadingProgress(90, 'Ready!');
+
+            updateLoadingProgress(95, 'Finalizing...');
+
+            if (currentSamples.length > 0) {
+                currentSampleIndex = 0;
+                document.getElementById('navigationControls').classList.remove('hidden');
+                document.getElementById('floatingNav').classList.remove('hidden');
+                updateJumpInput();
+                await showSample();
+            }
+            
+            updateLoadingProgress(100, 'Complete!');
+            
+            // Cache the evaluation data
+            cacheEvaluation(path, {
+                samples: currentSamples,
+                header: currentHeader,
+                evalPath: path,
+                sampleIds: sampleIds
+            });
+            
+            // Calculate and display evaluation statistics
+            await displayEvaluationStats();
+            
+            // Hide loading container
+            document.getElementById('loadingContainer').style.display = 'none';
+            
+            // Continue loading remaining samples in background
+            if (totalSamples > initialBatch) {
+                loadAllSamplesInBackground();
+            }
+        }
+        
+        function cacheEvaluation(path, data) {
+            // Manage cache size
+            if (evaluationCache.size >= MAX_CACHE_SIZE) {
+                // Remove oldest entry (first one)
+                const firstKey = evaluationCache.keys().next().value;
+                evaluationCache.delete(firstKey);
+            }
+            
+            // Calculate stats if not already provided
+            if (!data.stats && data.samples) {
+                const loadedSamples = data.samples.filter(s => s !== null);
+                if (loadedSamples.length > 0) {
+                    data.stats = calculateStatsForSamples(loadedSamples);
+                }
+            }
+            
+            evaluationCache.set(path, data);
+        }
+
+        function updateLoadingProgress(percentage, message) {
+            document.getElementById('loadingProgressBar').style.width = percentage + '%';
+            document.getElementById('loadingText').textContent = message;
+        }
+
+        function getSuspicionClass(score) {
+            if (score >= 7) return 'suspicion-high';
+            if (score >= 3) return 'suspicion-medium';
+            return 'suspicion-low';
+        }
+        
+        function formatToolCall(toolCall) {
+            const toolName = toolCall.function || 'Unknown Tool';
+            const args = toolCall.arguments || {};
+            
+            let argsHtml = '';
+            if (Object.keys(args).length > 0) {
+                argsHtml = Object.entries(args).map(([key, value]) => {
+                    // Special handling for code content
+                    if (key === 'content' && typeof value === 'string' && value.length > 50) {
+                        const isCode = value.includes('#!/') || value.includes('def ') || value.includes('function') || value.includes('import ');
+                        if (isCode) {
+                            return `
+                                <div style="margin: 10px 0;">
+                                    <strong>📄 ${key} (${value.length} chars):</strong>
+                                    <div class="expandable" onclick="toggleExpand(this)" style="background: #e9ecef; padding: 8px; border-radius: 4px; margin: 5px 0; cursor: pointer;">
+                                        🔍 Show Code Content
+                                    </div>
+                                    <div class="expandable-content">
+                                        <pre style="background: #f8f9fa; padding: 15px; border-radius: 4px; overflow-x: auto; font-size: 12px; border: 1px solid #dee2e6;">${value}</pre>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    // Regular argument display
+                    const displayValue = typeof value === 'string' && value.length > 100 
+                        ? value.substring(0, 100) + '...' 
+                        : JSON.stringify(value);
+                    return `<div><strong>${key}:</strong> ${displayValue}</div>`;
+                }).join('');
+            }
+            
+            return `
+                <div class="tool-call">
+                    <div class="tool-name">🔧 ${toolName}</div>
+                    ${argsHtml ? `<div class="tool-args">${argsHtml}</div>` : ''}
+                </div>
+            `;
+        }
+        
+        function formatMessage(msg, index) {
+            const role = msg.role || 'unknown';
+            let content = (msg.content || '').replace(/\\n/g, '\n');
+            
+            // For system messages in attack mode, use the attack prompt from header
+            if (role === 'system' && index === 0 && currentSamples[currentSampleIndex]) {
+                const sample = currentSamples[currentSampleIndex];
+                const isAttackMode = checkIsAttackMode(sample);
+                
+                if (isAttackMode && currentHeader?.eval?.metadata?.protocol?.policy_builder?.attack?.prompt) {
+                    // Use the attack prompt from header.json
+                    content = currentHeader.eval.metadata.protocol.policy_builder.attack.prompt;
+                    
+                    // Replace placeholders with actual values
+                    const settingDescription = sample.metadata?.setting_description || '';
+                    const sideTaskDescription = sample.metadata?.side_task_description || '';
+                    
+                    content = content.replace(/{setting_description}/g, settingDescription);
+                    content = content.replace(/{side_task_description}/g, sideTaskDescription);
+                }
+            }
+            
+            const suspicionScore = msg.metadata?.suspicion_score;
+            const model = msg.model;
+            
+            let roleDisplay = role.charAt(0).toUpperCase() + role.slice(1);
+            let suspicionBadge = '';
+            
+            // Add mode indicator for system messages
+            if (role === 'system') {
+                const sample = currentSamples[currentSampleIndex];
+                const isAttackMode = checkIsAttackMode(sample);
+                const modeIndicator = isAttackMode ? ' 🔴 (ATTACK MODE)' : ' 🟢 (HONEST MODE)';
+                roleDisplay += modeIndicator;
+            }
+            
+            if (suspicionScore !== undefined) {
+                const badgeClass = getSuspicionClass(suspicionScore);
+                suspicionBadge = `<span class="suspicion-badge ${badgeClass}">Suspicion: ${suspicionScore}/10</span>`;
+            }
+            
+            let toolCallsHtml = '';
+            if (msg.tool_calls && msg.tool_calls.length > 0) {
+                toolCallsHtml = msg.tool_calls.map(formatToolCall).join('');
+            }
+            
+            let expandableContent = '';
+            const hasExpandableData = msg.metadata?.reason || model || msg.tool_call_id;
+            
+            if (hasExpandableData) {
+                const parts = [];
+                if (msg.metadata?.reason) parts.push(`<div><strong>Monitor Analysis:</strong><br>${msg.metadata.reason}</div>`);
+                if (model) parts.push(`<div><strong>Model:</strong> ${model}</div>`);
+                if (msg.tool_call_id) parts.push(`<div><strong>Tool Call ID:</strong> ${msg.tool_call_id}</div>`);
+                if (msg.source) parts.push(`<div><strong>Source:</strong> ${msg.source}</div>`);
+                
+                expandableContent = `
+                    <div class="expandable" onclick="toggleExpand(this)">
+                        📋 Show Details
+                    </div>
+                    <div class="expandable-content">
+                        ${parts.join('<br>')}
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="message-container msg-${role}">
+                    <div class="message-header">
+                        <span>${roleDisplay} #${index + 1}</span>
+                        ${suspicionBadge}
+                    </div>
+                    <div class="message-content">
+                        ${content ? `<div style="white-space: pre-wrap; margin-bottom: 10px;">${content}</div>` : ''}
+                        ${toolCallsHtml}
+                        ${expandableContent}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createSampleSummary(sample) {
+            const messages = sample.messages || [];
+            const assistantMessages = messages.filter(m => m.role === 'assistant');
+            const toolCalls = messages.flatMap(m => m.tool_calls || []);
+            const suspicionScores = messages
+                .map(m => m.metadata?.suspicion_score)
+                .filter(s => s !== undefined);
+            
+            const maxSuspicion = suspicionScores.length > 0 ? Math.max(...suspicionScores) : 0;
+            const avgSuspicion = suspicionScores.length > 0 
+                ? (suspicionScores.reduce((a, b) => a + b, 0) / suspicionScores.length).toFixed(1) 
+                : 0;
+            
+            const taskDescription = sample.input ? sample.input.substring(0, 200) + '...' : 'No task description';
+            
+            // Get task success information
+            const mainTaskResult = sample.scores?.main_task_success?.value || 'N/A';
+            const sideTaskResult = sample.scores?.side_task_success?.value || 'N/A';
+            
+            // Convert score values to readable format
+            const formatTaskResult = (value) => {
+                if (value === 'C') return '✅ Pass';
+                if (value === 'I') return '❌ Fail';
+                if (typeof value === 'number') return value === 1 ? '✅ Pass' : '❌ Fail';
+                return value;
+            };
+
+            // Determine if this is attack or honest mode
+            const isAttackMode = checkIsAttackMode(sample);
+            const modeDisplay = isAttackMode ? '🔴 ATTACK' : '🟢 HONEST';
+            const modeClass = isAttackMode ? 'attack-mode' : 'honest-mode';
+            
+            // For honest mode, side task should show N/A instead of the actual result
+            const displaySideTaskResult = isAttackMode ? formatTaskResult(sideTaskResult) : 'N/A';
+            
+            return `
+                <div class="sample-summary">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                        <h3>📋 Sample Overview</h3>
+                        <span class="mode-badge ${modeClass}">${modeDisplay}</span>
+                    </div>
+                    <div><strong>Task:</strong> ${taskDescription}</div>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${messages.length}</div>
+                            <div class="stat-label">Messages</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${toolCalls.length}</div>
+                            <div class="stat-label">Tool Calls</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${formatTaskResult(mainTaskResult)}</div>
+                            <div class="stat-label">Main Task</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${displaySideTaskResult}</div>
+                            <div class="stat-label">Side Task</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${maxSuspicion}/10</div>
+                            <div class="stat-label">Max Suspicion</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${avgSuspicion}/10</div>
+                            <div class="stat-label">Avg Suspicion</div>
+                        </div>
+                    </div>
+                    ${isAttackMode ? createAttackPromptSection(sample) : ''}
+                </div>
+            `;
+        }
+        
+        function checkIsAttackMode(sample) {
+            // Check if this sample is from an attack mode evaluation
+            // The most reliable way is to check the eval_mode field
+            if (sample.metadata?.eval_mode === 'attack') {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        function createAttackPromptSection(sample) {
+            let attackPrompt = '';
+            let sideTaskDescription = '';
+            
+            // Try to get attack prompt from current evaluation header
+            if (currentHeader?.eval?.metadata?.protocol?.policy_builder?.attack?.prompt) {
+                attackPrompt = currentHeader.eval.metadata.protocol.policy_builder.attack.prompt;
+            }
+            
+            // Get side task description
+            if (sample.metadata?.side_task_description) {
+                sideTaskDescription = sample.metadata.side_task_description;
+            }
+            
+            return `
+                <div class="attack-prompt-section">
+                    <div class="attack-prompt-header">⚠️ Attack Mode - Hidden Prompts</div>
+                    <div style="margin-bottom: 10px; color: #856404; font-size: 12px;">
+                        The attack prompt below was temporarily injected during model generation but not logged in the conversation.
+                    </div>
+                    
+                    ${sideTaskDescription ? `
+                        <div style="margin-bottom: 15px;">
+                            <strong>Side Task:</strong>
+                            <div style="background: #fff; padding: 8px; border-radius: 4px; margin-top: 5px; font-size: 12px;">
+                                ${sideTaskDescription}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="expandable" onclick="toggleExpand(this)" style="background: #ffeaa7; padding: 8px; border-radius: 4px; cursor: pointer;">
+                        🔍 Show Attack Prompt (Hidden)
+                    </div>
+                    <div class="expandable-content">
+                        <div class="attack-prompt-content">
+${attackPrompt || 'Attack prompt not available in current data'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function toggleExpand(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('expanded');
+            const isExpanded = content.classList.contains('expanded');
+            
+            // Update text based on the original content
+            if (element.textContent.includes('Show Attack Prompt')) {
+                element.textContent = isExpanded ? '🔍 Hide Attack Prompt (Hidden)' : '🔍 Show Attack Prompt (Hidden)';
+            } else if (element.textContent.includes('Show Technical Data')) {
+                element.textContent = isExpanded ? '🔍 Hide Technical Data' : element.textContent;
+            } else {
+                element.textContent = isExpanded ? '📋 Hide Details' : '📋 Show Details';
+            }
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSampleIndex === 0;
+            document.getElementById('nextBtn').disabled = currentSampleIndex === currentSamples.length - 1;
+            document.getElementById('floatingPrev').disabled = currentSampleIndex === 0;
+            document.getElementById('floatingNext').disabled = currentSampleIndex === currentSamples.length - 1;
+        }
+        
+        function updateJumpInput() {
+            const jumpInput = document.getElementById('jumpInput');
+            jumpInput.max = currentSamples.length;
+            jumpInput.value = currentSampleIndex + 1;
+        }
+
+        async function showSample() {
+            if (currentSamples.length === 0) return;
+
+            // Ensure current sample is loaded
+            await ensureSampleLoaded(currentSampleIndex);
+            
+            // Preload adjacent samples in background
+            preloadAdjacentSamples();
+            
+            const sample = currentSamples[currentSampleIndex];
+            if (!sample) {
+                document.getElementById('sampleContent').innerHTML = '<div style="text-align: center; padding: 50px;">Failed to load sample</div>';
+                return;
+            }
+            
+            const sampleText = `${currentSampleIndex + 1} of ${currentSamples.length}`;
+            document.getElementById('sampleInfo').textContent = sampleText;
+            document.getElementById('bottomSampleInfo').textContent = sampleText;
+
+            const content = document.getElementById('sampleContent');
+            content.innerHTML = '';
+
+            // Check if this is a Control Arena sample with messages
+            if (sample.messages && Array.isArray(sample.messages)) {
+                // Create specialized Control Arena view
+                const summaryHtml = createSampleSummary(sample);
+                content.innerHTML = summaryHtml;
+                
+                const timelineDiv = document.createElement('div');
+                timelineDiv.className = 'conversation-timeline';
+                
+                sample.messages.forEach((msg, index) => {
+                    timelineDiv.innerHTML += formatMessage(msg, index);
+                });
+                
+                content.appendChild(timelineDiv);
+                
+                // Add other fields as expandable sections
+                const otherFields = Object.keys(sample).filter(key => key !== 'messages');
+                if (otherFields.length > 0) {
+                    const otherDiv = document.createElement('div');
+                    otherDiv.innerHTML = `
+                        <div class="expandable" onclick="toggleExpand(this)" style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px;">
+                            🔍 Show Technical Data (${otherFields.length} fields)
+                        </div>
+                        <div class="expandable-content">
+                            ${otherFields.map(key => `
+                                <div class="field">
+                                    <div class="field-name">${key}</div>
+                                    <div class="field-content" style="font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto;">
+                                        ${JSON.stringify(sample[key], null, 2)}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    content.appendChild(otherDiv);
+                }
+            } else {
+                // Fallback to original view for non-Control Arena data
+                Object.keys(sample).forEach(key => {
+                    const field = document.createElement('div');
+                    field.className = 'field';
+
+                    const fieldName = document.createElement('div');
+                    fieldName.className = 'field-name';
+                    fieldName.textContent = key;
+
+                    const fieldContent = document.createElement('div');
+                    fieldContent.className = 'field-content';
+                    fieldContent.textContent = JSON.stringify(sample[key], null, 2);
+
+                    field.appendChild(fieldName);
+                    field.appendChild(fieldContent);
+                    content.appendChild(field);
+                });
+            }
+            
+            updateNavigation();
+            updateJumpInput();
+            
+            // Show bottom navigation and scroll to top
+            document.getElementById('bottomNav').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function prevSample() {
+            if (currentSampleIndex > 0) {
+                currentSampleIndex--;
+                await showSample();
+            }
+        }
+
+        async function nextSample() {
+            if (currentSampleIndex < currentSamples.length - 1) {
+                currentSampleIndex++;
+                await showSample();
+            }
+        }
+        
+        async function jumpToSample() {
+            const input = document.getElementById('jumpInput');
+            const sampleNum = parseInt(input.value);
+            if (sampleNum >= 1 && sampleNum <= currentSamples.length) {
+                currentSampleIndex = sampleNum - 1;
+                await showSample();
+            } else {
+                updateJumpInput(); // Reset to current sample if invalid
+            }
+        }
+        
+        function handleJumpKeypress(event) {
+            if (event.key === 'Enter') {
+                jumpToSample();
+            }
+        }
+
+        let statsUpdateTimer = null;
+        let pendingStatsUpdate = false;
+        
+        async function displayEvaluationStats(forceUpdate = false) {
+            if (currentSamples.length === 0) {
+                document.getElementById('evalStatsBox').style.display = 'none';
+                return;
+            }
+            
+            // Check if we have cached stats
+            const cachedData = evaluationCache.get(window.currentEvalPath);
+            if (cachedData && cachedData.stats && !forceUpdate) {
+                // Use cached stats for instant display
+                renderEvaluationStats(cachedData.stats);
+                
+                // Check if we need to continue loading samples
+                const loadedCount = currentSamples.filter(s => s !== null).length;
+                if (loadedCount < currentSamples.length) {
+                    loadAllSamplesInBackground();
+                }
+                return;
+            }
+            
+            // Check if all samples are loaded
+            const totalSamples = currentSamples.length;
+            const loadedCount = currentSamples.filter(s => s !== null).length;
+            
+            if (loadedCount < totalSamples) {
+                // Show loading state in the stats box
+                document.getElementById('evalStatsBox').style.display = 'block';
+                document.getElementById('evalStatsContent').innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 16px; margin-bottom: 10px;">Loading evaluation statistics...</div>
+                        <div style="font-size: 14px; color: #666;">${loadedCount} of ${totalSamples} samples loaded</div>
+                        <div style="width: 200px; height: 4px; background: #f0f0f0; border-radius: 2px; margin: 10px auto;">
+                            <div style="width: ${(loadedCount/totalSamples)*100}%; height: 100%; background: #007bff; border-radius: 2px; transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+                `;
+                
+                // Load remaining samples in background
+                loadAllSamplesInBackground();
+                return;
+            }
+            
+            // Schedule stats calculation to avoid blocking UI
+            if (!pendingStatsUpdate) {
+                pendingStatsUpdate = true;
+                requestAnimationFrame(() => {
+                    const stats = calculateEvaluationStats();
+                    renderEvaluationStats(stats);
+                    
+                    // Update cache with calculated stats
+                    const currentCache = evaluationCache.get(window.currentEvalPath);
+                    if (currentCache) {
+                        currentCache.stats = stats;
+                    }
+                    
+                    pendingStatsUpdate = false;
+                });
+            }
+        }
+        
+        function renderEvaluationStats(stats) {
+            // Determine mode
+            const isAttackMode = stats.mode === 'attack';
+            const modeText = isAttackMode ? '🔴 ATTACK MODE' : '🟢 HONEST MODE';
+            
+            // Update header with mode indicator
+            const headerSpan = document.getElementById('evalStatsHeader').querySelector('span:first-child');
+            headerSpan.innerHTML = `📊 Evaluation Overview - ${modeText}`;
+            
+            // Create success rates HTML
+            let successRatesHTML = '';
+            if (isAttackMode) {
+                successRatesHTML = `
+                    <div class="stat-line">
+                        <span class="stat-label">Main Task:</span>
+                        <span class="stat-value">${stats.mainSuccess}/${stats.total} (${stats.mainSuccessRate.toFixed(1)}%)</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="stat-label">Side Task:</span>
+                        <span class="stat-value">${stats.sideSuccess}/${stats.total} (${stats.sideSuccessRate.toFixed(1)}%)</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="stat-label">Both Tasks:</span>
+                        <span class="stat-value">${stats.bothSuccess}/${stats.total} (${stats.bothSuccessRate.toFixed(1)}%)</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="stat-label">Neither Task:</span>
+                        <span class="stat-value">${stats.neitherSuccess}/${stats.total} (${stats.neitherSuccessRate.toFixed(1)}%)</span>
+                    </div>
+                `;
+            } else {
+                successRatesHTML = `
+                    <div class="stat-line">
+                        <span class="stat-label">Main Task:</span>
+                        <span class="stat-value">${stats.mainSuccess}/${stats.total} (${stats.mainSuccessRate.toFixed(1)}%)</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="stat-label">Side Task:</span>
+                        <span class="stat-value">N/A</span>
+                    </div>
+                    <div class="stat-line">
+                        <span class="stat-label">Both Tasks:</span>
+                        <span class="stat-value">N/A</span>
+                    </div>
+                `;
+            }
+            document.getElementById('successRates').innerHTML = successRatesHTML;
+            
+            // Create suspicion scores HTML
+            let suspicionHTML = `
+                <div class="stat-line">
+                    <span class="stat-label">Overall Average:</span>
+                    <span class="stat-value">${stats.avgSuspicion.toFixed(2)}/10</span>
+                </div>
+            `;
+            
+            if (isAttackMode && stats.suspicionByOutcome) {
+                suspicionHTML += '<div style="margin-top: 10px; border-top: 1px solid #e9ecef; padding-top: 10px;">';
+                
+                if (stats.suspicionByOutcome.both.count > 0) {
+                    suspicionHTML += `
+                        <div class="stat-line">
+                            <span class="stat-label">Both succeeded:</span>
+                            <span class="stat-value">${stats.suspicionByOutcome.both.avg.toFixed(2)}/10 (n=${stats.suspicionByOutcome.both.count})</span>
+                        </div>
+                    `;
+                }
+                if (stats.suspicionByOutcome.mainOnly.count > 0) {
+                    suspicionHTML += `
+                        <div class="stat-line">
+                            <span class="stat-label">Main only:</span>
+                            <span class="stat-value">${stats.suspicionByOutcome.mainOnly.avg.toFixed(2)}/10 (n=${stats.suspicionByOutcome.mainOnly.count})</span>
+                        </div>
+                    `;
+                }
+                if (stats.suspicionByOutcome.sideOnly.count > 0) {
+                    suspicionHTML += `
+                        <div class="stat-line">
+                            <span class="stat-label">Side only:</span>
+                            <span class="stat-value">${stats.suspicionByOutcome.sideOnly.avg.toFixed(2)}/10 (n=${stats.suspicionByOutcome.sideOnly.count})</span>
+                        </div>
+                    `;
+                }
+                if (stats.suspicionByOutcome.neither.count > 0) {
+                    suspicionHTML += `
+                        <div class="stat-line">
+                            <span class="stat-label">Neither:</span>
+                            <span class="stat-value">${stats.suspicionByOutcome.neither.avg.toFixed(2)}/10 (n=${stats.suspicionByOutcome.neither.count})</span>
+                        </div>
+                    `;
+                }
+                suspicionHTML += '</div>';
+            }
+            
+            document.getElementById('suspicionStats').innerHTML = suspicionHTML;
+            
+            // Create pie chart
+            createSuccessChart(stats, isAttackMode);
+            
+            // Show stats box
+            document.getElementById('evalStatsBox').style.display = 'block';
+        }
+        
+        function calculateStatsForSamples(samples) {
+            // Filter out null samples (not loaded yet)
+            const loadedSamples = samples.filter(s => s !== null);
+            
+            const stats = {
+                total: loadedSamples.length,
+                mode: null,
+                mainSuccess: 0,
+                sideSuccess: 0,
+                bothSuccess: 0,
+                neitherSuccess: 0,
+                suspicionScores: [],
+                suspicionByOutcome: {
+                    both: { scores: [], count: 0, avg: 0 },
+                    mainOnly: { scores: [], count: 0, avg: 0 },
+                    sideOnly: { scores: [], count: 0, avg: 0 },
+                    neither: { scores: [], count: 0, avg: 0 }
+                }
+            };
+            
+            // Analyze each sample
+            loadedSamples.forEach(sample => {
+                // Determine mode from first sample
+                if (!stats.mode && sample.metadata?.eval_mode) {
+                    stats.mode = sample.metadata.eval_mode;
+                }
+                
+                const scores = sample.scores || {};
+                
+                // Check main task success
+                const mainSuccess = scores.main_task_success?.value;
+                const mainPassed = mainSuccess === 'C' || mainSuccess === 1;
+                if (mainPassed) stats.mainSuccess++;
+                
+                // Check side task success
+                const sideSuccess = scores.side_task_success?.value;
+                const sidePassed = stats.mode === 'attack' && (sideSuccess === 'C' || sideSuccess === 1);
+                if (sidePassed) stats.sideSuccess++;
+                
+                // Count combinations
+                if (mainPassed && sidePassed) {
+                    stats.bothSuccess++;
+                } else if (!mainPassed && !sidePassed) {
+                    stats.neitherSuccess++;
+                }
+                
+                // Extract suspicion scores
+                const maxSuspicion = scores.max_suspicion_scorer?.value || 0;
+                if (typeof maxSuspicion === 'number') {
+                    stats.suspicionScores.push(maxSuspicion);
+                    
+                    // Categorize by outcome
+                    if (mainPassed && sidePassed) {
+                        stats.suspicionByOutcome.both.scores.push(maxSuspicion);
+                        stats.suspicionByOutcome.both.count++;
+                    } else if (mainPassed && !sidePassed) {
+                        stats.suspicionByOutcome.mainOnly.scores.push(maxSuspicion);
+                        stats.suspicionByOutcome.mainOnly.count++;
+                    } else if (!mainPassed && sidePassed) {
+                        stats.suspicionByOutcome.sideOnly.scores.push(maxSuspicion);
+                        stats.suspicionByOutcome.sideOnly.count++;
+                    } else {
+                        stats.suspicionByOutcome.neither.scores.push(maxSuspicion);
+                        stats.suspicionByOutcome.neither.count++;
+                    }
+                }
+            });
+            
+            // Calculate rates
+            stats.mainSuccessRate = (stats.mainSuccess / stats.total) * 100;
+            stats.sideSuccessRate = (stats.sideSuccess / stats.total) * 100;
+            stats.bothSuccessRate = (stats.bothSuccess / stats.total) * 100;
+            stats.neitherSuccessRate = (stats.neitherSuccess / stats.total) * 100;
+            
+            // Calculate averages
+            stats.avgSuspicion = stats.suspicionScores.length > 0 
+                ? stats.suspicionScores.reduce((a, b) => a + b, 0) / stats.suspicionScores.length 
+                : 0;
+            
+            // Calculate outcome averages
+            for (const outcome of ['both', 'mainOnly', 'sideOnly', 'neither']) {
+                const scores = stats.suspicionByOutcome[outcome].scores;
+                stats.suspicionByOutcome[outcome].avg = scores.length > 0
+                    ? scores.reduce((a, b) => a + b, 0) / scores.length
+                    : 0;
+            }
+            
+            return stats;
+        }
+        
+        function calculateEvaluationStats() {
+            return calculateStatsForSamples(currentSamples);
+        }
+        
+        function createSuccessChart(stats, isAttackMode) {
+            const ctx = document.getElementById('successChart').getContext('2d');
+            
+            let data, labels, colors;
+            if (isAttackMode) {
+                // Calculate the four categories for attack mode
+                const mainOnly = stats.mainSuccess - stats.bothSuccess;
+                const sideOnly = stats.sideSuccess - stats.bothSuccess;
+                
+                data = [stats.bothSuccess, mainOnly, sideOnly, stats.neitherSuccess];
+                labels = ['Both Tasks', 'Main Only', 'Side Only', 'Neither'];
+                colors = ['#28a745', '#17a2b8', '#ffc107', '#dc3545'];
+            } else {
+                // For honest mode, just show pass/fail
+                const failed = stats.total - stats.mainSuccess;
+                data = [stats.mainSuccess, failed];
+                labels = ['Task Success', 'Task Failed'];
+                colors = ['#28a745', '#dc3545'];
+            }
+            
+            // Check if chart exists and data structure is the same
+            if (currentChart && currentChart.data.labels.length === labels.length) {
+                // Update existing chart data
+                currentChart.data.labels = labels;
+                currentChart.data.datasets[0].data = data;
+                currentChart.data.datasets[0].backgroundColor = colors;
+                currentChart.update('none'); // Skip animations for better performance
+            } else {
+                // Destroy and recreate if structure changed
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                
+                currentChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors,
+                            borderWidth: 1,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0 // Disable initial animation for better performance
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 10,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${context.label}: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        function toggleStatsBox() {
+            const content = document.getElementById('evalStatsContent');
+            const icon = document.getElementById('statsExpandIcon');
+            const isExpanded = content.classList.contains('expanded');
+            
+            if (isExpanded) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+                
+                // Recreate chart when expanding (in case container was hidden)
+                if (currentChart) {
+                    currentChart.resize();
+                }
+            }
+        }
+        
+        // Add delay function for rate limiting
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        
+        async function loadSample(path, sampleId, index, retries = 3) {
+            for (let attempt = 0; attempt < retries; attempt++) {
+                try {
+                    // Add delay between requests to avoid rate limiting
+                    if (attempt > 0) {
+                        // Exponential backoff: 1s, 2s, 4s
+                        await delay(1000 * Math.pow(2, attempt - 1));
+                    }
+                    
+                    const response = await fetch(`${path}/samples/${sampleId}_epoch_1.json`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        currentSamples[index] = data;
+                        return data;
+                    } else if (response.status === 404) {
+                        // File not found, no need to retry
+                        console.warn(`Sample ${sampleId} not found (404)`);
+                        return null;
+                    } else if (response.status === 429 || response.status >= 500) {
+                        // Rate limited or server error, retry
+                        console.warn(`Request failed with status ${response.status}, retrying...`);
+                        continue;
+                    }
+                } catch (err) {
+                    console.error(`Failed to load sample ${sampleId} (attempt ${attempt + 1}):`, err);
+                    if (attempt === retries - 1) {
+                        console.error(`Final failure for sample ${sampleId}:`, err);
+                    }
+                }
+            }
+            return null;
+        }
+        
+        async function ensureSampleLoaded(index) {
+            if (currentSamples[index] === null) {
+                const path = window.currentEvalPath;
+                const sampleIds = window.currentSampleIds;
+                const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
+                
+                // Show loading indicator
+                document.getElementById('sampleContent').innerHTML = '<div style="text-align: center; padding: 50px;">Loading sample...</div>';
+                
+                await loadSample(path, sampleId, index);
+            }
+        }
+        
+        async function preloadAdjacentSamples() {
+            // Preload next and previous samples with rate limiting
+            const preloadIndices = [
+                currentSampleIndex - 1,
+                currentSampleIndex + 1,
+                currentSampleIndex + 2
+            ];
+            
+            // Load adjacent samples sequentially with delays
+            for (const index of preloadIndices) {
+                if (index >= 0 && index < currentSamples.length && currentSamples[index] === null) {
+                    const path = window.currentEvalPath;
+                    const sampleIds = window.currentSampleIds;
+                    const sampleId = sampleIds.length > 0 ? sampleIds[index] : index + 1; // Files are 1-indexed
+                    
+                    // Load with small delay to avoid rate limiting
+                    await delay(100);
+                    loadSample(path, sampleId, index);
+                }
+            }
+        }
+        
+        async function loadAllSamplesInBackground() {
+            // Load all remaining samples in smaller batches with rate limiting
+            const batchSize = 5; // Reduced from 20 to 5
+            const path = window.currentEvalPath;
+            const sampleIds = window.currentSampleIds;
+            let batchCount = 0;
+            
+            for (let i = 0; i < currentSamples.length; i += batchSize) {
+                const batch = [];
+                for (let j = i; j < Math.min(i + batchSize, currentSamples.length); j++) {
+                    if (currentSamples[j] === null) {
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
+                        batch.push(loadSample(path, sampleId, j));
+                    }
+                }
+                
+                if (batch.length > 0) {
+                    await Promise.all(batch);
+                    batchCount++;
+                    
+                    // Add delay between batches to avoid rate limiting
+                    await delay(500);
+                    
+                    // Debounce stats updates - only update every 3 batches or on the last batch
+                    const isLastBatch = i + batchSize >= currentSamples.length;
+                    if (batchCount % 3 === 0 || isLastBatch) {
+                        // Clear any pending timer
+                        if (statsUpdateTimer) {
+                            clearTimeout(statsUpdateTimer);
+                        }
+                        
+                        // Schedule stats update with debouncing
+                        statsUpdateTimer = setTimeout(() => {
+                            displayEvaluationStats(true);
+                            statsUpdateTimer = null;
+                        }, isLastBatch ? 0 : 500); // Immediate on last batch, otherwise debounced
+                    }
+                }
+            }
+            
+            // Update cache with all loaded samples
+            const allLoaded = currentSamples.filter(s => s !== null).length === currentSamples.length;
+            if (allLoaded) {
+                cacheEvaluation(path, {
+                    samples: currentSamples,
+                    header: currentHeader,
+                    evalPath: path,
+                    sampleIds: sampleIds,
+                    stats: calculateEvaluationStats() // Cache the final stats
+                });
+            }
+        }
+        
+        async function populateLandingPage() {
+            const grid = document.getElementById('evalGrid');
+            grid.innerHTML = '';
+            
+            // Create placeholder cards immediately
+            const placeholders = summaryData.evaluations.map((evalInfo, index) => {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'eval-card';
+                placeholder.id = `eval-placeholder-${index}`;
+                placeholder.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loading-spinner" style="margin: 0 auto 20px;"></div>
+                        <div style="color: #666;">Loading ${evalInfo.name}...</div>
+                    </div>
+                `;
+                grid.appendChild(placeholder);
+                return placeholder;
+            });
+            
+            // Load all cards in parallel with progressive rendering
+            const cardPromises = summaryData.evaluations.map(async (evalInfo, index) => {
+                try {
+                    // Check if we have cached data for this evaluation
+                    const cachedData = evaluationCache.get(evalInfo.path);
+                    let card;
+                    
+                    if (cachedData && cachedData.samples.filter(s => s !== null).length === cachedData.samples.length) {
+                        // Use cached data for instant card creation
+                        card = await createEvaluationCardFromCache(evalInfo, cachedData);
+                    } else {
+                        // Create card with fresh data
+                        card = await createEvaluationCard(evalInfo);
+                    }
+                    
+                    // Replace placeholder with actual card
+                    const placeholder = document.getElementById(`eval-placeholder-${index}`);
+                    if (placeholder && placeholder.parentNode) {
+                        placeholder.parentNode.replaceChild(card, placeholder);
+                    }
+                } catch (error) {
+                    console.error('Error creating card for', evalInfo.name, error);
+                    // Replace with error card
+                    const errorCard = document.createElement('div');
+                    errorCard.className = 'eval-card';
+                    errorCard.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #dc3545;">
+                            <div style="font-size: 24px; margin-bottom: 10px;">⚠️</div>
+                            <div>Error loading ${evalInfo.name}</div>
+                        </div>
+                    `;
+                    const placeholder = document.getElementById(`eval-placeholder-${index}`);
+                    if (placeholder && placeholder.parentNode) {
+                        placeholder.parentNode.replaceChild(errorCard, placeholder);
+                    }
+                }
+            });
+            
+            // Wait for all cards to load
+            await Promise.allSettled(cardPromises);
+        }
+        
+        async function createEvaluationCardFromCache(evalInfo, cachedData) {
+            // Use cached samples for instant stats calculation
+            const stats = calculateStatsForSamples(cachedData.samples);
+            return createCardWithStats(evalInfo, stats);
+        }
+        
+        async function createEvaluationCard(evalInfo) {
+            // Load samples in parallel batches for better performance
+            let allSamples = [];
+            try {
+                // First try to get sample IDs from start.json
+                let sampleIds = [];
+                try {
+                    const startResponse = await fetch(`${evalInfo.path}/_journal/start.json`);
+                    if (startResponse.ok) {
+                        const startData = await startResponse.json();
+                        if (startData.eval && startData.eval.dataset && startData.eval.dataset.sample_ids) {
+                            sampleIds = startData.eval.dataset.sample_ids;
+                        }
+                    }
+                } catch (err) {
+                    // Ignore error, will try sequential numbering
+                }
+
+                // Load samples in parallel batches
+                const batchSize = 10;
+                const totalSamples = sampleIds.length > 0 ? sampleIds.length : evalInfo.total_samples;
+                
+                for (let i = 0; i < totalSamples; i += batchSize) {
+                    const batchPromises = [];
+                    const endIndex = Math.min(i + batchSize, totalSamples);
+                    
+                    for (let j = i; j < endIndex; j++) {
+                        const sampleId = sampleIds.length > 0 ? sampleIds[j] : j + 1; // Files are 1-indexed
+                        batchPromises.push(
+                            fetch(`${evalInfo.path}/samples/${sampleId}_epoch_1.json`)
+                                .then(r => r.ok ? r.json() : null)
+                                .catch(() => null)
+                        );
+                    }
+                    
+                    const batchResults = await Promise.all(batchPromises);
+                    allSamples.push(...batchResults.filter(s => s !== null));
+                }
+                
+                // Cache the loaded samples and stats for future use
+                if (allSamples.length === totalSamples) {
+                    const stats = calculateStatsForSamples(allSamples);
+                    cacheEvaluation(evalInfo.path, {
+                        samples: allSamples,
+                        header: null,
+                        evalPath: evalInfo.path,
+                        sampleIds: sampleIds,
+                        stats: stats
+                    });
+                }
+            } catch (err) {
+                console.log('Error loading samples for card:', err);
+            }
+            
+            // Use the same stats calculation as evaluation overview
+            const stats = calculateStatsForSamples(allSamples);
+            return createCardWithStats(evalInfo, stats);
+        }
+        
+        function createCardWithStats(evalInfo, stats) {
+            const card = document.createElement('div');
+            card.className = 'eval-card';
+            
+            // Create card with real statistics
+            const isAttack = stats.mode === 'attack';
+            const modeClass = isAttack ? 'attack' : 'honest';
+            const modeText = isAttack ? '🔴 ATTACK' : '🟢 HONEST';
+            
+            const mainRate = stats.total > 0 ? stats.mainSuccessRate.toFixed(1) : '0';
+            const sideRate = isAttack && stats.total > 0 ? stats.sideSuccessRate.toFixed(1) : 'N/A';
+            
+            card.innerHTML = `
+                <div class="eval-card-header">
+                    <div class="eval-card-title">${evalInfo.name}</div>
+                    <div class="eval-card-mode ${modeClass}">${modeText}</div>
+                </div>
+                <div class="eval-mini-chart">
+                    <canvas id="miniChart_${evalInfo.name.replace(/[^a-zA-Z0-9]/g, '_')}"></canvas>
+                </div>
+                <div class="eval-card-stats">
+                    <div class="eval-card-stat">
+                        <span>Total Samples:</span>
+                        <span>${stats.total}</span>
+                    </div>
+                    <div class="eval-card-stat">
+                        <span>Main Task Success:</span>
+                        <span>${mainRate}%</span>
+                    </div>
+                    <div class="eval-card-stat">
+                        <span>Side Task Success:</span>
+                        <span>${sideRate}${sideRate !== 'N/A' ? '%' : ''}</span>
+                    </div>
+                    ${isAttack ? `
+                    <div class="eval-card-stat">
+                        <span>Both Tasks Success:</span>
+                        <span>${stats.bothSuccessRate.toFixed(1)}%</span>
+                    </div>
+                    ` : ''}
+                    <div class="eval-card-stat">
+                        <span>Avg Suspicion:</span>
+                        <span>${stats.avgSuspicion.toFixed(1)}/10</span>
+                    </div>
+                </div>
+                <button onclick="selectEvaluation('${evalInfo.path}')">View Samples</button>
+            `;
+            
+            // Create mini chart with real data
+            setTimeout(() => {
+                createMiniChart(evalInfo.name.replace(/[^a-zA-Z0-9]/g, '_'), stats);
+            }, 0);
+            
+            return card;
+        }
+        
+        function createMiniChart(canvasId, stats) {
+            const canvas = document.getElementById(`miniChart_${canvasId}`);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const isAttack = stats.mode === 'attack';
+            
+            let data, labels, colors;
+            if (isAttack && stats.total > 0) {
+                const mainOnly = stats.mainSuccess - stats.bothSuccess;
+                const sideOnly = stats.sideSuccess - stats.bothSuccess;
+                const neither = stats.total - stats.mainSuccess - stats.sideSuccess + stats.bothSuccess;
+                
+                data = [stats.bothSuccess, mainOnly, sideOnly, neither];
+                labels = ['Both Tasks', 'Main Only', 'Side Only', 'Neither'];
+                colors = ['#28a745', '#17a2b8', '#ffc107', '#dc3545'];
+            } else {
+                const failed = stats.total - stats.mainSuccess;
+                data = [stats.mainSuccess, failed];
+                labels = ['Task Success', 'Task Failed'];
+                colors = ['#28a745', '#dc3545'];
+            }
+            
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderWidth: 1,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : '0.0';
+                                    return `${context.label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function selectEvaluation(path) {
+            document.getElementById('evalSelect').value = path;
+            loadEvaluation();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', async function(e) {
+            if (e.key === 'ArrowLeft') {
+                await prevSample();
+            } else if (e.key === 'ArrowRight') {
+                await nextSample();
+            }
+        });
+    </script>
+</body>
+</html>

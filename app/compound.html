@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-phase Compound Interest Calculator</title>
+    <link rel="icon" type="image/x-icon" href="/pictures/logo.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .phase {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        label {
+            display: inline-block;
+            width: 250px;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            display: inline-block;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+        #result, #steps {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        #chartContainer {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multi-phase Compound Interest Calculator</h1>
+        <div id="phases">
+            <div class="phase" id="phase1">
+                <h3>Phase 1</h3>
+                <label for="startingAmount1">Starting Amount ($):</label>
+                <input type="number" id="startingAmount1" min="0" step="0.01" required><br>
+                <label for="years1">Years to Invest:</label>
+                <input type="number" id="years1" min="0" step="1" required><br>
+                <label for="monthlyContribution1">Monthly Contribution ($):</label>
+                <input type="number" id="monthlyContribution1" min="0" step="0.01" required><br>
+                <label for="annualReturn1">Annual Rate of Return (%):</label>
+                <input type="number" id="annualReturn1" min="0" step="0.01" required><br>
+            </div>
+        </div>
+        <button onclick="addPhase()">Add Phase</button>
+        <button onclick="calculate()">Calculate</button>
+        <div id="result"></div>
+        <div id="steps"></div>
+        <div id="chartContainer">
+            <canvas id="investmentChart"></canvas>
+        </div>
+    </div>
+    <script>
+        let phaseCount = 1;
+        let chart;
+
+        function addPhase() {
+            if (phaseCount >= 5) {
+                alert("Maximum of 5 phases allowed.");
+                return;
+            }
+            phaseCount++;
+            const newPhase = document.createElement('div');
+            newPhase.className = 'phase';
+            newPhase.id = `phase${phaseCount}`;
+            newPhase.innerHTML = `
+                <h3>Phase ${phaseCount}</h3>
+                <label for="startingAmount${phaseCount}">Starting Amount ($):</label>
+                <input type="number" id="startingAmount${phaseCount}" min="0" step="0.01" required disabled><br>
+                <label for="years${phaseCount}">Years to Invest:</label>
+                <input type="number" id="years${phaseCount}" min="0" step="1" required><br>
+                <label for="monthlyContribution${phaseCount}">Monthly Contribution ($):</label>
+                <input type="number" id="monthlyContribution${phaseCount}" min="0" step="0.01" required><br>
+                <label for="annualReturn${phaseCount}">Annual Rate of Return (%):</label>
+                <input type="number" id="annualReturn${phaseCount}" min="0" step="0.01" required><br>
+                <button class="delete-btn" onclick="deletePhase(${phaseCount})">Delete Phase</button>
+            `;
+            document.getElementById('phases').appendChild(newPhase);
+        }
+
+        function deletePhase(phaseNumber) {
+            if (phaseNumber === 1) {
+                alert("Cannot delete the first phase.");
+                return;
+            }
+            document.getElementById(`phase${phaseNumber}`).remove();
+            phaseCount--;
+            // Renumber remaining phases
+            for (let i = phaseNumber + 1; i <= phaseCount + 1; i++) {
+                let phase = document.getElementById(`phase${i}`);
+                if (phase) {
+                    phase.id = `phase${i-1}`;
+                    phase.querySelector('h3').textContent = `Phase ${i-1}`;
+                    phase.querySelector('.delete-btn').setAttribute('onclick', `deletePhase(${i-1})`);
+                }
+            }
+        }
+
+        function calculate() {
+            let totalAmount = 0;
+            let totalPrincipal = 0;
+            let steps = [];
+            let chartData = [];
+            let cumulativeYears = 0;
+
+            for (let i = 1; i <= phaseCount; i++) {
+                const startingAmountInput = document.getElementById(`startingAmount${i}`);
+                const startingAmount = i === 1 ? parseFloat(startingAmountInput.value) || 0 : totalAmount;
+                startingAmountInput.value = startingAmount.toFixed(2);
+                
+                const years = parseInt(document.getElementById(`years${i}`).value) || 0;
+                const monthlyContribution = parseFloat(document.getElementById(`monthlyContribution${i}`).value) || 0;
+                const annualReturn = parseFloat(document.getElementById(`annualReturn${i}`).value) || 0;
+
+                const monthlyRate = annualReturn / 100 / 12;
+
+                let phaseStartPrincipal = totalPrincipal;
+                totalAmount = startingAmount;
+
+                steps.push(`Phase ${i}:`);
+                steps.push(`  Starting Amount: $${startingAmount.toFixed(2)}`);
+                steps.push(`  Years: ${years}`);
+                steps.push(`  Monthly Contribution: $${monthlyContribution.toFixed(2)}`);
+                steps.push(`  Annual Return: ${annualReturn}%`);
+
+                for (let year = 1; year <= years; year++) {
+                    let yearlyPrincipal = phaseStartPrincipal + monthlyContribution * year * 12;
+                    let yearlyAmount = totalAmount;
+
+                    for (let month = 1; month <= 12; month++) {
+                        yearlyAmount = (yearlyAmount + monthlyContribution) * (1 + monthlyRate);
+                    }
+
+                    chartData.push({
+                        x: cumulativeYears + year,
+                        y: yearlyAmount.toFixed(2),
+                        principal: yearlyPrincipal.toFixed(2),
+                        gains: (yearlyAmount - yearlyPrincipal).toFixed(2)
+                    });
+
+                    totalAmount = yearlyAmount;
+                }
+
+                totalPrincipal += monthlyContribution * years * 12;
+
+                steps.push(`  Ending Amount: $${totalAmount.toFixed(2)}`);
+                steps.push(`  Total Principal at End: $${totalPrincipal.toFixed(2)}`);
+                steps.push(`  Total Gain: $${(totalAmount - totalPrincipal).toFixed(2)}`);
+                steps.push('');
+
+                cumulativeYears += years;
+            }
+
+            document.getElementById('result').innerHTML = `<strong>Total after ${phaseCount} phase(s): $${totalAmount.toFixed(2)}</strong><br>` +
+                                                         `<strong>Total Principal: $${totalPrincipal.toFixed(2)}</strong><br>` +
+                                                         `<strong>Total Gain: $${(totalAmount - totalPrincipal).toFixed(2)}</strong>`;
+            document.getElementById('steps').innerHTML = '<h3>Calculation Steps:</h3>' + steps.join('<br>');
+
+            updateChart(chartData);
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById('investmentChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => `Year ${d.x}`),
+                    datasets: [
+                        {
+                            label: 'Principal',
+                            data: data.map(d => d.principal),
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            stack: 'Stack 0',
+                        },
+                        {
+                            label: 'Investment Gains',
+                            data: data.map(d => d.gains),
+                            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                            stack: 'Stack 0',
+                        },
+                        {
+                            label: 'Total Value',
+                            data: data.map(d => d.y),
+                            type: 'line',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Investment Value ($)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

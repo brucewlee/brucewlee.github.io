@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pretraining a bilingual Mini-Gemma</title>
+    <meta name="description" content="Bruce W. Lee. University of Pennsylvania. Language Models. Linguistic Features.">
+    <link rel="icon" type="image/x-icon" href="/pictures/logo.ico">
+    <script src="../components/header.js"></script>
+    <script src="../components/code-block.js"></script>
+    <script src="../components/tables.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="profile-info">
+            <h2>Pretraining (and unlearning) a bilingual Mini-Gemma</h2>
+            <a href="../blog" style="float:right"><b>Back to all posts</b></a>
+            <p class="post-date"><em>March, 2025.</em></p>
+        </div>
+    </header>
+    <main>
+        <article>
+            <p>
+                Pretraining is one of those things that not a lot of people might have direct experience with, even if they're researchers.  
+                Pretraining a language model is hard. 
+                It also seems that not many people are working on it, largely because most researchers, especially in academic settings,tend to be incentivized to do work that's more iterative, faster to complete, and generally easier to manage than tackling end-to-end pretraining.
+                I've recently had the chance to run some pretraining myself, and I'm writing this blog post to record what I've learned in the process.
+                The goal of this post would be to minimally implement a small size Gemma model and make it speak English and Korean.
+            </p>
+
+            <p>
+                <b>Model.</b> We want to pretrain a 
+                <span class="hover-message">randomly initialized<span class="message-content">Neural networks are randomly initialized to break symmetry between neurons, preventing all neurons in a layer from learning the same features during training. Random initialization also helps the network explore different regions of the parameter space during optimization, reducing the likelihood of getting stuck in poor local minima early in the training process.</span></span> 
+                model from scratch using the Gemma 2 architecture. 
+                Since the smallest out-of-the-box model size Google provides is 2B, we need a smaller copy of the model architecture to train from the ground up. 
+                Gemma 2 differs from a standard GPT-2 transformer (as explained in <a href="https://developers.googleblog.com/en/gemma-explained-overview-gemma-model-family-architectures/">Google's blog post</a>), so our first step will be to examine the three existing model sizes (<a href="https://huggingface.co/google/gemma-2-2b/blob/main/config.json">2B</a>, <a href="https://huggingface.co/google/gemma-2-9b/blob/main/config.json">9B</a>, <a href="https://huggingface.co/google/gemma-2-27b/blob/main/config.json">27B</a>) they offer and determine whether we can further reduce parameters to make the model smaller.
+                These are some of the key parameters that we could play with. 
+            </p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Gemma 2 2B</th>
+                    <th>Gemma 2 9B</th>
+                    <th>Gemma 2 27B</th>
+                </tr>
+                <tr>
+                    <td class="param-name">num_hidden_layers</td>
+                    <td>26</td>
+                    <td>42</td>
+                    <td>46</td>
+                </tr>
+                <tr>
+                    <td class="param-name">num_attention_heads</td>
+                    <td>8</td>
+                    <td>16</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td class="param-name">intermediate_size</td>
+                    <td>9,216</td>
+                    <td>14,336</td>
+                    <td>36,864</td>
+                </tr>
+                <tr>
+                    <td class="param-name">hidden_size</td>
+                    <td>2,304</td>
+                    <td>3,584</td>
+                    <td>4,608</td>
+                </tr>
+                <tr>
+                    <td class="param-name">head_dim</td>
+                    <td>256</td>
+                    <td>256</td>
+                    <td>128</td>
+                </tr>
+                <tr>
+                    <td class="param-name">num_key_value_heads</td>
+                    <td>4</td>
+                    <td>8</td>
+                    <td>16</td>
+                </tr>
+            </table>
+
+            <p>
+                A convenient way to get a smaller-scale model is to shrink the core dimensions, number of layers, hidden size, and intermediate size, while keeping the same overall ratios. 
+                In a decoder-only Transformer, the main per-layer parameter cost can be estimated by:
+
+                $$
+                \begin{align*} 
+                \text{Per-layer params} &\approx \text{(Self-attention Params)} + \text{(Feed-forward Params)}\\ 
+                &\approx 4 \times (\text{hidden_size})^2 + 8 \times (\text{hidden_size})^2\\
+                &\approx 12 \times (\text{hidden_size})^2
+                \end{align*}
+                $$
+
+                The self-attention sub-layer has four weight matrices, Q, K, V, and output, each sized $(\text{hidden_size} \times \text{hidden_size})$. 
+                This gives $4 \times (\text{hidden_size})^2$. 
+                The feed-forward sub-layer typically expands from $\text{hidden_size}$ to $4 \times \text{hidden_size}$ and then back down, adding $2 \times \text{hidden_size} \times (4 \times \text{hidden_size}) = 8 \times (\text{hidden_size})^2$.
+                Adding these two sub-layer components gives us $12 \times (\text{hidden_size})^2$. 
+                Though Gemma MLP looks a little different, we can see that this ballpark calculation holds up. 
+                For example, when we plug in the equation with Gemma 2 2B configuration, we get $26 \times 12 \times (\text{2304})^2 \approx 1.65\text{B}$.
+                It's 1.65B quite smaller than 2B, but it all makes sense because Gemma has a large vocab size of 256,000, which should count for about 0.6B parameters $256,000 \times 2304 \approx 0.59\text{B}$.
+
+                From the table below, we're going to pretrain the Gemma 2 0.1B model.
+            </p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Gemma 2 0.1B</th>
+                    <th>Gemma 2 0.3B</th>
+                    <th>Gemma 2 0.6B</th>
+                    <th>Gemma 2 0.9B</th>
+                    <th>Gemma 2 1.5B</th>
+                </tr>
+                <tr>
+                    <td class="param-name">num_hidden_layers</td>
+                    <td>14</td>
+                    <td>14</td>
+                    <td>18</td>
+                    <td>22</td>
+                    <td>24</td>
+                </tr>
+                <tr>
+                    <td class="param-name">num_attention_heads</td>
+                    <td>8</td>
+                    <td>8</td>
+                    <td>8</td>
+                    <td>8</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td class="param-name">intermediate_size</td>
+                    <td>1,280</td>
+                    <td>3,072</td>
+                    <td>4,096</td>
+                    <td>5,120</td>
+                    <td>6,912</td>
+                </tr>
+                <tr>
+                    <td class="param-name">hidden_size</td>
+                    <td>320</td>
+                    <td>768</td>
+                    <td>1,024</td>
+                    <td>1,280</td>
+                    <td>1,728</td>
+                </tr>
+                <tr>
+                    <td class="param-name">head_dim</td>
+                    <td>128</td>
+                    <td>128</td>
+                    <td>256</td>
+                    <td>256</td>
+                    <td>256</td>
+                </tr>
+                <tr>
+                    <td class="param-name">num_key_value_heads</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td class="param-name">total params</td>
+                    <td>113M</td>
+                    <td>329M</td>
+                    <td>602M</td>
+                    <td>933M</td>
+                    <td>1557M</td>
+                </tr>
+            </table>
+
+            <pre class="pre-code" data-code-path="code-samples/reduce-gemma-model.py">
+                <div class="code-title">reduce-gemma-model.py: make smaller Gemma variants</div>
+                <code></code>
+            </pre>
+            
+            <p>
+                When we attempt text completion on a sentence from Wikipedia using these randomly initialized models, we quickly notice that they produce gibberish. 
+                The models don't even seem to discern whether the input is English or Korean. 
+                Our objective now is to train our smaller Gemma models to achieve a good cross-entropy loss, thereby ensuring they generate coherent and meaningful text instead of nonsensical outputs.
+            </p>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Input</th>
+                    <th>Gemma 2 2B (trained)</th>
+                    <th>Gemma 2 0.1B (random)</th>
+                </tr>
+                <tr>
+                    <td class="param-name" style="width: 60px; vertical-align: middle">Yes, we always</td>
+                    <td style="width: 180px">need help, but you need to be more specific.</td>
+                    <td style="width: 180px">liéetrata onerousМатериалы win⠑Материалы</td>
+                </tr>
+                <tr>
+                    <td class="param-name" style="width: 60px; vertical-align: middle">안녕하세요. 저는</td>
+                    <td style="width: 180px">김형석 입니다. 오늘은 1. 우리나라 최고의 이력서</td>
+                    <td style="width: 180px">MessageHandler恥Mods doctrinamachung手でዥ</td>
+                </tr>
+            </table>
+            <pre class="pre-code" data-code-path="code-samples/chat.py">
+                <div class="code-title">chat.py: talk to your language model</div>
+                <code></code>
+            </pre>
+
+            <p>
+                <b>Data.</b> For pretraining data, we'll use <a href="https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu">FineWeb-Edu</a> from HuggingFace
+            </p>
+
+        </article>
+    </main>
+</body>
+</html>
