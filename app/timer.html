@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            background-color: #BA4949;
+            color: white;
+            overflow: hidden;
+        }
+
+        .timer-display {
+            font-size: 8rem;
+            font-weight: 300;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            user-select: none;
+        }
+
+        .session-label {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .settings {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 200px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+
+        .mode-btn.active {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .mode-btn:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .time-settings {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .time-input {
+            width: 50px;
+            padding: 4px 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .time-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .time-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Color modes */
+        .work-mode { background-color: #BA4949; }
+        .short-break-mode { background-color: #38858A; }
+        .long-break-mode { background-color: #397097; }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .timer-display {
+                font-size: 5rem;
+            }
+            
+            .settings {
+                top: 20px;
+                right: 20px;
+                min-width: 160px;
+                padding: 12px;
+            }
+            
+            .controls {
+                bottom: 20px;
+                gap: 15px;
+            }
+            
+            .control-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timer-display {
+                font-size: 3.5rem;
+            }
+            
+            .session-label {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="work-mode">
+    <div class="main-timer">
+        <div class="session-label" id="sessionLabel">Work</div>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+    </div>
+
+    <div class="settings">
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="setMode('work')">Work</button>
+            <button class="mode-btn" onclick="setMode('short')">Short</button>
+            <button class="mode-btn" onclick="setMode('long')">Long</button>
+        </div>
+        
+        <div class="time-settings">
+            <span>Time:</span>
+            <input type="number" class="time-input" id="minutesInput" min="1" max="60" value="25">
+            <span>min</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-btn" id="startBtn" onclick="startTimer()">START</button>
+        <button class="control-btn" id="pauseBtn" onclick="pauseTimer()" disabled>PAUSE</button>
+        <button class="control-btn" id="resetBtn" onclick="resetTimer()">RESET</button>
+    </div>
+
+    <script>
+        let timer = null;
+        let totalSeconds = 0;
+        let remainingSeconds = 0;
+        let isRunning = false;
+        let isPaused = false;
+        let currentMode = 'work';
+
+        const modes = {
+            work: { time: 25, label: 'Work', class: 'work-mode' },
+            short: { time: 5, label: 'SHORT BREAK', class: 'short-break-mode' },
+            long: { time: 15, label: 'LONG BREAK', class: 'long-break-mode' }
+        };
+
+        function setMode(mode) {
+            if (isRunning) return; // Don't allow mode change while running
+            
+            currentMode = mode;
+            
+            // Update body class
+            document.body.className = modes[mode].class;
+            
+            // Update active button
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update session label
+            document.getElementById('sessionLabel').textContent = modes[mode].label;
+            
+            // Update time input
+            document.getElementById('minutesInput').value = modes[mode].time;
+            
+            // Reset timer display
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                if (!isPaused) {
+                    const minutes = parseInt(document.getElementById('minutesInput').value) || modes[currentMode].time;
+                    totalSeconds = minutes * 60;
+                    remainingSeconds = totalSeconds;
+                }
+                
+                isRunning = true;
+                isPaused = false;
+                
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+                document.getElementById('minutesInput').disabled = true;
+                
+                timer = setInterval(() => {
+                    remainingSeconds--;
+                    updateDisplay();
+                    
+                    if (remainingSeconds <= 0) {
+                        clearInterval(timer);
+                        isRunning = false;
+                        document.getElementById('startBtn').disabled = false;
+                        document.getElementById('pauseBtn').disabled = true;
+                        document.getElementById('minutesInput').disabled = false;
+                        
+                        // Flash effect
+                        let flashCount = 0;
+                        const flashTimer = setInterval(() => {
+                            document.body.style.filter = flashCount % 2 === 0 ? 'brightness(1.4)' : 'brightness(1)';
+                            flashCount++;
+                            if (flashCount > 8) {
+                                clearInterval(flashTimer);
+                                document.body.style.filter = 'brightness(1)';
+                            }
+                        }, 200);
+                        
+                        // Auto-switch to next mode
+                        setTimeout(() => {
+                            if (currentMode === 'work') {
+                                setMode('short');
+                            } else {
+                                setMode('work');
+                            }
+                        }, 1000);
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            if (isRunning) {
+                clearInterval(timer);
+                isRunning = false;
+                isPaused = true;
+                
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            isPaused = false;
+            
+            const minutes = parseInt(document.getElementById('minutesInput').value) || modes[currentMode].time;
+            remainingSeconds = minutes * 60;
+            
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('minutesInput').disabled = false;
+            
+            updateDisplay();
+        }
+
+        // Initialize
+        function init() {
+            remainingSeconds = modes[currentMode].time * 60;
+            updateDisplay();
+        }
+
+        // Handle input changes
+        document.getElementById('minutesInput').addEventListener('input', function() {
+            if (!isRunning && !isPaused) {
+                const minutes = parseInt(this.value) || modes[currentMode].time;
+                remainingSeconds = minutes * 60;
+                updateDisplay();
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
